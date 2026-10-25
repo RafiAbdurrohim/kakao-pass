@@ -1,17 +1,18 @@
 @import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap");
 
 :root {
-  --ink: #28251f;
-  --muted: #77736a;
-  --cream: #f8f6f0;
-  --paper: #fffefa;
-  --line: #eae6dd;
-  --cocoa: #55372c;
-  --cocoa-dark: #35251f;
-  --rust: #b7653e;
-  --rust-dark: #995335;
-  --green: #738461;
-  --green-dark: #596b4c;
+  --ink: #16120e;
+  --muted: #645b53;
+  --cream: #fbfaf7;
+  --paper: #ffffff;
+  --line: #e8e3da;
+  --cocoa: #2a1c15;
+  --cocoa-dark: #18110d;
+  --rust: #c5925a;
+  --rust-dark: #a2723c;
+  --green: #2c4a24;
+  --green-dark: #1f3619;
+  --gold: #d4a373;
 }
 
 * {
