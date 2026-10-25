@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { onValue, ref } from "firebase/database";
 import { QrCode, ShieldCheck, Sprout } from "lucide-react";
+import { KakaoPassLogo } from "@/components/KakaoPassLogo";
 import { usePhotos } from "../../components/Camera";
 import { db, fmtDate, DAY } from "@/lib/fb";
 
@@ -20,7 +21,7 @@ export default function PasporKompos() {
   const rasio = k && k.beratKulit > 0 ? Math.round((k.beratKompos / k.beratKulit) * 100) : null;
   return (
     <div className="kp"><main className="kp-wrap" style={{ maxWidth: 760 }}>
-      <div className="compact-brand" style={{ marginBottom: 18 }}><span className="brand-mark-small"><QrCode size={18} /></span><span className="brand-name-text">kakao<span>pass</span></span></div>
+      <div className="compact-brand" style={{ marginBottom: 18 }}><span className="brand-mark-small"><KakaoPassLogo size={20} /></span><span className="brand-name-text">kakao<span>pass</span></span></div>
       {k === undefined && <div className="kp-empty">Memuat…</div>}
       {k === null && <div className="kp-empty">Halaman kompos tidak ditemukan.</div>}
       {k && <>

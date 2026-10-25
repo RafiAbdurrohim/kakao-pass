@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { onValue, ref } from "firebase/database";
 import { QrCode, ShieldCheck, Leaf, Cpu, UserCheck } from "lucide-react";
+import { KakaoPassLogo } from "@/components/KakaoPassLogo";
 import Chart from "../../components/Chart";
 import { usePhotos } from "../../components/Camera";
 import { db, fmtDate } from "@/lib/fb";
@@ -27,7 +28,7 @@ export default function Passport() {
   const how = (s?: string) => (s === "ocr" ? "dibaca otomatis dari foto, dikonfirmasi petani" : "dicatat petani");
   return (
     <div className="kp"><main className="kp-wrap" style={{ maxWidth: 760 }}>
-      <div className="compact-brand" style={{ marginBottom: 18 }}><span className="brand-mark-small"><QrCode size={18} /></span><span className="brand-name-text">kakao<span>pass</span></span></div>
+      <div className="compact-brand" style={{ marginBottom: 18 }}><span className="brand-mark-small"><KakaoPassLogo size={20} /></span><span className="brand-name-text">kakao<span>pass</span></span></div>
       {p === undefined && <div className="kp-empty">Memuat paspor…</div>}
       {p === null && <div className="kp-empty">Paspor tidak ditemukan atau belum diverifikasi.</div>}
       {p && m && <>

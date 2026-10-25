@@ -3,6 +3,7 @@
 import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { KakaoPassLogo } from "@/components/KakaoPassLogo";
 import { onValue, ref, push, set } from "firebase/database";
 import {
   LogOut,
@@ -174,7 +175,7 @@ export default function Dashboard() {
         <div>
           <Link href="/" className="compact-brand">
             <span className="brand-mark-small">
-              <QrCode size={18} />
+              <KakaoPassLogo size={20} />
             </span>
             <span className="brand-name-text">
               kakao<span>pass</span>

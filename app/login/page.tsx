@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { login, setUser, type User } from "@/lib/fb";
 import { AnimatePresence, motion } from "motion/react";
+import { KakaoPassLogo } from "@/components/KakaoPassLogo";
 import {
   ArrowLeft,
   ArrowRight,
@@ -89,7 +90,7 @@ export default function LoginPage() {
         <div className="login-brand-center">
           <div className="brand">
             <span className="brand-mark">
-              <QrCode size={18} strokeWidth={2.4} />
+              <KakaoPassLogo size={26} />
             </span>
             <span className="brand-name">
               kakao<span>pass</span>

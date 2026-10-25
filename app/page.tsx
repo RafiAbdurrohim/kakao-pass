@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
+import { KakaoPassLogo } from "@/components/KakaoPassLogo";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -45,7 +46,7 @@ export default function Home() {
         <div className="concept-nav-wrap">
           <Link href="/" className="concept-brand">
             <span className="brand-badge-dark">
-              <QrCode size={16} strokeWidth={2.4} />
+              <KakaoPassLogo size={20} />
             </span>
             <span className="brand-text-logo">
               kakao<span>pass</span>
@@ -399,10 +400,10 @@ export default function Home() {
                   className="video-step-item"
                   whileHover={{ x: 4, transition: { duration: 0.15 } }}
                 >
-                  <span className="time-badge">01:15</span>
+                  <span className="time-badge">00:49</span>
                   <div>
                     <strong>Pemasangan Sensor Probe di Kotak Kayu</strong>
-                    <p>Sensor ditancapkan 20 cm ke tengah tumpukan biji untuk pantau suhu 28°C–50°C.</p>
+                    <p>Sensor suhu probe ditancapkan 20 cm ke tengah tumpukan biji untuk pantau suhu 28°C–50°C.</p>
                   </div>
                 </motion.div>
 
@@ -410,10 +411,10 @@ export default function Home() {
                   className="video-step-item"
                   whileHover={{ x: 4, transition: { duration: 0.15 } }}
                 >
-                  <span className="time-badge">03:40</span>
+                  <span className="time-badge">01:15</span>
                   <div>
                     <strong>Pembalikan Kotak Tiap 48 Jam</strong>
-                    <p>Biji dipindahkan ke kotak bertingkat bawah untuk meratakan aerasi oksigen.</p>
+                    <p>Biji dipindahkan ke kotak bertingkat bawah untuk meratakan aerasi oksigen dan panas alami.</p>
                   </div>
                 </motion.div>
 
@@ -421,10 +422,10 @@ export default function Home() {
                   className="video-step-item"
                   whileHover={{ x: 4, transition: { duration: 0.15 } }}
                 >
-                  <span className="time-badge">06:20</span>
+                  <span className="time-badge">01:44</span>
                   <div>
                     <strong>Pengolahan Kompos Kulit Kakao</strong>
-                    <p>Pencacahan limbah kulit buah untuk diolah menjadi pupuk organik kebun.</p>
+                    <p>Limbah kulit buah dicacah dan difermentasi menjadi pupuk organik penyubur kebun.</p>
                   </div>
                 </motion.div>
               </div>
@@ -671,7 +672,7 @@ export default function Home() {
           <div className="footer-lead-col">
             <div className="concept-brand">
               <span className="brand-badge-dark">
-                <QrCode size={15} strokeWidth={2.4} />
+                <KakaoPassLogo size={20} />
               </span>
               <span className="brand-text-logo">
                 kakao<span>pass</span>
