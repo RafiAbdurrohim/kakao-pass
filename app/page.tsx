@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
@@ -27,6 +27,15 @@ export default function Home() {
   const [videoOpen, setVideoOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const seekVideo = (seconds: number) => {
+    if (videoRef.current) {
+      videoRef.current.currentTime = seconds;
+      videoRef.current.play().catch(() => {});
+      videoRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -137,11 +146,12 @@ export default function Home() {
               </div>
 
               <div className="concept-modal-frame">
-                <iframe
-                  src="https://drive.google.com/file/d/1-HeXo9qPBZi9DVmPxywXjNDp60gOKwBT/preview"
-                  title="Video Panduan Petani Kakao"
-                  allow="autoplay; encrypted-media"
-                  allowFullScreen
+                <video
+                  src="/videos/panduan-petani.mp4"
+                  controls
+                  autoPlay
+                  playsInline
+                  className="concept-modal-video"
                 />
               </div>
 
@@ -209,6 +219,48 @@ export default function Home() {
                 <span>Tonton Video Panduan</span>
               </button>
             </div>
+
+            {/* Telemetry Dock Bar (Dipindah ke Hero Section, Tanpa Tombol Kelola Batch) */}
+            <div className="concept-hero-dock-wrap">
+              <div className="concept-stepped-dock">
+                {/* Dock Item 1 */}
+                <div className="dock-cell">
+                  <div className="dock-icon-box green">
+                    <Thermometer size={14} />
+                  </div>
+                  <div>
+                    <span className="dock-label">Sensor IoT 20 cm</span>
+                    <strong className="dock-val">48.6°C <small>Fase Panas</small></strong>
+                  </div>
+                </div>
+
+                <div className="dock-divider" />
+
+                {/* Dock Item 2 */}
+                <div className="dock-cell">
+                  <div className="dock-icon-box amber">
+                    <ShieldCheck size={14} />
+                  </div>
+                  <div>
+                    <span className="dock-label">Standar SNI 2323</span>
+                    <strong className="dock-val">88% <small>Mutu I</small></strong>
+                  </div>
+                </div>
+
+                <div className="dock-divider" />
+
+                {/* Dock Item 3 */}
+                <div className="dock-cell">
+                  <div className="dock-icon-box green">
+                    <Leaf size={14} />
+                  </div>
+                  <div>
+                    <span className="dock-label">Zero Waste</span>
+                    <strong className="dock-val">70% <small>Kompos Kulit</small></strong>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -217,60 +269,6 @@ export default function Home() {
           4. SECTION: FITUR STANDAR MUTU TERPADU (FULL WIDTH & ANIMATED)
           ==================================================================== */}
       <section className="concept-features-full-section" id="fitur">
-        {/* Top Dock Bar: Warna sama dengan Section Bawah (#f8fafc) & Animasi Masuk */}
-        <div className="concept-features-dock-wrap">
-          <motion.div
-            className="concept-stepped-dock"
-            initial={{ opacity: 0, y: 18 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-20px" }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          >
-            {/* Dock Item 1 */}
-            <div className="dock-cell">
-              <div className="dock-icon-box green">
-                <Thermometer size={14} />
-              </div>
-              <div>
-                <span className="dock-label">Sensor IoT 20 cm</span>
-                <strong className="dock-val">48.6°C <small>Fase Panas</small></strong>
-              </div>
-            </div>
-
-            <div className="dock-divider" />
-
-            {/* Dock Item 2 */}
-            <div className="dock-cell">
-              <div className="dock-icon-box amber">
-                <ShieldCheck size={14} />
-              </div>
-              <div>
-                <span className="dock-label">Standar SNI 2323</span>
-                <strong className="dock-val">88% <small>Mutu I</small></strong>
-              </div>
-            </div>
-
-            <div className="dock-divider" />
-
-            {/* Dock Item 3 */}
-            <div className="dock-cell">
-              <div className="dock-icon-box green">
-                <Leaf size={14} />
-              </div>
-              <div>
-                <span className="dock-label">Zero Waste</span>
-                <strong className="dock-val">70% <small>Kompos Kulit</small></strong>
-              </div>
-            </div>
-
-            {/* Dock Fast Action */}
-            <Link href="/login" className="dock-cta-btn">
-              <span>Kelola Batch</span>
-              <ArrowUpRight size={13} />
-            </Link>
-          </motion.div>
-        </div>
-
         {/* Inner Content Grid */}
         <div className="concept-container">
           <motion.div
@@ -376,16 +374,16 @@ export default function Home() {
       </section>
 
       {/* ====================================================================
-          6. SECTION: VIDEO PANDUAN LAPANGAN (2 Kolom: Tulisan Kiri, Video Kanan)
+          6. SECTION: VIDEO PANDUAN LAPANGAN (Desktop: 2 Kolom; Mobile: Header -> Video -> Detik)
           ==================================================================== */}
       <section className="concept-section" id="video-panduan">
         <div className="concept-container">
           <div className="concept-video-split">
-            {/* Sisi Kiri: Tulisan & Langkah Praktik */}
+            {/* Header Block: Judul & Deskripsi */}
             <motion.div
-              className="concept-video-copy"
-              initial={{ opacity: 0, x: -24 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              className="concept-video-header-block"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             >
@@ -394,61 +392,72 @@ export default function Home() {
               <p className="concept-video-lead">
                 Panduan lapangan pengisian kotak bertingkat, pemantauan sensor suhu telemetri, dan fermentasi kompos kulit kakao.
               </p>
+            </motion.div>
 
+            {/* Video Box: Native HTML5 Video Player (Bebas CSP Error & Responsif) */}
+            <motion.div
+              className="concept-video-wrap"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div className="concept-video-box">
+                <video
+                  ref={videoRef}
+                  src="/videos/panduan-petani.mp4"
+                  controls
+                  playsInline
+                  preload="metadata"
+                  className="concept-video-player"
+                />
+              </div>
+            </motion.div>
+
+            {/* Timestamp Steps: Detik & Tahapan Praktik */}
+            <motion.div
+              className="concept-video-steps-wrap"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
+            >
               <div className="concept-video-steps">
-                <motion.div
+                <button
+                  type="button"
                   className="video-step-item"
-                  whileHover={{ x: 4, transition: { duration: 0.15 } }}
+                  onClick={() => seekVideo(49)}
                 >
                   <span className="time-badge">00:49</span>
                   <div>
                     <strong>Pemasangan Sensor Probe di Kotak Kayu</strong>
                     <p>Sensor suhu probe ditancapkan 20 cm ke tengah tumpukan biji untuk pantau suhu 28°C–50°C.</p>
                   </div>
-                </motion.div>
+                </button>
 
-                <motion.div
+                <button
+                  type="button"
                   className="video-step-item"
-                  whileHover={{ x: 4, transition: { duration: 0.15 } }}
+                  onClick={() => seekVideo(75)}
                 >
                   <span className="time-badge">01:15</span>
                   <div>
                     <strong>Pembalikan Kotak Tiap 48 Jam</strong>
                     <p>Biji dipindahkan ke kotak bertingkat bawah untuk meratakan aerasi oksigen dan panas alami.</p>
                   </div>
-                </motion.div>
+                </button>
 
-                <motion.div
+                <button
+                  type="button"
                   className="video-step-item"
-                  whileHover={{ x: 4, transition: { duration: 0.15 } }}
+                  onClick={() => seekVideo(104)}
                 >
                   <span className="time-badge">01:44</span>
                   <div>
                     <strong>Pengolahan Kompos Kulit Kakao</strong>
                     <p>Limbah kulit buah dicacah dan difermentasi menjadi pupuk organik penyubur kebun.</p>
                   </div>
-                </motion.div>
-              </div>
-            </motion.div>
-
-            {/* Sisi Kanan: Video Box */}
-            <motion.div
-              className="concept-video-wrap"
-              initial={{ opacity: 0, x: 24 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <div className="concept-video-box">
-                <div className="concept-iframe-holder">
-                  <iframe
-                    src="https://drive.google.com/file/d/1-HeXo9qPBZi9DVmPxywXjNDp60gOKwBT/preview"
-                    title="Video Panduan Petani Kakao"
-                    allow="autoplay; encrypted-media"
-                    allowFullScreen
-                    className="concept-video-iframe"
-                  />
-                </div>
+                </button>
               </div>
             </motion.div>
           </div>
@@ -456,18 +465,34 @@ export default function Home() {
       </section>
 
       {/* ====================================================================
-          7. SECTION: ZERO WASTE (KULIT KAKAO JADI KOMPOS)
+          7. SECTION: ZERO WASTE (Desktop: Foto Kiri, Tulisan Kanan; Mobile: Header -> Foto -> Poin)
           ==================================================================== */}
       <section className="concept-section bg-light" id="zero-waste">
         <div className="concept-container">
           <div className="zero-waste-concept-split">
+            {/* Header Block: Judul & Deskripsi */}
+            <motion.div
+              className="zw-concept-header-block"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <span className="concept-kicker">PENGOLAHAN LIMBAH KULIT</span>
+              <h2>Kebun Lebih Bersih, Hemat Biaya Pupuk</h2>
+              <p className="zw-concept-lead">
+                Kulit buah kakao jangan dibiarkan menumpuk di dekat pohon karena dapat memicu jamur busuk buah.
+                Di KakaoPass, limbah kulit dicatat untuk diolah menjadi pupuk organik kebun sendiri.
+              </p>
+            </motion.div>
+
             {/* Foto Asli Kompos */}
             <motion.div
               className="zw-concept-photo-wrap"
-              initial={{ opacity: 0, x: -24 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.5, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
             >
               <Image
                 src="/images/kakao-flatlay.jpg"
@@ -489,19 +514,12 @@ export default function Home() {
 
             {/* Manfaat Praktis Petani */}
             <motion.div
-              className="zw-concept-copy"
-              initial={{ opacity: 0, x: 24 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              className="zw-point-list-wrap"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.5, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
             >
-              <span className="concept-kicker">PENGOLAHAN LIMBAH KULIT</span>
-              <h2>Kebun Lebih Bersih, Hemat Biaya Pupuk</h2>
-              <p className="zw-concept-lead">
-                Kulit buah kakao jangan dibiarkan menumpuk di dekat pohon karena dapat memicu jamur busuk buah.
-                Di KakaoPass, limbah kulit dicatat untuk diolah menjadi pupuk organik kebun sendiri.
-              </p>
-
               <div className="zw-point-list">
                 <motion.div
                   className="zw-point-row"
