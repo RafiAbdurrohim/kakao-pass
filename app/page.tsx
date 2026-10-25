@@ -8,6 +8,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   CheckCircle2,
+  ChevronRight,
   FileCheck2,
   Layers,
   Leaf,
@@ -28,63 +29,63 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <main className="landing-dark-luxury">
+    <main className="twinkle-page">
       {/* ====================================================================
-          1. HEADER / NAVIGASI SLATE DARK
+          1. HEADER BERSIH & PUTIH
           ==================================================================== */}
-      <header className="dark-site-header">
-        <div className="dark-nav-wrap">
-          <Link href="/" className="dark-brand">
-            <span className="brand-glow-box">
-              <QrCode size={18} strokeWidth={2.4} />
+      <header className="twinkle-header">
+        <div className="twinkle-nav-wrap">
+          <Link href="/" className="twinkle-brand">
+            <span className="brand-dot-black">
+              <QrCode size={16} strokeWidth={2.4} />
             </span>
-            <span className="dark-brand-text">
-              kakao<span className="text-amber">pass</span>
+            <span className="brand-title-text">
+              kakao<span>pass</span>
             </span>
           </Link>
 
           {/* Desktop Nav Links */}
-          <nav className="dark-nav-links">
-            <a href="#solusi">Luaran FORMIKA</a>
-            <a href="#video-edukasi">Video Panduan</a>
-            <a href="#zero-waste">Zero Waste</a>
+          <nav className="twinkle-nav-links">
+            <a href="#fitur">Standar Mutu</a>
+            <a href="#video-panduan">Video Panduan</a>
+            <a href="#zero-waste">Olah Kompos</a>
             <a href="#alur">Alur Kerja</a>
             <a href="#kontak">Kontak</a>
           </nav>
 
-          {/* Header Action Button */}
-          <div className="dark-nav-actions">
-            <Link href="/login" className="btn-pill-portal">
+          {/* Action Button: Black Pill */}
+          <div className="twinkle-nav-actions">
+            <Link href="/login" className="btn-black-pill">
               <span>Masuk Portal</span>
               <ArrowUpRight size={14} />
             </Link>
 
             <button
               type="button"
-              className="btn-dark-menu"
+              className="btn-twinkle-menu"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              aria-label="Buka menu navigasi"
+              aria-label="Buka navigasi"
             >
               {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Dropdown Menu */}
+        {/* Mobile Dropdown */}
         <AnimatePresence>
           {mobileMenuOpen && (
             <motion.div
-              className="dark-mobile-dropdown"
+              className="twinkle-mobile-dropdown"
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
             >
-              <a href="#solusi" onClick={() => setMobileMenuOpen(false)}>Luaran FORMIKA</a>
-              <a href="#video-edukasi" onClick={() => setMobileMenuOpen(false)}>Video Panduan</a>
-              <a href="#zero-waste" onClick={() => setMobileMenuOpen(false)}>Zero Waste</a>
+              <a href="#fitur" onClick={() => setMobileMenuOpen(false)}>Standar Mutu</a>
+              <a href="#video-panduan" onClick={() => setMobileMenuOpen(false)}>Video Panduan</a>
+              <a href="#zero-waste" onClick={() => setMobileMenuOpen(false)}>Olah Kompos</a>
               <a href="#alur" onClick={() => setMobileMenuOpen(false)}>Alur Kerja</a>
               <a href="#kontak" onClick={() => setMobileMenuOpen(false)}>Kontak</a>
-              <Link href="/login" className="btn-pill-portal mobile" onClick={() => setMobileMenuOpen(false)}>
+              <Link href="/login" className="btn-black-pill mobile" onClick={() => setMobileMenuOpen(false)}>
                 Masuk Portal Petani &amp; Admin
               </Link>
             </motion.div>
@@ -93,32 +94,32 @@ export default function Home() {
       </header>
 
       {/* ====================================================================
-          2. VIDEO MODAL PLAYER (GOOGLE DRIVE EMBED)
+          2. VIDEO MODAL (GOOGLE DRIVE PREVIEW)
           ==================================================================== */}
       <AnimatePresence>
         {videoOpen && (
           <motion.div
-            className="dark-video-modal-backdrop"
+            className="twinkle-modal-backdrop"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => setVideoOpen(false)}
           >
             <motion.div
-              className="dark-video-modal-dialog"
+              className="twinkle-modal-dialog"
               initial={{ scale: 0.94, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.94, opacity: 0 }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="dark-video-modal-header">
+              <div className="twinkle-modal-header">
                 <div>
-                  <span className="modal-amber-tag">LUARAN FORMIKA 2026</span>
-                  <h3>Video Edukasi Praktik Fermentasi Mutu</h3>
+                  <span className="modal-green-tag">DOKUMENTASI LAPANGAN</span>
+                  <h3>Video Panduan Fermentasi Mutu</h3>
                 </div>
                 <button
                   type="button"
-                  className="dark-modal-close"
+                  className="twinkle-modal-close"
                   onClick={() => setVideoOpen(false)}
                   aria-label="Tutup video"
                 >
@@ -126,7 +127,7 @@ export default function Home() {
                 </button>
               </div>
 
-              <div className="dark-video-modal-frame">
+              <div className="twinkle-modal-frame">
                 <iframe
                   src="https://drive.google.com/file/d/1-HeXo9qPBZi9DVmPxywXjNDp60gOKwBT/preview"
                   title="Video Panduan Petani Kakao"
@@ -135,10 +136,10 @@ export default function Home() {
                 />
               </div>
 
-              <div className="dark-video-modal-footer">
+              <div className="twinkle-modal-footer">
                 <p>
-                  Dokumentasi pelatihan kelompok tani: pengisian kotak kayu 3 lapis,
-                  monitoring sensor suhu IoT, standar uji belah SNI, dan pengolahan kompos kulit kakao.
+                  Praktik lapangan: pengisian kotak fermentasi bertingkat, pemantauan sensor suhu IoT,
+                  uji belah standar SNI 2323:2008, dan pengolahan kompos kulit kakao.
                 </p>
               </div>
             </motion.div>
@@ -147,291 +148,230 @@ export default function Home() {
       </AnimatePresence>
 
       {/* ====================================================================
-          3. HERO SECTION (FRAMED DARK LUXURY CANVAS ALA WUDO & SYNAPSEX)
+          3. HERO SECTION (CENTERED ALA TWINKLE.AI + FLOATING MOCKUP)
           ==================================================================== */}
-      <section className="hero-dark-wrap">
-        <div className="hero-framed-container">
-          <div className="hero-framed-grid">
-            {/* Left Column: Headline Tajam, Font Serif Berkelas & Tombol Kapsul */}
-            <div className="hero-left-content">
-              <div className="hero-kicker-badge">
-                <span className="live-amber-dot" />
-                <span>KELOMPOK TANI KARANGAN MANDIRI · KUTAI TIMUR</span>
-              </div>
-
-              <h1 className="hero-dark-title">
-                Pantau Mutu Fermentasi{" "}
-                <span className="serif-title text-amber">Kakao Lebih Pasti.</span>
-              </h1>
-
-              <p className="hero-dark-lead">
-                Pencatatan suhu kotak kayu berbasis IoT dan standar uji belah SNI
-                untuk jaminan mutu panen kelompok tani.
-              </p>
-
-              <div className="hero-btn-row">
-                <Link href="/login" className="btn-pill-amber">
-                  <span>Buka Portal Petani</span>
-                  <ArrowRight size={15} />
-                </Link>
-
-                <button
-                  type="button"
-                  className="btn-pill-glass"
-                  onClick={() => setVideoOpen(true)}
-                >
-                  <span className="play-badge-amber">
-                    <Play size={12} fill="currentColor" />
-                  </span>
-                  <span>Tonton Video Edukasi</span>
-                </button>
-              </div>
-
-              {/* Ticker Nilai Nyata */}
-              <div className="hero-metrics-ticker">
-                <div className="ticker-pill">
-                  <span className="dot-green" />
-                  <span>Probe IoT 24/7</span>
-                </div>
-                <div className="ticker-pill">
-                  <span className="dot-amber" />
-                  <span>Mutu I SNI 2323</span>
-                </div>
-                <div className="ticker-pill">
-                  <span className="dot-green" />
-                  <span>70% Kompos Kulit</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Right Column: Asymmetric Showcase Grid (Foto Asli + Spotlight) */}
-            <div className="hero-right-visual">
-              {/* Main Photo Card */}
-              <div className="main-photo-card">
-                <div className="main-photo-wrap">
-                  <Image
-                    src="/images/kakao-artisan.png"
-                    alt="Biji kakao fermentasi artisan Karangan Mandiri"
-                    width={640}
-                    height={520}
-                    priority
-                    className="main-photo-img"
-                  />
-                  <div className="photo-spotlight-gradient" />
-                </div>
-
-                {/* Floating Telemetry Badge */}
-                <div className="floating-telemetry-badge">
-                  <div className="telemetry-icon-box">
-                    <Thermometer size={16} />
-                  </div>
-                  <div>
-                    <div className="telemetry-meta">
-                      <span className="live-iot-pulse" />
-                      <span>Suhu Kotak Fermentasi</span>
-                    </div>
-                    <strong className="telemetry-value">
-                      48.6°C <small>Fase Panas</small>
-                    </strong>
-                  </div>
-                </div>
-              </div>
-
-              {/* Bottom Twin Micro-Cards ala Gambar 3 */}
-              <div className="hero-twin-cards">
-                {/* Micro-Card 1: Kompos Zero Waste */}
-                <a href="#zero-waste" className="micro-card-link">
-                  <div className="micro-thumb-wrap">
-                    <Image
-                      src="/images/kakao-flatlay.jpg"
-                      alt="Kompos kulit kakao"
-                      width={160}
-                      height={120}
-                      className="micro-thumb-img"
-                    />
-                  </div>
-                  <div className="micro-card-body">
-                    <span className="micro-tag">ZERO WASTE</span>
-                    <strong>70% Kulit Jadi Pupuk</strong>
-                  </div>
-                  <span className="micro-arrow-btn">
-                    <ArrowUpRight size={13} />
-                  </span>
-                </a>
-
-                {/* Micro-Card 2: Quick Video Trigger */}
-                <button
-                  type="button"
-                  className="micro-card-link video-trigger"
-                  onClick={() => setVideoOpen(true)}
-                >
-                  <div className="micro-video-icon">
-                    <Play size={18} fill="currentColor" />
-                  </div>
-                  <div className="micro-card-body">
-                    <span className="micro-tag amber">DOKUMENTASI</span>
-                    <strong>Putar Video Praktik</strong>
-                  </div>
-                  <span className="micro-arrow-btn">
-                    <ArrowUpRight size={13} />
-                  </span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ====================================================================
-          4. SECTION: TIGA LUARAN FORMIKA (BENTO GRID VISUAL - ZERO ESAY)
-          ==================================================================== */}
-      <section className="dark-section" id="solusi">
-        <div className="section-container">
-          <div className="dark-section-header">
-            <span className="dark-kicker">LUARAN INOVASI FORMIKA 2026</span>
-            <h2>Tiga Standar Dari Kebun Hingga Pabrik</h2>
-            <p>
-              Telemetri real-time, standar mutu fisik, dan pemanfaatan biomassa limbah kakao.
-            </p>
+      <section className="twinkle-hero-section">
+        <div className="twinkle-container">
+          {/* Tag Penanda Kebun */}
+          <div className="hero-origin-pill">
+            <span className="origin-green-dot" />
+            <span>KELOMPOK TANI KARANGAN MANDIRI · KUTAI TIMUR</span>
           </div>
 
-          <div className="bento-three-grid">
-            {/* Bento 1: Sensor Suhu IoT */}
-            <div className="bento-dark-card">
-              <div className="bento-topline">
-                <span className="bento-badge green">
-                  <span className="dot-green" />
-                  Telemetri Real-Time
-                </span>
-                <span className="bento-num">01</span>
-              </div>
+          {/* Centered Bold Title */}
+          <h1 className="twinkle-hero-title">
+            Standar Mutu Kakao<br />
+            Dari Kebun Hingga Pabrik
+          </h1>
 
-              <div className="bento-metric-block">
-                <span className="metric-super-text">48.6°C</span>
-                <span className="metric-label">Target Termofilik 45°C–50°C</span>
-              </div>
+          {/* Short 2-line Subtitle */}
+          <p className="twinkle-hero-sub">
+            Pencatatan suhu kotak fermentasi berbasis sensor IoT dan uji belah SNI
+            untuk jaminan mutu panen kelompok tani.
+          </p>
 
-              {/* Mini SVG Curve Graph */}
-              <div className="mini-graph-box">
-                <svg viewBox="0 0 300 60" fill="none" className="graph-svg" aria-hidden="true">
-                  <path
-                    d="M0 45 C 50 42, 100 35, 150 12 C 200 8, 250 20, 300 32"
-                    stroke="#10b981"
-                    strokeWidth="2.5"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M0 45 C 50 42, 100 35, 150 12 C 200 8, 250 20, 300 32 L 300 60 L 0 60 Z"
-                    fill="url(#greenGradient)"
-                    opacity="0.18"
-                  />
-                  <defs>
-                    <linearGradient id="greenGradient" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#10b981" />
-                      <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
-                    </linearGradient>
-                  </defs>
-                </svg>
-              </div>
+          {/* Centered Action Button */}
+          <div className="twinkle-hero-cta">
+            <Link href="/login" className="btn-hero-primary-pill">
+              <span>Buka Portal Petani</span>
+              <ArrowRight size={15} />
+            </Link>
 
-              <h3>Sensor Kotak Kayu 3 Lapis</h3>
-              <p>
-                Probe sensor sedalam 20 cm mencatat kenaikan suhu tanpa perlu membuka penutup kotak.
-              </p>
-            </div>
-
-            {/* Bento 2: Standardisasi Uji Belah SNI */}
-            <div className="bento-dark-card highlight-border">
-              <div className="bento-topline">
-                <span className="bento-badge amber">
-                  <ShieldCheck size={12} />
-                  Standar Mutu I
-                </span>
-                <span className="bento-num">02</span>
-              </div>
-
-              <div className="bento-metric-block">
-                <span className="metric-super-text text-amber">88%</span>
-                <span className="metric-label">Biji Fermentasi Sempurna</span>
-              </div>
-
-              {/* Progress Bar Visual */}
-              <div className="metric-bar-wrap">
-                <div className="metric-bar-fill" style={{ width: "88%" }} />
-              </div>
-
-              <h3>Uji Belah SNI 2323:2008</h3>
-              <p>
-                Pemeriksaan sampel 100 butir biji belah untuk menjaga kadar air di bawah 7.5%.
-              </p>
-            </div>
-
-            {/* Bento 3: Zero Waste Kompos */}
-            <div className="bento-dark-card">
-              <div className="bento-topline">
-                <span className="bento-badge green">
-                  <Leaf size={12} />
-                  Ekonomi Sirkular
-                </span>
-                <span className="bento-num">03</span>
-              </div>
-
-              <div className="bento-metric-block">
-                <span className="metric-super-text">70%</span>
-                <span className="metric-label">Biomassa Kulit Dimanfaatkan</span>
-              </div>
-
-              {/* Progress Bar Visual */}
-              <div className="metric-bar-wrap">
-                <div className="metric-bar-fill green" style={{ width: "70%" }} />
-              </div>
-
-              <h3>Kompos Kulit Kakao</h3>
-              <p>
-                Kulit buah dicacah dan difermentasi menjadi pupuk organik untuk mencegah jamur kebun.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ====================================================================
-          5. SECTION: VIDEO EDUKASI LAPANGAN (CINEMATIC SHOWCASE)
-          ==================================================================== */}
-      <section className="dark-section" id="video-edukasi">
-        <div className="section-container">
-          <div className="dark-section-header">
-            <span className="dark-kicker">DOKUMENTASI RESMI LAPANGAN</span>
-            <h2>Praktik Fermentasi Mutu di Kebun</h2>
-            <p>
-              Video panduan teknik kotak bertingkat, pemantauan sensor suhu, dan pengolahan kompos.
-            </p>
+            <button
+              type="button"
+              className="btn-hero-video-pill"
+              onClick={() => setVideoOpen(true)}
+            >
+              <Play size={12} fill="currentColor" />
+              <span>Tonton Video Panduan</span>
+            </button>
           </div>
 
-          <div className="cinematic-video-card">
-            <div className="cinematic-iframe-wrap">
-              <iframe
-                src="https://drive.google.com/file/d/1-HeXo9qPBZi9DVmPxywXjNDp60gOKwBT/preview"
-                title="Video Praktik Fermentasi KakaoPass"
-                allow="autoplay; encrypted-media"
-                allowFullScreen
-                className="cinematic-iframe"
+          {/* Central Showcase: Phone Mockup + Floating Cutout Cocoa (Exact Twinkle.ai vibe) */}
+          <div className="twinkle-mockup-stage">
+            {/* Center Mobile Screen Mockup */}
+            <div className="phone-mockup-frame">
+              <div className="phone-screen-inner">
+                {/* Mobile Top Header */}
+                <div className="screen-top-bar">
+                  <div className="screen-app-brand">
+                    <QrCode size={13} className="text-black" />
+                    <strong>KakaoPass Mobile</strong>
+                  </div>
+                  <span className="screen-batch-id">Batch #24</span>
+                </div>
+
+                {/* IoT Live Temperature Display */}
+                <div className="screen-iot-card">
+                  <div className="iot-meta-row">
+                    <span className="iot-live-pulse" />
+                    <span className="iot-label">Sensor Suhu Kotak Kayu</span>
+                  </div>
+                  <div className="iot-temp-display">
+                    <span className="temp-large">48.6°C</span>
+                    <span className="temp-badge-green">Fase Termofilik</span>
+                  </div>
+                  {/* Clean SVG Curve Line */}
+                  <div className="screen-curve-box">
+                    <svg viewBox="0 0 200 40" fill="none" className="screen-curve-svg" aria-hidden="true">
+                      <path
+                        d="M0 32 C 40 30, 80 25, 120 8 C 160 5, 180 14, 200 20"
+                        stroke="#10b981"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </div>
+                </div>
+
+                {/* SNI Cut-Test Status */}
+                <div className="screen-sni-row">
+                  <div className="sni-item-box">
+                    <span className="sni-num">88%</span>
+                    <span className="sni-caption">Biji Baik (SNI Mutu I)</span>
+                  </div>
+                  <div className="sni-item-box">
+                    <span className="sni-num">6.8%</span>
+                    <span className="sni-caption">Kadar Air Aman</span>
+                  </div>
+                </div>
+
+                {/* Status Pill */}
+                <div className="screen-status-pill">
+                  <CheckCircle2 size={13} className="text-green" />
+                  <span>Diverifikasi Penyuluh Lapangan (PPL)</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Floating Badge 1: Top Left (Sensor Probe) */}
+            <div className="floating-bubble bubble-top-left">
+              <span className="bubble-dot-green" />
+              <strong>+ Sensor IoT 20 cm</strong>
+            </div>
+
+            {/* Floating Badge 2: Top Right (Live Telemetry Stat) */}
+            <div className="floating-bubble bubble-top-right">
+              <span className="bubble-icon-therm">
+                <Thermometer size={14} />
+              </span>
+              <div>
+                <span className="bubble-tiny-label">Suhu Inti</span>
+                <strong className="bubble-bold-val">48.6°C ↗</strong>
+              </div>
+            </div>
+
+            {/* Floating Cutout 3: Cocoa Artisan Pod & Beans (Transparent Cutout, Soft Shadow) */}
+            <div className="floating-cocoa-cutout">
+              <Image
+                src="/images/kakao-cutout.png"
+                alt="Buah dan biji kakao fermentasi Karangan Mandiri"
+                width={280}
+                height={186}
+                className="cocoa-cutout-img"
               />
             </div>
 
-            {/* Timeline Markers (Data-First, Bukan Narasi) */}
-            <div className="video-timeline-strip">
-              <div className="timeline-marker">
-                <span className="marker-timestamp">01:15</span>
-                <span className="marker-label">Pemasangan Probe IoT 20 cm</span>
+            {/* Floating Badge 4: Bottom Right (Compost Zero Waste Card) */}
+            <a href="#zero-waste" className="floating-card-pill card-bottom-right">
+              <div className="pill-thumb-box">
+                <Image
+                  src="/images/kakao-flatlay.jpg"
+                  alt="Kompos kulit kakao"
+                  width={42}
+                  height={42}
+                  className="pill-thumb-img"
+                />
               </div>
-              <div className="timeline-marker">
-                <span className="marker-timestamp">03:40</span>
-                <span className="marker-label">Pembalikan Kotak Tiap 48 Jam</span>
+              <div>
+                <span className="pill-tag-green">ZERO WASTE</span>
+                <strong>70% Kulit Jadi Pupuk</strong>
               </div>
-              <div className="timeline-marker">
-                <span className="marker-timestamp">06:20</span>
-                <span className="marker-label">Pengolahan Kompos Kulit Kakao</span>
+              <ArrowUpRight size={13} className="pill-arrow" />
+            </a>
+          </div>
+
+          {/* ====================================================================
+              4. TIGA KOTAK STATISTIK ABU-ABU TERANG (ALA TWINKLE.AI STATS ROW)
+              ==================================================================== */}
+          <div className="twinkle-stats-row">
+            <div className="twinkle-stat-box">
+              <span className="stat-super-num">48.6°C</span>
+              <strong className="stat-main-label">SUHU INTI FERMENTASI (IOT)</strong>
+              <p className="stat-sub-label">Probe 20 cm mencatat panas tanpa buka kotak</p>
+            </div>
+
+            <div className="twinkle-stat-box">
+              <span className="stat-super-num">88%</span>
+              <strong className="stat-main-label">BIJI MUTU I STANDAR SNI 2323</strong>
+              <p className="stat-sub-label">Uji belah 100 butir biji sampel kelompok tani</p>
+            </div>
+
+            <div className="twinkle-stat-box">
+              <span className="stat-super-num">70%</span>
+              <strong className="stat-main-label">LIMBAH KULIT DIOLAH JADI KOMPOS</strong>
+              <p className="stat-sub-label">Cegah jamur busuk buah di sekitar pohon</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ====================================================================
+          5. SECTION: FITUR STANDAR MUTU TERPADU (BUKAN "LUARAN FORMIKA")
+          ==================================================================== */}
+      <section className="twinkle-clean-section bg-subtle" id="fitur">
+        <div className="twinkle-container">
+          <div className="twinkle-section-head">
+            <span className="section-kicker-clean">STANDAR PASCAPANEN</span>
+            <h2>Fitur Standar Dari Kebun ke Pabrik</h2>
+            <p>
+              Pencatatan suhu kotak kayu, uji belah fisik, dan pemanfaatan biomassa limbah dalam satu sistem.
+            </p>
+          </div>
+
+          <div className="twinkle-feature-grid">
+            {/* Fitur 1 */}
+            <div className="feature-white-card">
+              <div className="feature-icon-circle green">
+                <Thermometer size={22} />
+              </div>
+              <h3>Sensor Suhu Kotak Kayu</h3>
+              <p>
+                Probe sensor merekam kenaikan suhu fermentasi 28°C–50°C secara otomatis
+                tanpa perlu membuka tutup kotak kayu yang bisa mengganggu panas alami.
+              </p>
+              <div className="feature-card-footer">
+                <span>Pembalikan tiap 48 jam</span>
+              </div>
+            </div>
+
+            {/* Fitur 2 */}
+            <div className="feature-white-card">
+              <div className="feature-icon-circle amber">
+                <FileCheck2 size={22} />
+              </div>
+              <h3>Pencatatan Uji Belah SNI</h3>
+              <p>
+                Catat hasil potong 100 butir biji sampel. Sistem otomatis mengklasifikasikan
+                persentase biji fermentasi dan memastikan kadar air aman di bawah 7.5%.
+              </p>
+              <div className="feature-card-footer">
+                <span>Standar SNI 2323:2008</span>
+              </div>
+            </div>
+
+            {/* Fitur 3 */}
+            <div className="feature-white-card">
+              <div className="feature-icon-circle green">
+                <Leaf size={22} />
+              </div>
+              <h3>Pengolahan Kompos Kulit</h3>
+              <p>
+                Kulit buah kakao dicacah dan difermentasi menjadi pupuk kompos organik.
+                Kebun menjadi bersih dari sarang jamur dan petani menghemat biaya pupuk.
+              </p>
+              <div className="feature-card-footer">
+                <span>Ekonomi Sirkular 0% Limbah</span>
               </div>
             </div>
           </div>
@@ -439,61 +379,99 @@ export default function Home() {
       </section>
 
       {/* ====================================================================
-          6. SECTION: ZERO WASTE (FOTO & BENEFIT SINGKAT)
+          6. SECTION: VIDEO PANDUAN LAPANGAN (BUKAN "LUARAN FORMIKA")
           ==================================================================== */}
-      <section className="dark-section" id="zero-waste">
-        <div className="section-container zero-waste-dark-grid">
-          {/* Left: Real Photo with Dark Spotlight */}
-          <div className="zw-photo-spotlight">
+      <section className="twinkle-clean-section" id="video-panduan">
+        <div className="twinkle-container">
+          <div className="twinkle-section-head">
+            <span className="section-kicker-clean">PANDUAN PRAKTIK KEBUN</span>
+            <h2>Video Panduan Petani Kakao</h2>
+            <p>
+              Panduan pengisian kotak bertingkat, pemantauan sensor suhu, dan pengolahan kompos kulit kakao.
+            </p>
+          </div>
+
+          <div className="twinkle-video-wrapper">
+            <div className="twinkle-iframe-container">
+              <iframe
+                src="https://drive.google.com/file/d/1-HeXo9qPBZi9DVmPxywXjNDp60gOKwBT/preview"
+                title="Video Panduan Petani Kakao"
+                allow="autoplay; encrypted-media"
+                allowFullScreen
+                className="twinkle-video-iframe"
+              />
+            </div>
+
+            {/* Timeline Strip */}
+            <div className="twinkle-timeline-bar">
+              <div className="timeline-step-chip">
+                <span className="chip-time">01:15</span>
+                <span>Pemasangan Sensor Probe di Kotak Kayu</span>
+              </div>
+              <div className="timeline-step-chip">
+                <span className="chip-time">03:40</span>
+                <span>Pembalikan Kotak Tiap 48 Jam</span>
+              </div>
+              <div className="timeline-step-chip">
+                <span className="chip-time">06:20</span>
+                <span>Pengolahan Kompos Kulit Kakao</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ====================================================================
+          7. SECTION: ZERO WASTE (KULIT KAKAO JADI KOMPOS)
+          ==================================================================== */}
+      <section className="twinkle-clean-section bg-subtle" id="zero-waste">
+        <div className="twinkle-container zero-waste-split-layout">
+          {/* Foto Asli Kompos */}
+          <div className="zw-white-photo-card">
             <Image
               src="/images/kakao-flatlay.jpg"
-              alt="Kulit buah kakao dan biji kakao diolah zero waste"
-              width={620}
-              height={460}
-              className="zw-photo-img"
+              alt="Kulit buah kakao dan pupuk kompos"
+              width={600}
+              height={440}
+              className="zw-clean-photo"
             />
-            <div className="zw-photo-badge">
-              <strong>70% Bobot Panen</strong>
-              <span>Biomassa kulit diolah jadi pupuk organik</span>
+            <div className="zw-clean-badge">
+              <strong>70% Bobot Buah</strong>
+              <span>Biomassa kulit diolah jadi pupuk kompos organik</span>
             </div>
           </div>
 
-          {/* Right: 3 Benefit Cards */}
-          <div className="zw-benefits-side">
-            <span className="dark-kicker">EKONOMI SIRKULAR ZERO WASTE</span>
+          {/* Manfaat Praktis Petani */}
+          <div className="zw-clean-copy">
+            <span className="section-kicker-clean">PENGOLAHAN LIMBAH KULIT</span>
             <h2>Kebun Lebih Bersih, Hemat Biaya Pupuk</h2>
-            <p className="zw-lead">
-              Limbah kulit kakao tidak lagi dibuang membusuk di kebun, melainkan diolah kembali menjadi nutrisi tanah.
+            <p className="zw-copy-lead">
+              Kulit buah kakao jangan dibiarkan menumpuk di dekat pohon karena dapat memicu jamur busuk buah.
+              Di KakaoPass, limbah kulit dicatat untuk diolah menjadi pupuk organik kebun sendiri.
             </p>
 
-            <div className="zw-card-stack">
-              <div className="zw-benefit-card">
-                <div className="zw-icon-box">
-                  <CheckCircle2 size={18} className="text-green" />
-                </div>
+            <div className="zw-clean-points-stack">
+              <div className="zw-clean-point-item">
+                <CheckCircle2 size={18} className="text-green" />
                 <div>
-                  <strong>Cegah Jamur &amp; Hama Buah</strong>
-                  <p>Kebun bersih dari tumpukan kulit busuk pembawa spora jamur.</p>
+                  <strong>Cegah Jamur &amp; Penyakit Buah</strong>
+                  <p>Kebun bersih tanpa tumpukan kulit busuk di dekat pohon.</p>
                 </div>
               </div>
 
-              <div className="zw-benefit-card">
-                <div className="zw-icon-box">
-                  <CheckCircle2 size={18} className="text-green" />
-                </div>
+              <div className="zw-clean-point-item">
+                <CheckCircle2 size={18} className="text-green" />
                 <div>
-                  <strong>Hemat Pengeluaran Pupuk</strong>
-                  <p>Kompos organik dipakai menyuburkan kebun kakao sendiri.</p>
+                  <strong>Hemat Pengeluaran Pupuk Kimia</strong>
+                  <p>Kompos dipakai kembali untuk menyuburkan kebun kakao sendiri.</p>
                 </div>
               </div>
 
-              <div className="zw-benefit-card">
-                <div className="zw-icon-box">
-                  <CheckCircle2 size={18} className="text-green" />
-                </div>
+              <div className="zw-clean-point-item">
+                <CheckCircle2 size={18} className="text-green" />
                 <div>
-                  <strong>Pencatatan Karung Kompos</strong>
-                  <p>Setiap batch kompos yang siap pakai tercatat rapi di sistem.</p>
+                  <strong>Pencatatan Karung Kompos Mandiri</strong>
+                  <p>Setiap batch kompos yang siap pakai dicatat datanya di portal.</p>
                 </div>
               </div>
             </div>
@@ -502,142 +480,144 @@ export default function Home() {
       </section>
 
       {/* ====================================================================
-          7. SECTION: ALUR KERJA LAPANGAN (HORIZONTAL STEPPER)
+          8. SECTION: ALUR KERJA LAPANGAN (3 LANGKAH RINGKAS)
           ==================================================================== */}
-      <section className="dark-section" id="alur">
-        <div className="section-container">
-          <div className="dark-section-header">
-            <span className="dark-kicker">INTEGRASI TIGA PERAN</span>
-            <h2>Alur Kerja dari Kebun ke Pembeli</h2>
+      <section className="twinkle-clean-section" id="alur">
+        <div className="twinkle-container">
+          <div className="twinkle-section-head">
+            <span className="section-kicker-clean">INTEGRASI TIGA PERAN</span>
+            <h2>Alur Kerja Lapangan</h2>
             <p>
-              Pencatatan praktis petani, verifikasi cepat penyuluh, dan kepastian mutu pembeli.
+              Pencatatan mudah untuk petani, verifikasi cepat oleh penyuluh, dan kepastian mutu bagi pembeli.
             </p>
           </div>
 
-          <div className="stepper-horizontal-grid">
+          <div className="twinkle-stepper-row">
             {/* Step 1 */}
-            <div className="stepper-card">
-              <div className="stepper-head">
-                <span className="stepper-role-pill">PETANI</span>
-                <span className="stepper-number">01</span>
+            <div className="stepper-white-box">
+              <div className="stepper-box-top">
+                <span className="stepper-pill-role">PETANI DI KEBUN</span>
+                <span className="stepper-seq">01</span>
               </div>
               <h3>Catat Panen &amp; Suhu</h3>
               <p>
-                Input berat panen, pantau suhu sensor fermentasi harian, dan masukkan foto uji belah.
+                Petani memasukkan berat panen, memantau suhu sensor fermentasi harian, dan mencatat foto uji belah.
               </p>
-              <span className="stepper-foot">Dashboard Petani</span>
+              <div className="stepper-foot-tag">Dashboard Petani</div>
             </div>
 
             {/* Step 2 */}
-            <div className="stepper-card highlight">
-              <div className="stepper-head">
-                <span className="stepper-role-pill amber">PENYULUH (PPL)</span>
-                <span className="stepper-number">02</span>
+            <div className="stepper-white-box highlight">
+              <div className="stepper-box-top">
+                <span className="stepper-pill-role green">PENYULUH (PPL)</span>
+                <span className="stepper-seq">02</span>
               </div>
               <h3>Audit &amp; Setujui Mutu</h3>
               <p>
-                Periksa kurva suhu telemetri dan foto belah biji. Setelah lolos, setujui stiker karung.
+                Penyuluh memeriksa kurva suhu telemetri dan foto belah biji. Setelah memenuhi syarat, batch disetujui.
               </p>
-              <span className="stepper-foot">Portal Admin PPL</span>
+              <div className="stepper-foot-tag">Portal Admin PPL</div>
             </div>
 
             {/* Step 3 */}
-            <div className="stepper-card">
-              <div className="stepper-head">
-                <span className="stepper-role-pill green">PEMBELI</span>
-                <span className="stepper-number">03</span>
+            <div className="stepper-white-box">
+              <div className="stepper-box-top">
+                <span className="stepper-pill-role">PEMBELI PABRIK</span>
+                <span className="stepper-seq">03</span>
               </div>
-              <h3>Terima Biji Berstandar</h3>
+              <h3>Terima Biji Terstandar</h3>
               <p>
-                Terima karung dengan stiker resmi Karangan Mandiri yang memuat riwayat mutu jelas.
+                Pembeli menerima karung dengan stiker resmi Karangan Mandiri yang memuat riwayat mutu jelas.
               </p>
-              <span className="stepper-foot">Jaminan Mutu Terstandar</span>
+              <div className="stepper-foot-tag">Jaminan Mutu Terstandar</div>
             </div>
           </div>
         </div>
       </section>
 
       {/* ====================================================================
-          8. SECTION: CALL TO ACTION STRIP (DARK AMBER GLOW)
+          9. CTA BANNER (BERSIH & TERANG)
           ==================================================================== */}
-      <section className="dark-cta-strip">
-        <div className="section-container cta-strip-inner">
-          <div className="cta-strip-copy">
-            <span className="dark-kicker">PORTAL KELOMPOK TANI</span>
-            <h2>Mulai Kelola Panen &amp; Fermentasi Hari Ini</h2>
-            <p>
-              Pencatatan suhu kotak kayu dan sertifikasi panen kelompok tani Karangan Mandiri.
-            </p>
-          </div>
+      <section className="twinkle-cta-section">
+        <div className="twinkle-container">
+          <div className="twinkle-cta-box">
+            <div className="cta-left-text">
+              <span className="section-kicker-clean">PORTAL KELOMPOK TANI</span>
+              <h2>Mulai Kelola Panen &amp; Fermentasi Hari Ini</h2>
+              <p>
+                Pencatatan suhu kotak kayu dan sertifikasi panen kelompok tani Karangan Mandiri.
+              </p>
+            </div>
 
-          <div className="cta-strip-btns">
-            <Link href="/login" className="btn-pill-amber">
-              <span>Masuk Portal Petani &amp; Admin</span>
-              <ArrowRight size={15} />
-            </Link>
-            <a href="#kontak" className="btn-pill-outline">
-              Hubungi Penyuluh via WhatsApp
-            </a>
+            <div className="cta-right-btns">
+              <Link href="/login" className="btn-hero-primary-pill">
+                <span>Buka Portal Petani</span>
+                <ArrowRight size={15} />
+              </Link>
+              <a href="#kontak" className="btn-hero-video-pill">
+                Hubungi Penyuluh Lapangan
+              </a>
+            </div>
           </div>
         </div>
       </section>
 
       {/* ====================================================================
-          9. FOOTER SLATE DARK
+          10. FOOTER BERSIH & PUTIH
           ==================================================================== */}
-      <footer className="dark-site-footer" id="kontak">
-        <div className="section-container footer-dark-grid">
-          {/* Brand & Provenance */}
-          <div className="footer-brand-side">
-            <div className="dark-brand">
-              <span className="brand-glow-box">
-                <QrCode size={18} strokeWidth={2.4} />
+      <footer className="twinkle-footer" id="kontak">
+        <div className="twinkle-container footer-content-grid">
+          {/* Brand & Misi */}
+          <div className="footer-col-main">
+            <div className="twinkle-brand">
+              <span className="brand-dot-black">
+                <QrCode size={15} strokeWidth={2.4} />
               </span>
-              <span className="dark-brand-text">
-                kakao<span className="text-amber">pass</span>
+              <span className="brand-title-text">
+                kakao<span>pass</span>
               </span>
             </div>
-            <p className="footer-lead-p">
+            <p className="footer-desc-text">
               Sistem pencatatan fermentasi kotak kayu, standar uji belah SNI,
               dan pengolahan kompos kulit kakao kelompok tani.
             </p>
-            <div className="footer-location-tag">
-              <MapPin size={13} className="text-amber" />
+            <div className="footer-loc-item">
+              <MapPin size={13} className="text-muted" />
               <span>Desa Karangan, Kec. Karangan, Kab. Kutai Timur</span>
             </div>
           </div>
 
           {/* Navigasi */}
-          <div className="footer-col-nav">
+          <div className="footer-col-links">
             <strong>Navigasi Menu</strong>
-            <a href="#solusi">Luaran FORMIKA</a>
-            <a href="#video-edukasi">Video Panduan</a>
-            <a href="#zero-waste">Zero Waste</a>
+            <a href="#fitur">Standar Mutu</a>
+            <a href="#video-panduan">Video Panduan</a>
+            <a href="#zero-waste">Olah Kompos</a>
             <a href="#alur">Alur Kerja</a>
           </div>
 
           {/* Portal Akses */}
-          <div className="footer-col-nav">
+          <div className="footer-col-links">
             <strong>Portal Sistem</strong>
             <Link href="/login">Masuk Petani (Pak Budi)</Link>
             <Link href="/login">Masuk Penyuluh (Bu Sari)</Link>
           </div>
 
-          {/* Kontak & Legal */}
+          {/* Kontak Resmi */}
           <div className="footer-col-contact">
             <strong>Sekretariat &amp; Kontak</strong>
             <p>Kelompok Tani Karangan Mandiri</p>
-            <div className="contact-item">
-              <Phone size={13} className="text-amber" />
+            <div className="footer-contact-row">
+              <Phone size={13} className="text-muted" />
               <span>WhatsApp: 0812-5820-2026</span>
             </div>
-            <span className="competition-chip">
+            <span className="footer-formika-chip">
               Karya Inovasi FORMIKA 2026
             </span>
           </div>
         </div>
 
-        <div className="section-container footer-bottom-bar">
+        <div className="twinkle-container footer-bottom-strip">
           <span>&copy; 2026 KakaoPass Indonesia</span>
           <span>Kelompok Tani Karangan Mandiri · Kutai Timur</span>
         </div>
