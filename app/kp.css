@@ -1122,15 +1122,14 @@
 .concept-hero-section{position:relative;width:100%;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;justify-content:space-between;padding-top:100px;padding-bottom:32px;background-color:#fafaf9;border-bottom:1px solid #f1f5f9;overflow:hidden}
 .concept-hero-inner{width:min(1280px,calc(100% - 48px));margin:0 auto;display:flex;flex-direction:column;justify-content:space-between;flex:1;min-height:calc(100vh - 132px);min-height:calc(100dvh - 132px);position:relative;z-index:2}
 
-/* Pohon Kakao Cutout di Sisi Kanan (Kanan Utuh, Digeser ke Kiri, Tidak Terpotong) */
-.concept-hero-tree-frame{position:absolute;top:68px;right:24px;bottom:0;height:calc(100% - 68px);max-width:56vw;pointer-events:none;z-index:1;display:flex;align-items:flex-start;justify-content:flex-end}
+/* Pohon Kakao Cutout di Sisi Kanan (Kanan Utuh, Full Bleed ke Tepi Layar) */
+.concept-hero-tree-frame{position:absolute;top:68px;right:0;bottom:0;height:calc(100% - 68px);max-width:58vw;pointer-events:none;z-index:1;display:flex;align-items:flex-start;justify-content:flex-end}
 .concept-hero-tree-render{width:auto;height:100%;max-width:100%;object-fit:contain;object-position:right top;filter:drop-shadow(0 20px 40px rgba(15,23,42,.05))}
 
 /* Left Content Area */
 .concept-hero-left-copy{max-width:660px;position:relative;z-index:2;margin-top:auto;margin-bottom:auto;padding:24px 0}
 .concept-main-title{font-size:clamp(32px,3.8vw,50px);font-weight:800;line-height:1.14;letter-spacing:-1.4px;color:#0f172a;margin:0 0 16px}
-.title-cocoa-accent{color:#78350f;background:linear-gradient(135deg,#78350f 0%,#9a3412 45%,#c2410c 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:inline-block}
-.title-sub-phrase{color:#4a3325}
+.title-cocoa-accent{color:#9a3412;display:inline-block}
 .concept-lead-text{font-size:15.5px;line-height:1.7;color:#475569;margin:0 0 20px;font-weight:500}
 .concept-origin-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border-radius:99px;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid #e2e8f0;color:#334155;font-size:11px;font-weight:700;letter-spacing:.6px;margin-bottom:24px}
 .origin-live-dot{width:6px;height:6px;border-radius:50%;background:#10b981}
