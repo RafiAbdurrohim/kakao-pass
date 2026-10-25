@@ -346,9 +346,9 @@ export default function Home() {
           <motion.div
             className="hero-visual"
             aria-label="Simulasi alur proses KakaoPass dari kebun hingga paspor digital"
-            initial={{ opacity: 0, scale: 0.94, y: 18 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.18, ease: [0.22, 1, 0.36, 1] }}
+            initial={{ opacity: 0, y: 22 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
           >
             <div className="visual-orbit orbit-one" />
             <div className="visual-orbit orbit-two" />

@@ -76,11 +76,18 @@ export default function HeroProcessStage() {
   const [progress, setProgress] = useState(0);
   const [tempValue, setTempValue] = useState(28.4);
   const [tilt, setTilt] = useState({ x: 0, y: 0 });
+  const [isReady, setIsReady] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  // Auto-play timer & progress animation
+  // Grace period on initial mount: pause state updates until entrance animation finishes
   useEffect(() => {
-    if (!isPlaying) return;
+    const timer = setTimeout(() => setIsReady(true), 750);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Auto-play timer & progress animation (runs after entrance settles)
+  useEffect(() => {
+    if (!isReady || !isPlaying) return;
 
     const startTime = Date.now();
     const interval = setInterval(() => {
@@ -92,13 +99,15 @@ export default function HeroProcessStage() {
         setActiveStage((prev) => (prev + 1) % STAGES.length);
         setProgress(0);
       }
-    }, 40);
+    }, 60);
 
     return () => clearInterval(interval);
-  }, [isPlaying, activeStage]);
+  }, [isReady, isPlaying, activeStage]);
 
   // Dynamic simulated IoT temperature fluctuation based on stage
   useEffect(() => {
+    if (!isReady) return;
+
     let target = 28.5;
     if (activeStage === 0) target = 28.2;
     else if (activeStage === 1) target = 48.6;
@@ -111,10 +120,10 @@ export default function HeroProcessStage() {
         const jitter = (Math.random() - 0.5) * 0.2;
         return Number((prev + delta + jitter).toFixed(1));
       });
-    }, 250);
+    }, 400);
 
     return () => clearInterval(interval);
-  }, [activeStage]);
+  }, [isReady, activeStage]);
 
   // Handle manual stage selection
   const handleSelectStage = (idx: number) => {
@@ -218,10 +227,10 @@ export default function HeroProcessStage() {
               <motion.div
                 key="stage-kebun"
                 className="stage-motion-wrap"
-                initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                initial={isReady ? { opacity: 0, scale: 0.98, y: 6 } : false}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.96, y: -10 }}
-                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                exit={{ opacity: 0, scale: 0.98, y: -6 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
                 <svg
                   viewBox="0 0 460 270"
@@ -565,10 +574,10 @@ export default function HeroProcessStage() {
               <motion.div
                 key="stage-fermentasi"
                 className="stage-motion-wrap"
-                initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                initial={{ opacity: 0, scale: 0.98, y: 6 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.96, y: -10 }}
-                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                exit={{ opacity: 0, scale: 0.98, y: -6 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
                 <svg
                   viewBox="0 0 460 270"
@@ -830,10 +839,10 @@ export default function HeroProcessStage() {
               <motion.div
                 key="stage-mobile"
                 className="stage-motion-wrap"
-                initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                initial={{ opacity: 0, scale: 0.98, y: 6 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.96, y: -10 }}
-                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                exit={{ opacity: 0, scale: 0.98, y: -6 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
                 {/* 3D Angled Smartphone Showcase with Touch Ripple & Animated Chart */}
                 <div className="smartphone-isometric-wrap">
@@ -965,10 +974,10 @@ export default function HeroProcessStage() {
               <motion.div
                 key="stage-qr"
                 className="stage-motion-wrap"
-                initial={{ opacity: 0, scale: 0.95, y: 10 }}
+                initial={{ opacity: 0, scale: 0.98, y: 6 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.96, y: -10 }}
-                transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+                exit={{ opacity: 0, scale: 0.98, y: -6 }}
+                transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
               >
                 <svg
                   viewBox="0 0 460 270"

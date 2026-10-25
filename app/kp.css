@@ -292,3 +292,27 @@
   .persona-role{font-size:9.5px}
   .persona-footer{font-size:10px}
 }
+
+/* ==========================================================================
+   SMOOTH GPU HARDWARE ACCELERATION & ANTI-JITTER FOR HERO VISUAL
+   ========================================================================== */
+.hero-visual{
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
+  transform:translateZ(0);
+  will-change:transform,opacity;
+}
+.hero-stage-container{
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
+  transform-style:preserve-3d;
+  -webkit-font-smoothing:antialiased;
+}
+.stage-deck{
+  -webkit-backface-visibility:hidden;
+  backface-visibility:hidden;
+  transform:translateZ(0);
+}
+.tab-progress-bar{
+  transition:width .08s linear;
+}
