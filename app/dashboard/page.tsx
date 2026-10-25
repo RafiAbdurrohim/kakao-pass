@@ -70,6 +70,7 @@ export default function Dashboard() {
 
   // Sub-filters inside Kakao Tab
   const [batchTab, setBatchTab] = useState<"semua" | "aktif" | "selesai">("semua");
+  const [actPage, setActPage] = useState(1);
 
   // Modals
   const [openNewBatch, setOpenNewBatch] = useState(false);
@@ -256,8 +257,15 @@ export default function Dashboard() {
       }
     });
 
-    return items.sort((a, b) => b.time - a.time).slice(0, 8);
+    return items.sort((a, b) => b.time - a.time);
   }, [batches]);
+
+  const ACT_PER_PAGE = 5;
+  const totalActPages = Math.max(1, Math.ceil(activityFeed.length / ACT_PER_PAGE));
+  const pagedActivities = useMemo(() => {
+    const start = (actPage - 1) * ACT_PER_PAGE;
+    return activityFeed.slice(start, start + ACT_PER_PAGE);
+  }, [activityFeed, actPage]);
 
   if (!user) return null;
 
@@ -493,9 +501,6 @@ export default function Dashboard() {
                 <div className="kp-kpi-val">
                   {totalKering} <small style={{ fontSize: 13, fontWeight: 500 }}>kg</small>
                 </div>
-                <div className="kp-kpi-sub">
-                  Dari {totalBasah} kg basah · {verifiedBatches.length} batch berpaspor sah
-                </div>
               </div>
 
               <div className="kp-kpi-item">
@@ -504,9 +509,6 @@ export default function Dashboard() {
                 </div>
                 <div className="kp-kpi-val" style={{ color: "var(--rust)" }}>
                   ~Rp 130rb<small style={{ fontSize: 12, fontWeight: 500 }}>/kg</small>
-                </div>
-                <div className="kp-kpi-sub">
-                  Estimasi harga acuan biji fermentasi terstandar paspor QR
                 </div>
               </div>
 
@@ -517,9 +519,6 @@ export default function Dashboard() {
                 <div className="kp-kpi-val" style={{ color: "var(--green-dark)" }}>
                   {avgMutu > 0 ? `${avgMutu}%` : "--"}
                 </div>
-                <div className="kp-kpi-sub">
-                  Standar mutu uji belah (SNI 2323:2008)
-                </div>
               </div>
 
               <div className="kp-kpi-item">
@@ -528,9 +527,6 @@ export default function Dashboard() {
                 </div>
                 <div className="kp-kpi-val">
                   {totalKompos} <small style={{ fontSize: 13, fontWeight: 500 }}>kg</small>
-                </div>
-                <div className="kp-kpi-sub">
-                  Pupuk organik sirkular dari {totalKulit} kg limbah kulit
                 </div>
               </div>
             </div>
@@ -629,47 +625,72 @@ export default function Dashboard() {
             <section className="kp-activity-card">
               <div className="kp-row" style={{ marginBottom: 12 }}>
                 <div>
-                  <h2 style={{ margin: "0 0 2px", fontSize: 16 }}>Riwayat Data &amp; Aktivitas Terkini</h2>
-                  <p style={{ margin: 0, fontSize: 12.5, color: "var(--muted)" }}>
-                    Catatan tahapan panen, pembalikan fermentasi, dan verifikasi paspor
-                  </p>
+                  <h2 style={{ margin: 0, fontSize: 16 }}>Riwayat Data &amp; Aktivitas Terkini</h2>
                 </div>
-                <span className="kp-nav-badge">{activityFeed.length} Aktivitas</span>
+                <span className="kp-nav-badge">{activityFeed.length} Total</span>
               </div>
 
               {activityFeed.length === 0 ? (
                 <div className="kp-empty">Belum ada riwayat aktivitas tercatat.</div>
               ) : (
-                <div style={{ display: "grid", gap: 0 }}>
-                  {activityFeed.map((act) => (
-                    <div key={act.id} className="kp-activity-item">
-                      <div
-                        className={`kp-activity-icon ${
-                          act.type === "fermentasi"
-                            ? "rust"
-                            : act.type === "kompos"
-                            ? "green"
-                            : "blue"
-                        }`}
-                      >
-                        {act.type === "fermentasi" ? (
-                          <Flame size={16} />
-                        ) : act.type === "kompos" ? (
-                          <Sprout size={16} />
-                        ) : act.type === "verifikasi" ? (
-                          <ShieldCheck size={16} />
-                        ) : (
-                          <Package size={16} />
-                        )}
+                <>
+                  <div style={{ display: "grid", gap: 0 }}>
+                    {pagedActivities.map((act) => (
+                      <div key={act.id} className="kp-activity-item">
+                        <div
+                          className={`kp-activity-icon ${
+                            act.type === "fermentasi"
+                              ? "rust"
+                              : act.type === "kompos"
+                              ? "green"
+                              : "blue"
+                          }`}
+                        >
+                          {act.type === "fermentasi" ? (
+                            <Flame size={16} />
+                          ) : act.type === "kompos" ? (
+                            <Sprout size={16} />
+                          ) : act.type === "verifikasi" ? (
+                            <ShieldCheck size={16} />
+                          ) : (
+                            <Package size={16} />
+                          )}
+                        </div>
+                        <div className="kp-activity-content">
+                          <div className="kp-activity-title">{act.title}</div>
+                          <div className="kp-activity-desc">{act.desc}</div>
+                        </div>
+                        <div className="kp-activity-time">{ago(act.time, now)}</div>
                       </div>
-                      <div className="kp-activity-content">
-                        <div className="kp-activity-title">{act.title}</div>
-                        <div className="kp-activity-desc">{act.desc}</div>
+                    ))}
+                  </div>
+
+                  {totalActPages > 1 && (
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 14, paddingTop: 12, borderTop: "1px solid #f1f5f9" }}>
+                      <span style={{ fontSize: 12, color: "var(--muted)" }}>
+                        Halaman {actPage} dari {totalActPages}
+                      </span>
+                      <div style={{ display: "flex", gap: 8 }}>
+                        <button
+                          type="button"
+                          className="kp-btn s sm"
+                          disabled={actPage <= 1}
+                          onClick={() => setActPage((p) => Math.max(1, p - 1))}
+                        >
+                          Sebelumnya
+                        </button>
+                        <button
+                          type="button"
+                          className="kp-btn s sm"
+                          disabled={actPage >= totalActPages}
+                          onClick={() => setActPage((p) => Math.min(totalActPages, p + 1))}
+                        >
+                          Selanjutnya
+                        </button>
                       </div>
-                      <div className="kp-activity-time">{ago(act.time, now)}</div>
                     </div>
-                  ))}
-                </div>
+                  )}
+                </>
               )}
             </section>
           </div>
@@ -919,10 +940,7 @@ export default function Dashboard() {
                 <span style={{ fontSize: 11, fontWeight: 800, color: "var(--green-dark)", letterSpacing: ".06em", textTransform: "uppercase" }}>
                   ZERO WASTE SIRKULAR KEBUN KAKAO
                 </span>
-                <h1 style={{ margin: "2px 0 4px" }}>Pengolahan Kompos Kulit Kakao</h1>
-                <p className="kp-sub" style={{ marginBottom: 0 }}>
-                  Pemanfaatan biomassa limbah kulit buah kakao menjadi pupuk organik bernilai ekonomi
-                </p>
+                <h1 style={{ margin: "2px 0 0" }}>Pengolahan Kompos Kulit Kakao</h1>
               </div>
 
               <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
@@ -941,9 +959,6 @@ export default function Dashboard() {
                 <div className="kp-kpi-val">
                   {totalKulit} <small style={{ fontSize: 13, fontWeight: 500 }}>kg</small>
                 </div>
-                <div className="kp-kpi-sub">
-                  Estimasi limbah kulit dari {batches.length} batch panen
-                </div>
               </div>
 
               <div className="kp-kpi-item">
@@ -952,9 +967,6 @@ export default function Dashboard() {
                 </div>
                 <div className="kp-kpi-val" style={{ color: "var(--green-dark)" }}>
                   {totalKompos} <small style={{ fontSize: 13, fontWeight: 500 }}>kg</small>
-                </div>
-                <div className="kp-kpi-sub">
-                  Pupuk organik siap pakai atau jual kelompok tani
                 </div>
               </div>
 
@@ -965,9 +977,6 @@ export default function Dashboard() {
                 <div className="kp-kpi-val" style={{ color: "var(--cocoa-dark)" }}>
                   {verifiedCompostBatches.length} <small style={{ fontSize: 13, fontWeight: 500 }}>lot</small>
                 </div>
-                <div className="kp-kpi-sub">
-                  Produk tersertifikasi paspor digital sirkular
-                </div>
               </div>
             </div>
 
@@ -975,10 +984,7 @@ export default function Dashboard() {
             <div className="kp-card" style={{ marginBottom: 24 }}>
               <div className="kp-row" style={{ marginBottom: 12 }}>
                 <div>
-                  <h2 style={{ margin: "0 0 2px", fontSize: 16 }}>Daftar Olahan Kompos Kulit Buah</h2>
-                  <p style={{ margin: 0, fontSize: 12.5, color: "var(--muted)" }}>
-                    Catat pengolahan limbah kulit kakao dari batch panen Anda
-                  </p>
+                  <h2 style={{ margin: 0, fontSize: 16 }}>Daftar Olahan Kompos Kulit Buah</h2>
                 </div>
               </div>
 
