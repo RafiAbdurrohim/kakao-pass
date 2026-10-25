@@ -379,15 +379,27 @@ export default function Home() {
           ==================================================================== */}
       <section className="concept-section" id="video-panduan">
         <div className="concept-container">
-          <div className="concept-section-header">
+          <motion.div
+            className="concept-section-header"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          >
             <span className="concept-kicker">PANDUAN PRAKTIK KEBUN</span>
             <h2>Video Panduan Petani Kakao</h2>
             <p>
               Panduan pengisian kotak bertingkat, pemantauan sensor suhu, dan pengolahan kompos kulit kakao.
             </p>
-          </div>
+          </motion.div>
 
-          <div className="concept-video-box">
+          <motion.div
+            className="concept-video-box"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+          >
             <div className="concept-iframe-holder">
               <iframe
                 src="https://drive.google.com/file/d/1-HeXo9qPBZi9DVmPxywXjNDp60gOKwBT/preview"
@@ -413,7 +425,7 @@ export default function Home() {
                 <span>Pengolahan Kompos Kulit Kakao</span>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
@@ -421,56 +433,90 @@ export default function Home() {
           7. SECTION: ZERO WASTE (KULIT KAKAO JADI KOMPOS)
           ==================================================================== */}
       <section className="concept-section bg-light" id="zero-waste">
-        <div className="concept-container zero-waste-concept-split">
-          {/* Foto Asli Kompos */}
-          <div className="zw-concept-photo-wrap">
-            <Image
-              src="/images/kakao-flatlay.jpg"
-              alt="Kulit buah kakao dan pupuk kompos"
-              width={600}
-              height={440}
-              className="zw-concept-img"
-            />
-            <div className="zw-concept-badge">
-              <strong>70% Bobot Buah</strong>
-              <span>Biomassa kulit diolah jadi pupuk kompos organik</span>
-            </div>
-          </div>
-
-          {/* Manfaat Praktis Petani */}
-          <div className="zw-concept-copy">
-            <span className="concept-kicker">PENGOLAHAN LIMBAH KULIT</span>
-            <h2>Kebun Lebih Bersih, Hemat Biaya Pupuk</h2>
-            <p className="zw-concept-lead">
-              Kulit buah kakao jangan dibiarkan menumpuk di dekat pohon karena dapat memicu jamur busuk buah.
-              Di KakaoPass, limbah kulit dicatat untuk diolah menjadi pupuk organik kebun sendiri.
-            </p>
-
-            <div className="zw-point-list">
-              <div className="zw-point-row">
-                <CheckCircle2 size={18} className="text-green" />
-                <div>
-                  <strong>Cegah Jamur &amp; Penyakit Buah</strong>
-                  <p>Kebun bersih tanpa tumpukan kulit busuk di dekat pohon.</p>
+        <div className="concept-container">
+          <div className="zero-waste-concept-split">
+            {/* Foto Asli Kompos */}
+            <motion.div
+              className="zw-concept-photo-wrap"
+              initial={{ opacity: 0, x: -24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <Image
+                src="/images/kakao-flatlay.jpg"
+                alt="Kulit buah kakao dan pupuk kompos"
+                width={640}
+                height={460}
+                className="zw-concept-img"
+              />
+              <div className="zw-concept-badge">
+                <div className="zw-badge-icon">
+                  <Leaf size={16} />
+                </div>
+                <div className="zw-badge-text">
+                  <strong>70% Bobot Buah Kakao</strong>
+                  <span>Biomassa kulit diolah jadi pupuk kompos organik</span>
                 </div>
               </div>
+            </motion.div>
 
-              <div className="zw-point-row">
-                <CheckCircle2 size={18} className="text-green" />
-                <div>
-                  <strong>Hemat Pengeluaran Pupuk Kimia</strong>
-                  <p>Kompos dipakai kembali untuk menyuburkan kebun kakao sendiri.</p>
-                </div>
-              </div>
+            {/* Manfaat Praktis Petani */}
+            <motion.div
+              className="zw-concept-copy"
+              initial={{ opacity: 0, x: 24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <span className="concept-kicker">PENGOLAHAN LIMBAH KULIT</span>
+              <h2>Kebun Lebih Bersih, Hemat Biaya Pupuk</h2>
+              <p className="zw-concept-lead">
+                Kulit buah kakao jangan dibiarkan menumpuk di dekat pohon karena dapat memicu jamur busuk buah.
+                Di KakaoPass, limbah kulit dicatat untuk diolah menjadi pupuk organik kebun sendiri.
+              </p>
 
-              <div className="zw-point-row">
-                <CheckCircle2 size={18} className="text-green" />
-                <div>
-                  <strong>Pencatatan Karung Kompos Mandiri</strong>
-                  <p>Setiap batch kompos yang siap pakai dicatat datanya di portal.</p>
-                </div>
+              <div className="zw-point-list">
+                <motion.div
+                  className="zw-point-row"
+                  whileHover={{ x: 4, transition: { duration: 0.15 } }}
+                >
+                  <div className="zw-point-icon-box">
+                    <CheckCircle2 size={18} className="text-green" />
+                  </div>
+                  <div>
+                    <strong>Cegah Jamur &amp; Penyakit Buah</strong>
+                    <p>Kebun bersih tanpa tumpukan kulit busuk di dekat pohon.</p>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  className="zw-point-row"
+                  whileHover={{ x: 4, transition: { duration: 0.15 } }}
+                >
+                  <div className="zw-point-icon-box">
+                    <CheckCircle2 size={18} className="text-green" />
+                  </div>
+                  <div>
+                    <strong>Hemat Pengeluaran Pupuk Kimia</strong>
+                    <p>Kompos dipakai kembali untuk menyuburkan kebun kakao sendiri.</p>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  className="zw-point-row"
+                  whileHover={{ x: 4, transition: { duration: 0.15 } }}
+                >
+                  <div className="zw-point-icon-box">
+                    <CheckCircle2 size={18} className="text-green" />
+                  </div>
+                  <div>
+                    <strong>Pencatatan Karung Kompos Mandiri</strong>
+                    <p>Setiap batch kompos yang siap pakai dicatat datanya di portal.</p>
+                  </div>
+                </motion.div>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -480,17 +526,30 @@ export default function Home() {
           ==================================================================== */}
       <section className="concept-section" id="alur">
         <div className="concept-container">
-          <div className="concept-section-header">
+          <motion.div
+            className="concept-section-header"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          >
             <span className="concept-kicker">INTEGRASI TIGA PERAN</span>
             <h2>Alur Kerja Lapangan</h2>
             <p>
               Pencatatan mudah untuk petani, verifikasi cepat oleh penyuluh, dan kepastian mutu bagi pembeli.
             </p>
-          </div>
+          </motion.div>
 
           <div className="concept-stepper-grid">
             {/* Step 1 */}
-            <div className="stepper-item-card">
+            <motion.div
+              className="stepper-item-card"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-30px" }}
+              transition={{ duration: 0.45, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -6, transition: { duration: 0.2 } }}
+            >
               <div className="stepper-item-head">
                 <span className="stepper-role-tag">PETANI DI KEBUN</span>
                 <span className="stepper-index-num">01</span>
@@ -500,10 +559,17 @@ export default function Home() {
                 Petani memasukkan berat panen, memantau suhu sensor fermentasi harian, dan mencatat foto uji belah.
               </p>
               <div className="stepper-foot-note">Dashboard Petani</div>
-            </div>
+            </motion.div>
 
             {/* Step 2 */}
-            <div className="stepper-item-card highlight">
+            <motion.div
+              className="stepper-item-card highlight"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-30px" }}
+              transition={{ duration: 0.45, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -6, transition: { duration: 0.2 } }}
+            >
               <div className="stepper-item-head">
                 <span className="stepper-role-tag green">PENYULUH (PPL)</span>
                 <span className="stepper-index-num">02</span>
@@ -513,10 +579,17 @@ export default function Home() {
                 Penyuluh memeriksa kurva suhu telemetri dan foto belah biji. Setelah memenuhi syarat, batch disetujui.
               </p>
               <div className="stepper-foot-note">Portal Admin PPL</div>
-            </div>
+            </motion.div>
 
             {/* Step 3 */}
-            <div className="stepper-item-card">
+            <motion.div
+              className="stepper-item-card"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-30px" }}
+              transition={{ duration: 0.45, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -6, transition: { duration: 0.2 } }}
+            >
               <div className="stepper-item-head">
                 <span className="stepper-role-tag">PEMBELI PABRIK</span>
                 <span className="stepper-index-num">03</span>
@@ -526,7 +599,7 @@ export default function Home() {
                 Pembeli menerima karung dengan stiker resmi Karangan Mandiri yang memuat riwayat mutu jelas.
               </p>
               <div className="stepper-foot-note">Jaminan Mutu Terstandar</div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
@@ -536,7 +609,13 @@ export default function Home() {
           ==================================================================== */}
       <section className="concept-cta-wrap">
         <div className="concept-container">
-          <div className="concept-cta-card">
+          <motion.div
+            className="concept-cta-card"
+            initial={{ opacity: 0, y: 24 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          >
             <div className="cta-copy-side">
               <span className="concept-kicker">PORTAL KELOMPOK TANI</span>
               <h2>Mulai Kelola Panen &amp; Fermentasi Hari Ini</h2>
@@ -554,7 +633,7 @@ export default function Home() {
                 Hubungi Penyuluh Lapangan
               </a>
             </div>
-          </div>
+          </motion.div>
         </div>
       </section>
 
