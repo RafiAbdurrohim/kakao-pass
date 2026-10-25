@@ -23,6 +23,7 @@ import {
   TrendingUp,
   X,
 } from "lucide-react";
+import HeroCanvas3D from "@/components/HeroCanvas3D";
 
 export default function Home() {
   const [videoOpen, setVideoOpen] = useState(false);
@@ -148,7 +149,7 @@ export default function Home() {
       </AnimatePresence>
 
       {/* ====================================================================
-          3. HERO SECTION (CENTERED ALA TWINKLE.AI + FLOATING MOCKUP)
+          3. HERO SECTION (CENTERED ALA TWINKLE.AI + 3D THREE.JS SHOWCASE)
           ==================================================================== */}
       <section className="twinkle-hero-section">
         <div className="twinkle-container">
@@ -187,108 +188,129 @@ export default function Home() {
             </button>
           </div>
 
-          {/* Central Showcase: Phone Mockup + Floating Cutout Cocoa (Exact Twinkle.ai vibe) */}
-          <div className="twinkle-mockup-stage">
-            {/* Center Mobile Screen Mockup */}
-            <div className="phone-mockup-frame">
-              <div className="phone-screen-inner">
-                {/* Mobile Top Header */}
-                <div className="screen-top-bar">
-                  <div className="screen-app-brand">
-                    <QrCode size={13} className="text-black" />
-                    <strong>KakaoPass Mobile</strong>
+          {/* Central Split Showcase:
+              - Background: Three.js Interactive 3D Canvas
+              - Left: Layar HP Setengah (Real Mobile Screen Cutoff)
+              - Right: Foto Buah Kakao Segar Cutout Diperbesar */}
+          <div className="twinkle-hero-split-stage">
+            {/* Interactive Three.js Background Canvas */}
+            <HeroCanvas3D />
+
+            {/* Showcase Split Grid */}
+            <div className="stage-split-grid">
+              {/* Sisi Kiri: Layar HP Setengah (Real Mobile App UI) */}
+              <div className="half-phone-container">
+                <div className="half-phone-body">
+                  <div className="phone-notch-bar">
+                    <span className="notch-pill" />
                   </div>
-                  <span className="screen-batch-id">Batch #24</span>
+
+                  <div className="phone-screen-content">
+                    {/* Header HP */}
+                    <div className="screen-header-row">
+                      <div className="app-badge">
+                        <QrCode size={13} />
+                        <span>KakaoPass App</span>
+                      </div>
+                      <span className="batch-pill-code">Batch #24</span>
+                    </div>
+
+                    {/* Sensor Suhu Telemetri */}
+                    <div className="phone-telemetry-card">
+                      <div className="telemetry-head">
+                        <span className="pulse-green-dot" />
+                        <span>Sensor Suhu IoT (Probe 20 cm)</span>
+                      </div>
+                      <div className="telemetry-temp-row">
+                        <span className="temp-number">48.6°C</span>
+                        <span className="temp-phase-pill">Fase Panas</span>
+                      </div>
+
+                      {/* Kurva Grafik Suhu */}
+                      <div className="phone-graph-strip">
+                        <svg viewBox="0 0 220 45" fill="none" className="graph-strip-svg" aria-hidden="true">
+                          <path
+                            d="M0 38 C 40 35, 90 28, 130 8 C 170 4, 190 14, 220 22"
+                            stroke="#10b981"
+                            strokeWidth="2.5"
+                            strokeLinecap="round"
+                          />
+                        </svg>
+                      </div>
+                    </div>
+
+                    {/* Uji Belah SNI */}
+                    <div className="phone-sni-grid">
+                      <div className="sni-cell">
+                        <span className="sni-val">88%</span>
+                        <span className="sni-lbl">SNI Mutu I</span>
+                      </div>
+                      <div className="sni-cell">
+                        <span className="sni-val">6.8%</span>
+                        <span className="sni-lbl">Kadar Air</span>
+                      </div>
+                    </div>
+
+                    {/* Status Pengesahan */}
+                    <div className="phone-verified-pill">
+                      <CheckCircle2 size={13} className="text-green" />
+                      <span>Diverifikasi PPL Karangan</span>
+                    </div>
+                  </div>
                 </div>
 
-                {/* IoT Live Temperature Display */}
-                <div className="screen-iot-card">
-                  <div className="iot-meta-row">
-                    <span className="iot-live-pulse" />
-                    <span className="iot-label">Sensor Suhu Kotak Kayu</span>
-                  </div>
-                  <div className="iot-temp-display">
-                    <span className="temp-large">48.6°C</span>
-                    <span className="temp-badge-green">Fase Termofilik</span>
-                  </div>
-                  {/* Clean SVG Curve Line */}
-                  <div className="screen-curve-box">
-                    <svg viewBox="0 0 200 40" fill="none" className="screen-curve-svg" aria-hidden="true">
-                      <path
-                        d="M0 32 C 40 30, 80 25, 120 8 C 160 5, 180 14, 200 20"
-                        stroke="#10b981"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                      />
-                    </svg>
+                {/* Floating Badge di atas HP */}
+                <div className="floating-bubble bubble-phone-top">
+                  <span className="bubble-dot-green" />
+                  <strong>+ Sensor IoT 20 cm</strong>
+                </div>
+              </div>
+
+              {/* Sisi Kanan: Foto Buah Kakao Segar Cutout Diperbesar */}
+              <div className="cocoa-fresh-large-side">
+                <div className="cocoa-fresh-image-wrap">
+                  <Image
+                    src="/images/kakao-fresh-cutout.png"
+                    alt="Buah kakao segar dipotong dengan biji dan daun Karangan Mandiri"
+                    width={480}
+                    height={480}
+                    priority
+                    className="cocoa-fresh-large-img"
+                  />
+                  {/* Natural Ground Contact Shadow */}
+                  <div className="cocoa-natural-shadow" />
+                </div>
+
+                {/* Floating Badge di dekat Buah Kakao */}
+                <div className="floating-bubble bubble-cocoa-right">
+                  <span className="bubble-icon-therm">
+                    <Thermometer size={14} />
+                  </span>
+                  <div>
+                    <span className="bubble-tiny-label">Suhu Inti</span>
+                    <strong className="bubble-bold-val">48.6°C ↗</strong>
                   </div>
                 </div>
 
-                {/* SNI Cut-Test Status */}
-                <div className="screen-sni-row">
-                  <div className="sni-item-box">
-                    <span className="sni-num">88%</span>
-                    <span className="sni-caption">Biji Baik (SNI Mutu I)</span>
+                {/* Floating Card Zero Waste di bawah Buah Kakao */}
+                <a href="#zero-waste" className="floating-card-pill card-cocoa-bottom">
+                  <div className="pill-thumb-box">
+                    <Image
+                      src="/images/kakao-flatlay.jpg"
+                      alt="Kompos kulit kakao"
+                      width={42}
+                      height={42}
+                      className="pill-thumb-img"
+                    />
                   </div>
-                  <div className="sni-item-box">
-                    <span className="sni-num">6.8%</span>
-                    <span className="sni-caption">Kadar Air Aman</span>
+                  <div>
+                    <span className="pill-tag-green">ZERO WASTE</span>
+                    <strong>70% Kulit Jadi Pupuk</strong>
                   </div>
-                </div>
-
-                {/* Status Pill */}
-                <div className="screen-status-pill">
-                  <CheckCircle2 size={13} className="text-green" />
-                  <span>Diverifikasi Penyuluh Lapangan (PPL)</span>
-                </div>
+                  <ArrowUpRight size={13} className="pill-arrow" />
+                </a>
               </div>
             </div>
-
-            {/* Floating Badge 1: Top Left (Sensor Probe) */}
-            <div className="floating-bubble bubble-top-left">
-              <span className="bubble-dot-green" />
-              <strong>+ Sensor IoT 20 cm</strong>
-            </div>
-
-            {/* Floating Badge 2: Top Right (Live Telemetry Stat) */}
-            <div className="floating-bubble bubble-top-right">
-              <span className="bubble-icon-therm">
-                <Thermometer size={14} />
-              </span>
-              <div>
-                <span className="bubble-tiny-label">Suhu Inti</span>
-                <strong className="bubble-bold-val">48.6°C ↗</strong>
-              </div>
-            </div>
-
-            {/* Floating Cutout 3: Cocoa Artisan Pod & Beans (Transparent Cutout, Soft Shadow) */}
-            <div className="floating-cocoa-cutout">
-              <Image
-                src="/images/kakao-cutout.png"
-                alt="Buah dan biji kakao fermentasi Karangan Mandiri"
-                width={280}
-                height={186}
-                className="cocoa-cutout-img"
-              />
-            </div>
-
-            {/* Floating Badge 4: Bottom Right (Compost Zero Waste Card) */}
-            <a href="#zero-waste" className="floating-card-pill card-bottom-right">
-              <div className="pill-thumb-box">
-                <Image
-                  src="/images/kakao-flatlay.jpg"
-                  alt="Kompos kulit kakao"
-                  width={42}
-                  height={42}
-                  className="pill-thumb-img"
-                />
-              </div>
-              <div>
-                <span className="pill-tag-green">ZERO WASTE</span>
-                <strong>70% Kulit Jadi Pupuk</strong>
-              </div>
-              <ArrowUpRight size={13} className="pill-arrow" />
-            </a>
           </div>
 
           {/* ====================================================================
@@ -379,7 +401,7 @@ export default function Home() {
       </section>
 
       {/* ====================================================================
-          6. SECTION: VIDEO PANDUAN LAPANGAN (BUKAN "LUARAN FORMIKA")
+          6. SECTION: VIDEO PANDUAN LAPANGAN
           ==================================================================== */}
       <section className="twinkle-clean-section" id="video-panduan">
         <div className="twinkle-container">
