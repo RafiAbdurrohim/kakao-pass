@@ -375,57 +375,82 @@ export default function Home() {
       </section>
 
       {/* ====================================================================
-          6. SECTION: VIDEO PANDUAN LAPANGAN
+          6. SECTION: VIDEO PANDUAN LAPANGAN (2 Kolom: Tulisan Kiri, Video Kanan)
           ==================================================================== */}
       <section className="concept-section" id="video-panduan">
         <div className="concept-container">
-          <motion.div
-            className="concept-section-header"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <span className="concept-kicker">PANDUAN PRAKTIK KEBUN</span>
-            <h2>Video Panduan Petani Kakao</h2>
-            <p>
-              Panduan pengisian kotak bertingkat, pemantauan sensor suhu, dan pengolahan kompos kulit kakao.
-            </p>
-          </motion.div>
+          <div className="concept-video-split">
+            {/* Sisi Kiri: Tulisan & Langkah Praktik */}
+            <motion.div
+              className="concept-video-copy"
+              initial={{ opacity: 0, x: -24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <span className="concept-kicker">PANDUAN PRAKTIK KEBUN</span>
+              <h2>Video Panduan Petani Kakao</h2>
+              <p className="concept-video-lead">
+                Panduan lapangan pengisian kotak bertingkat, pemantauan sensor suhu telemetri, dan fermentasi kompos kulit kakao.
+              </p>
 
-          <motion.div
-            className="concept-video-box"
-            initial={{ opacity: 0, y: 24 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-40px" }}
-            transition={{ duration: 0.5, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <div className="concept-iframe-holder">
-              <iframe
-                src="https://drive.google.com/file/d/1-HeXo9qPBZi9DVmPxywXjNDp60gOKwBT/preview"
-                title="Video Panduan Petani Kakao"
-                allow="autoplay; encrypted-media"
-                allowFullScreen
-                className="concept-video-iframe"
-              />
-            </div>
+              <div className="concept-video-steps">
+                <motion.div
+                  className="video-step-item"
+                  whileHover={{ x: 4, transition: { duration: 0.15 } }}
+                >
+                  <span className="time-badge">01:15</span>
+                  <div>
+                    <strong>Pemasangan Sensor Probe di Kotak Kayu</strong>
+                    <p>Sensor ditancapkan 20 cm ke tengah tumpukan biji untuk pantau suhu 28°C–50°C.</p>
+                  </div>
+                </motion.div>
 
-            {/* Timeline Bar */}
-            <div className="concept-timeline-bar">
-              <div className="timeline-item-chip">
-                <span className="time-badge">01:15</span>
-                <span>Pemasangan Sensor Probe di Kotak Kayu</span>
+                <motion.div
+                  className="video-step-item"
+                  whileHover={{ x: 4, transition: { duration: 0.15 } }}
+                >
+                  <span className="time-badge">03:40</span>
+                  <div>
+                    <strong>Pembalikan Kotak Tiap 48 Jam</strong>
+                    <p>Biji dipindahkan ke kotak bertingkat bawah untuk meratakan aerasi oksigen.</p>
+                  </div>
+                </motion.div>
+
+                <motion.div
+                  className="video-step-item"
+                  whileHover={{ x: 4, transition: { duration: 0.15 } }}
+                >
+                  <span className="time-badge">06:20</span>
+                  <div>
+                    <strong>Pengolahan Kompos Kulit Kakao</strong>
+                    <p>Pencacahan limbah kulit buah untuk diolah menjadi pupuk organik kebun.</p>
+                  </div>
+                </motion.div>
               </div>
-              <div className="timeline-item-chip">
-                <span className="time-badge">03:40</span>
-                <span>Pembalikan Kotak Tiap 48 Jam</span>
+            </motion.div>
+
+            {/* Sisi Kanan: Video Box */}
+            <motion.div
+              className="concept-video-wrap"
+              initial={{ opacity: 0, x: 24 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.5, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div className="concept-video-box">
+                <div className="concept-iframe-holder">
+                  <iframe
+                    src="https://drive.google.com/file/d/1-HeXo9qPBZi9DVmPxywXjNDp60gOKwBT/preview"
+                    title="Video Panduan Petani Kakao"
+                    allow="autoplay; encrypted-media"
+                    allowFullScreen
+                    className="concept-video-iframe"
+                  />
+                </div>
               </div>
-              <div className="timeline-item-chip">
-                <span className="time-badge">06:20</span>
-                <span>Pengolahan Kompos Kulit Kakao</span>
-              </div>
-            </div>
-          </motion.div>
+            </motion.div>
+          </div>
         </div>
       </section>
 
