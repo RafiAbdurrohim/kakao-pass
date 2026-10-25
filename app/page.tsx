@@ -8,9 +8,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   CheckCircle2,
-  ChevronRight,
   FileCheck2,
-  Layers,
   Leaf,
   MapPin,
   Menu,
@@ -23,7 +21,7 @@ import {
   TrendingUp,
   X,
 } from "lucide-react";
-import HeroCanvas3D from "@/components/HeroCanvas3D";
+import CocoaThreeCanvas from "@/components/CocoaThreeCanvas";
 
 export default function Home() {
   const [videoOpen, setVideoOpen] = useState(false);
@@ -149,7 +147,7 @@ export default function Home() {
       </AnimatePresence>
 
       {/* ====================================================================
-          3. HERO SECTION (CENTERED ALA TWINKLE.AI + 3D THREE.JS SHOWCASE)
+          3. HERO SECTION (TWINKLE.AI STAGE: IPHONE DYNAMIC ISLAND + 3D KAKAO)
           ==================================================================== */}
       <section className="twinkle-hero-section">
         <div className="twinkle-container">
@@ -188,126 +186,142 @@ export default function Home() {
             </button>
           </div>
 
-          {/* Central Split Showcase:
-              - Background: Three.js Interactive 3D Canvas
-              - Left: Layar HP Setengah (Real Mobile Screen Cutoff)
-              - Right: Foto Buah Kakao Segar Cutout Diperbesar */}
-          <div className="twinkle-hero-split-stage">
-            {/* Interactive Three.js Background Canvas */}
-            <HeroCanvas3D />
-
-            {/* Showcase Split Grid */}
-            <div className="stage-split-grid">
-              {/* Sisi Kiri: Layar HP Setengah (Real Mobile App UI) */}
-              <div className="half-phone-container">
-                <div className="half-phone-body">
-                  <div className="phone-notch-bar">
-                    <span className="notch-pill" />
+          {/* ================================================================
+              EXACT TWINKLE.AI SHOWCASE STAGE:
+              - Left: Dynamic Island iPhone displaying real harvest app UI
+              - Right: Three.js 3D Interactive Floating Cocoa Fruit
+              - Floating: Large prominent badges (+ Sensor IoT, Suhu Inti, Zero Waste 70%)
+              ================================================================ */}
+          <div className="twinkle-exact-stage">
+            <div className="stage-composition-grid">
+              {/* SISI KIRI: Dynamic Island iPhone Mockup (Sesuai Screenshot User) */}
+              <div className="stage-left-device">
+                <div className="iphone-dynamic-chassis">
+                  {/* Dynamic Island Pill at Top */}
+                  <div className="dynamic-island-row">
+                    <div className="dynamic-island-pill">
+                      <span className="island-camera-dot" />
+                      <span className="island-sensor-dot" />
+                    </div>
                   </div>
 
-                  <div className="phone-screen-content">
-                    {/* Header HP */}
-                    <div className="screen-header-row">
-                      <div className="app-badge">
-                        <QrCode size={13} />
-                        <span>KakaoPass App</span>
+                  {/* Inside Screen Content */}
+                  <div className="iphone-screen-viewport">
+                    {/* Top User Status Bar */}
+                    <div className="screen-farmer-header">
+                      <div className="farmer-avatar-badge">
+                        <span className="avatar-letter">B</span>
+                        <div>
+                          <strong className="farmer-name-text">Pak Budi (Petani)</strong>
+                          <span className="farmer-loc-text">Kebun Karangan</span>
+                        </div>
                       </div>
-                      <span className="batch-pill-code">Batch #24</span>
+                      <span className="live-iot-chip">
+                        <span className="live-chip-dot" />
+                        Live IoT
+                      </span>
                     </div>
 
-                    {/* Sensor Suhu Telemetri */}
-                    <div className="phone-telemetry-card">
-                      <div className="telemetry-head">
-                        <span className="pulse-green-dot" />
-                        <span>Sensor Suhu IoT (Probe 20 cm)</span>
-                      </div>
-                      <div className="telemetry-temp-row">
-                        <span className="temp-number">48.6°C</span>
-                        <span className="temp-phase-pill">Fase Panas</span>
-                      </div>
-
-                      {/* Kurva Grafik Suhu */}
-                      <div className="phone-graph-strip">
-                        <svg viewBox="0 0 220 45" fill="none" className="graph-strip-svg" aria-hidden="true">
-                          <path
-                            d="M0 38 C 40 35, 90 28, 130 8 C 170 4, 190 14, 220 22"
-                            stroke="#10b981"
-                            strokeWidth="2.5"
-                            strokeLinecap="round"
-                          />
-                        </svg>
-                      </div>
+                    {/* Central Product Showcase Inside Phone Screen */}
+                    <div className="screen-product-box">
+                      <Image
+                        src="/images/kakao-artisan.png"
+                        alt="Biji kakao fermentasi artisan Karangan Mandiri"
+                        width={280}
+                        height={200}
+                        className="screen-harvest-photo"
+                      />
                     </div>
 
-                    {/* Uji Belah SNI */}
-                    <div className="phone-sni-grid">
-                      <div className="sni-cell">
-                        <span className="sni-val">88%</span>
-                        <span className="sni-lbl">SNI Mutu I</span>
+                    {/* Bottom Floating Intelligence Card Inside Screen */}
+                    <div className="screen-insight-card">
+                      <div className="insight-badge-row">
+                        <Sparkles size={11} className="text-amber" />
+                        <span className="insight-tag">✦ Rekomendasi Mutu Panen</span>
                       </div>
-                      <div className="sni-cell">
-                        <span className="sni-val">6.8%</span>
-                        <span className="sni-lbl">Kadar Air</span>
+                      <p className="insight-desc">
+                        Suhu optimal <strong>48.6°C</strong> tercapai. Siap pembalikan kotak fermentasi kayu 48 jam.
+                      </p>
+                      <div className="insight-chips-row">
+                        <span className="pill-chip-green">SNI Mutu I</span>
+                        <span className="pill-chip-amber">Fase Termofilik</span>
                       </div>
-                    </div>
-
-                    {/* Status Pengesahan */}
-                    <div className="phone-verified-pill">
-                      <CheckCircle2 size={13} className="text-green" />
-                      <span>Diverifikasi PPL Karangan</span>
                     </div>
                   </div>
                 </div>
 
-                {/* Floating Badge di atas HP */}
-                <div className="floating-bubble bubble-phone-top">
-                  <span className="bubble-dot-green" />
-                  <strong>+ Sensor IoT 20 cm</strong>
+                {/* Floating Badge Kiri Atas: + Sensor IoT 20 cm (Besar & Tegas) */}
+                <div className="floating-badge-large badge-pos-top-left">
+                  <div className="badge-icon-duo">
+                    <span className="icon-star-box">✦</span>
+                    <span className="icon-check-box">✓</span>
+                  </div>
+                  <div>
+                    <strong className="badge-bold-title">+ Sensor IoT 20 cm</strong>
+                    <span className="badge-sub-info">Probe Kotak Kayu 3 Lapis</span>
+                  </div>
+                </div>
+
+                {/* Floating Badge Kiri Tengah: Kartu Telemetri Sensor */}
+                <div className="floating-card-large card-pos-mid-left">
+                  <div className="telemetry-label-row">
+                    <Thermometer size={14} className="text-green" />
+                    <span>Telemetri Inti Kotak</span>
+                  </div>
+                  <div className="telemetry-big-stat">
+                    <span>48.6°C</span>
+                    <span className="telemetry-phase-tag">Termofilik</span>
+                  </div>
+                  {/* Real SVG Curve */}
+                  <div className="mini-curve-wrap">
+                    <svg viewBox="0 0 160 28" fill="none" className="curve-line-svg" aria-hidden="true">
+                      <path
+                        d="M0 22 C 30 20, 60 16, 90 6 C 120 2, 140 8, 160 12"
+                        stroke="#10b981"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                      />
+                    </svg>
+                  </div>
                 </div>
               </div>
 
-              {/* Sisi Kanan: Foto Buah Kakao Segar Cutout Diperbesar */}
-              <div className="cocoa-fresh-large-side">
-                <div className="cocoa-fresh-image-wrap">
-                  <Image
-                    src="/images/kakao-fresh-cutout.png"
-                    alt="Buah kakao segar dipotong dengan biji dan daun Karangan Mandiri"
-                    width={480}
-                    height={480}
-                    priority
-                    className="cocoa-fresh-large-img"
-                  />
-                  {/* Natural Ground Contact Shadow */}
-                  <div className="cocoa-natural-shadow" />
+              {/* SISI KANAN: Three.js 3D Interactive Floating Cocoa Fruit + Big Stats */}
+              <div className="stage-right-cocoa">
+                {/* 3D Three.js Animated Cocoa Canvas Container (Enlarged) */}
+                <div className="threejs-cocoa-viewport">
+                  <CocoaThreeCanvas />
+                  <span className="threejs-hint-tag">✦ Sentuh / gerakkan kursor untuk efek 3D</span>
                 </div>
 
-                {/* Floating Badge di dekat Buah Kakao */}
-                <div className="floating-bubble bubble-cocoa-right">
-                  <span className="bubble-icon-therm">
-                    <Thermometer size={14} />
-                  </span>
-                  <div>
-                    <span className="bubble-tiny-label">Suhu Inti</span>
-                    <strong className="bubble-bold-val">48.6°C ↗</strong>
+                {/* Floating Stat Kanan Atas: Suhu Inti 48.6°C (Besar ala Twinkle 40.7%) */}
+                <div className="floating-stat-box-large badge-pos-top-right">
+                  <span className="stat-label-muted">Suhu Inti</span>
+                  <div className="stat-number-arrow-row">
+                    <strong className="stat-number-display">48.6°C</strong>
+                    <span className="stat-arrow-circle">↗</span>
                   </div>
                 </div>
 
-                {/* Floating Card Zero Waste di bawah Buah Kakao */}
-                <a href="#zero-waste" className="floating-card-pill card-cocoa-bottom">
-                  <div className="pill-thumb-box">
+                {/* Floating Card Kanan Bawah: Zero Waste 70% Kulit Jadi Pupuk (Diperbesar) */}
+                <a href="#zero-waste" className="floating-zw-card-large card-pos-bottom-right">
+                  <div className="zw-large-thumb-box">
                     <Image
                       src="/images/kakao-flatlay.jpg"
-                      alt="Kompos kulit kakao"
-                      width={42}
-                      height={42}
-                      className="pill-thumb-img"
+                      alt="Kompos kulit kakao organik"
+                      width={64}
+                      height={64}
+                      className="zw-large-thumb-img"
                     />
                   </div>
-                  <div>
-                    <span className="pill-tag-green">ZERO WASTE</span>
-                    <strong>70% Kulit Jadi Pupuk</strong>
+                  <div className="zw-large-copy">
+                    <span className="zw-pill-tag">✦ ZERO WASTE 70%</span>
+                    <strong className="zw-strong-title">Kulit Buah Jadi Pupuk Kompos</strong>
+                    <span className="zw-sub-desc">Cegah jamur busuk buah di kebun</span>
                   </div>
-                  <ArrowUpRight size={13} className="pill-arrow" />
+                  <span className="zw-arrow-circle">
+                    <ArrowUpRight size={15} />
+                  </span>
                 </a>
               </div>
             </div>
