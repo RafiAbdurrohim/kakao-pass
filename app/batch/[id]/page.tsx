@@ -25,9 +25,7 @@ export default function BatchPage() {
   const [origin, setOrigin] = useState("");
   const [bk, setBk] = useState("");
   const [mt, setMt] = useState({ baik: "", ungu: "", slaty: "", jamur: "", kadarAir: "" });
-  const [ocr, setOcr] = useState<{ beratKering?: string; kadarAir?: string; beratKompos?: string }>({});
-  const [kp, setKp] = useState("");
-  const [camp, setCamp] = useState("Kulit kakao + dekomposer");
+  const [ocr, setOcr] = useState<{ beratKering?: string; kadarAir?: string }>({});
   const [showBalikModal, setShowBalikModal] = useState(false);
   const [showFinishModal, setShowFinishModal] = useState(false);
   const [balikNote, setBalikNote] = useState({ warna: "Mulai kecokelatan", aroma: "Asam buah segar (asetat)" });
@@ -67,7 +65,6 @@ export default function BatchPage() {
   const isPrematureFinish = day < 4 || balik.length === 0;
   const cur = ORDER.indexOf(b.status === "revisi" ? "uji_mutu" : b.status);
   const suhuNow = live?.suhu_biji;
-  const kompos = b.kompos ?? { status: "belum" as const };
   const ok = b.fotoOk || {};
 
   const nBaik = num(mt.baik) || 0;
@@ -168,14 +165,6 @@ export default function BatchPage() {
       "sumber/kadarAir": ocr.kadarAir === mt.kadarAir ? "ocr" : "manual",
     });
     setMsg("Terkirim ke admin untuk diverifikasi.");
-  });
-
-  const sendKompos = () => run(async () => {
-    const v = num(kp);
-    if (!(v > 0)) return setErr("Isi berat kompos jadi (kg).");
-    if (!ok.timbanganKompos || !ok.produkKompos) return setErr("Ambil foto timbangan kompos dan foto produk.");
-    await update(ref(db, base), { kompos: { ...kompos, status: "menunggu", beratKompos: v, selesai: Date.now(), kirim: Date.now(), catatan: null }, "sumber/beratKompos": ocr.beratKompos === kp ? "ocr" : "manual" });
-    setMsg("Kompos terkirim ke admin untuk diverifikasi.");
   });
 
   const keringForm = (
@@ -341,28 +330,6 @@ export default function BatchPage() {
               <Link href={`/p/${b.id}`} target="_blank" className="kp-btn s"><ExternalLink size={16} />Buka paspor</Link></div>
           </>}
         </section>
-
-        <section className="kp-card kp-c12">
-          <div className="kp-row"><h2 style={{ margin: 0 }}>Limbah kulit → kompos</h2>
-            <span className={"kp-chip " + (kompos.status === "terverifikasi" ? "g" : kompos.status === "belum" ? "" : "r")}>{{ belum: "Belum diolah", diolah: "Sedang diolah", menunggu: "Menunggu verifikasi", terverifikasi: "Terverifikasi" }[kompos.status]}</span></div>
-          <p className="kp-sub" style={{ fontSize: 13, margin: "8px 0 14px" }}>Perkiraan kulit buah: {b.beratKulit || 0} kg. Jalur ini terpisah dan tidak menghalangi paspor biji.</p>
-          {kompos.status === "belum" && <>
-            <div className="kp-f" style={{ maxWidth: 420 }}><label>Bahan campuran</label><input value={camp} onChange={(e) => setCamp(e.target.value)} /></div>
-            <button className="kp-btn g" onClick={() => run(async () => { await update(ref(db, base), { kompos: { status: "diolah", mulai: Date.now(), campuran: camp.trim() || "Kulit kakao" } }); })}>Mulai olah jadi kompos</button></>}
-          {kompos.status === "diolah" && <div style={{ maxWidth: 480 }}>
-            <p style={{ fontSize: 13, color: "var(--muted)" }}>Mulai {fmtDate(kompos.mulai)} · {kompos.campuran}</p>
-            {kompos.catatan && <div className="kp-warn"><b>Catatan admin:</b> {kompos.catatan}</div>}
-            <div className="kp-f"><label>Berat kompos jadi (kg)</label><input inputMode="decimal" value={kp} onChange={(e) => setKp(e.target.value)} /></div>
-            <PhotoField batchId={b.id} k="timbanganKompos" label="Foto timbangan kompos" photo={photos.timbanganKompos} hint="Angka timbangan di kotak putus-putus, dengan kertas kode batch di frame." onText={(v) => { if (v) { setKp(v); setOcr((o) => ({ ...o, beratKompos: v })); } }} />
-            <PhotoField batchId={b.id} k="produkKompos" label="Foto produk kompos" photo={photos.produkKompos} hint="Foto kompos yang sudah jadi, kode batch terlihat." />
-            <button className="kp-btn g" onClick={sendKompos}>Kirim kompos untuk verifikasi</button></div>}
-          {kompos.status === "menunggu" && <div className="kp-warn" style={{ margin: 0 }}><Clock size={14} style={{ verticalAlign: -2 }} /> {kompos.beratKompos} kg kompos dikirim {fmtDate(kompos.kirim)}, menunggu admin.</div>}
-          {kompos.status === "terverifikasi" && <div className="kp-qr">
-            <QRCodeSVG value={`${origin}/k/${b.id}`} size={120} />
-            <div><div className="kp-ok" style={{ margin: "0 0 10px" }}><CheckCircle2 size={14} style={{ verticalAlign: -2 }} /> {kompos.beratKompos} kg kompos · diverifikasi {kompos.verif?.oleh}</div>
-              <div className="kp-list"><Link href={`/cetak/${b.id}/kompos`} className="kp-btn g"><Printer size={16} />Cetak stiker QR kompos</Link>
-                <Link href={`/k/${b.id}`} target="_blank" className="kp-btn s"><ExternalLink size={16} />Buka halaman kompos</Link></div></div></div>}
-        </section>
       </div>
     </main>
 
@@ -395,7 +362,7 @@ export default function BatchPage() {
 
           {suhuNow !== undefined && suhuNow > 48 && (
             <div className="kp-ok" style={{ fontSize: 13, marginBottom: 14 }}>
-              💡 Suhu massa biji sudah cukup panas (&gt;48°C). Pembalikan awal diperbolehkan untuk aerasi dan pemerataan suhu.
+              Suhu massa biji sudah cukup panas (&gt;48°C). Pembalikan awal diperbolehkan untuk aerasi dan pemerataan suhu.
             </div>
           )}
 
@@ -466,19 +433,19 @@ export default function BatchPage() {
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <span>Durasi Fermentasi:</span>
                 <b style={{ color: day >= 4 ? "var(--green-dark)" : "#b7653e" }}>
-                  {day >= 4 ? `✅ Hari ke-${day} (Target ≥4 hari)` : `⚠️ Hari ke-${day} (Target 4–6 hari)`}
+                  {day >= 4 ? `Hari ke-${day} (Target ≥4 hari - Sesuai)` : `Hari ke-${day} (Target 4–6 hari - Kurang)`}
                 </b>
               </div>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <span>Catatan Pembalikan:</span>
                 <b style={{ color: balik.length >= 1 ? "var(--green-dark)" : "#b7653e" }}>
-                  {balik.length >= 1 ? `✅ Sudah dibalik ${balik.length}×` : `⚠️ Belum pernah dibalik`}
+                  {balik.length >= 1 ? `Sudah dibalik ${balik.length}× (Sesuai)` : `Belum pernah dibalik (Perlu Pembalikan)`}
                 </b>
               </div>
               <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
                 <span>Suhu Puncak Tercapai:</span>
                 <b style={{ color: maxTemp && maxTemp >= 45 ? "var(--green-dark)" : "var(--muted)" }}>
-                  {maxTemp && maxTemp >= 45 ? `✅ ${maxTemp.toFixed(1)}°C (Puncak >45°C)` : maxTemp ? `${maxTemp.toFixed(1)}°C` : "--"}
+                  {maxTemp && maxTemp >= 45 ? `${maxTemp.toFixed(1)}°C (Puncak >45°C - Tercapai)` : maxTemp ? `${maxTemp.toFixed(1)}°C` : "--"}
                 </b>
               </div>
             </div>

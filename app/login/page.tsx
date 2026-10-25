@@ -14,7 +14,6 @@ import {
   EyeOff,
   HelpCircle,
   KeyRound,
-  QrCode,
   User as UserIcon,
 } from "lucide-react";
 
@@ -135,7 +134,7 @@ export default function LoginPage() {
                 <input
                   id="identifier"
                   type="text"
-                  placeholder="Contoh: 0812... atau KTIM-024"
+                  placeholder="No. HP atau ID"
                   value={identifier}
                   onChange={(e) => setIdentifier(e.target.value)}
                   autoComplete="username"
