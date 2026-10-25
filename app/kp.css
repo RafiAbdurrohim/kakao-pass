@@ -1123,8 +1123,8 @@
 .concept-hero-inner{width:min(1280px,calc(100% - 48px));margin:0 auto;display:flex;flex-direction:column;justify-content:space-between;flex:1;min-height:calc(100vh - 132px);min-height:calc(100dvh - 132px);position:relative;z-index:2}
 
 /* Pohon Kakao Cutout di Sisi Kanan (Transparan) */
-.concept-hero-tree-frame{position:absolute;right:0;bottom:0;width:min(58vw,1020px);height:86%;max-height:700px;pointer-events:none;z-index:1;display:flex;align-items:flex-end;justify-content:flex-end}
-.concept-hero-tree-render{width:100%;height:100%;object-fit:contain;object-position:right bottom;filter:drop-shadow(0 20px 40px rgba(15,23,42,.06))}
+.concept-hero-tree-frame{position:absolute;top:68px;right:0;bottom:0;width:min(64vw,1150px);pointer-events:none;z-index:1;display:flex;align-items:flex-start;justify-content:flex-end;overflow:hidden}
+.concept-hero-tree-render{width:100%;height:100%;object-fit:cover;object-position:right top;filter:drop-shadow(0 20px 40px rgba(15,23,42,.06))}
 
 /* Left Content Area */
 .concept-hero-left-copy{max-width:620px;position:relative;z-index:2;margin-top:auto;margin-bottom:auto;padding:24px 0}
@@ -1253,7 +1253,7 @@
 @media(max-width:960px){
   .concept-hero-section{padding-top:92px;padding-bottom:28px;min-height:auto}
   .concept-hero-inner{width:calc(100% - 32px);min-height:auto}
-  .concept-hero-tree-frame{width:80vw;height:55%;max-height:420px;opacity:.28}
+  .concept-hero-tree-frame{top:68px;width:85vw;height:calc(100% - 68px);opacity:.28}
   .concept-main-title{font-size:32px}
   .concept-docked-bar{flex-direction:column;align-items:stretch;gap:12px;padding:16px}
   .dock-divider{display:none}
@@ -1271,7 +1271,7 @@
 @media(max-width:600px){
   .concept-hero-section{padding-top:84px;padding-bottom:20px}
   .concept-hero-inner{width:calc(100% - 24px)}
-  .concept-hero-tree-frame{width:95vw;height:48%;opacity:.2}
+  .concept-hero-tree-frame{top:68px;width:95vw;height:calc(100% - 68px);opacity:.2}
   .concept-main-title{font-size:28px}
   .footer-grid-layout{grid-template-columns:1fr}
   .concept-timeline-bar{grid-template-columns:1fr;gap:8px}
