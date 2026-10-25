@@ -1119,7 +1119,7 @@
 .btn-concept-login.mobile{justify-content:center;margin-top:6px}
 
 /* Full-Width Conceptzilla Hero Canvas */
-.concept-hero-section{position:relative;width:100%;min-height:86vh;display:flex;flex-direction:column;justify-content:space-between;padding-top:108px;padding-bottom:36px;background-color:#f7f3e7;background-image:url('/images/conceptzilla-hero-bg.jpg');background-repeat:no-repeat;background-size:cover;background-position:right center;border-bottom:1px solid #e8e2d4;overflow:hidden}
+.concept-hero-section{position:relative;width:100%;min-height:86vh;display:flex;flex-direction:column;justify-content:space-between;padding-top:108px;padding-bottom:36px;background-color:#f7f3e7;border-bottom:1px solid #e8e2d4;overflow:hidden}
 .concept-hero-inner{width:min(1280px,calc(100% - 48px));margin:0 auto;display:flex;flex-direction:column;justify-content:space-between;flex:1;min-height:calc(86vh - 144px);position:relative;z-index:2}
 
 /* Left Content Area */
@@ -1247,7 +1247,7 @@
 
 /* Responsive */
 @media(max-width:960px){
-  .concept-hero-section{padding-top:92px;padding-bottom:28px;min-height:auto;background-position:80% center}
+  .concept-hero-section{padding-top:92px;padding-bottom:28px;min-height:auto}
   .concept-hero-inner{width:calc(100% - 32px);min-height:auto}
   .concept-main-title{font-size:32px}
   .concept-docked-bar{flex-direction:column;align-items:stretch;gap:12px;padding:16px}
