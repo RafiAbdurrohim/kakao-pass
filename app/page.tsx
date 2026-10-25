@@ -174,10 +174,10 @@ export default function Home() {
         <div className="concept-hero-inner">
           {/* Left Content Area (Teks, Kicker, Badge, Button) */}
           <div className="concept-hero-left-copy">
-            {/* Title Berkelas */}
+            {/* Title Berkelas dengan Aksen Warna Coklat Kakao */}
             <h1 className="concept-main-title">
-              Standar Mutu Kakao<br />
-              Dari Kebun Hingga Pabrik
+              Standar Mutu <span className="title-cocoa-accent">Kakao</span><br />
+              <span className="title-sub-phrase">Dari Kebun Hingga Pabrik</span>
             </h1>
 
             {/* Tulisan Kecil Deskripsi Singkat */}
