@@ -164,7 +164,7 @@ export default function Home() {
           <Image
             src="/images/pohon-kakao-kanan-hd.png"
             alt="Pohon Kakao Berbuah Lebat Kelompok Tani Karangan Mandiri"
-            width={1338}
+            width={938}
             height={746}
             priority
             className="concept-hero-tree-render"
