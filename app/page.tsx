@@ -156,9 +156,21 @@ export default function Home() {
       </AnimatePresence>
 
       {/* ====================================================================
-          3. HERO SECTION (FULL WIDTH & NAVBAR TRANSPARAN)
+          3. HERO SECTION (FULL WIDTH, KANAN POHON KAKAO CUTOUT TRANSPARAN)
           ==================================================================== */}
       <section className="concept-hero-section">
+        {/* Pohon Kakao Hasil Cutout Transparan di Sisi Kanan */}
+        <div className="concept-hero-tree-frame" aria-hidden="true">
+          <Image
+            src="/images/pohon-kakao-kanan-hd.png"
+            alt="Pohon Kakao Berbuah Lebat Kelompok Tani Karangan Mandiri"
+            width={1338}
+            height={746}
+            priority
+            className="concept-hero-tree-render"
+          />
+        </div>
+
         <div className="concept-hero-inner">
           {/* Left Content Area (Teks, Kicker, Badge, Button) */}
           <div className="concept-hero-left-copy">

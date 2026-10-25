@@ -1100,8 +1100,8 @@
 .concept-page{background:#ffffff;color:#0f172a;min-height:100vh;overflow-x:hidden}
 
 /* Concept Header */
-.concept-header{position:sticky;top:0;z-index:50;width:100%;margin-bottom:-68px;background:transparent;transition:background-color .25s ease,border-color .25s ease,box-shadow .25s ease;border-bottom:1px solid rgba(226,218,204,.35)}
-.concept-header.is-scrolled{background:rgba(247,243,231,.92);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid rgba(226,218,204,.7);box-shadow:0 4px 20px rgba(15,23,42,.04)}
+.concept-header{position:sticky;top:0;z-index:50;width:100%;margin-bottom:-68px;background:transparent;transition:background-color .25s ease,border-color .25s ease,box-shadow .25s ease;border-bottom:1px solid rgba(226,232,240,.6)}
+.concept-header.is-scrolled{background:rgba(250,250,249,.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border-bottom:1px solid #e2e8f0;box-shadow:0 4px 20px rgba(15,23,42,.04)}
 .concept-nav-wrap{width:min(1280px,calc(100% - 48px));margin:0 auto;height:68px;display:flex;align-items:center;justify-content:space-between}
 .concept-brand{display:inline-flex;align-items:center;gap:8px;text-decoration:none;color:#0f172a}
 .brand-badge-dark{width:30px;height:30px;border-radius:8px;background:#000000;color:#ffffff;display:grid;place-items:center}
@@ -1114,28 +1114,32 @@
 .btn-concept-login{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:99px;background:#000000;color:#ffffff!important;font-size:12.5px;font-weight:700;text-decoration:none;transition:all .18s;box-shadow:0 2px 8px rgba(0,0,0,.08)}
 .btn-concept-login:hover{background:#1e293b;transform:translateY(-1px)}
 .btn-concept-hamburger{display:none;background:none;border:none;color:#0f172a;padding:6px;cursor:pointer}
-.concept-mobile-dropdown{display:flex;flex-direction:column;gap:12px;padding:18px 24px 22px;border-bottom:1px solid #e2e8f0;background:#f7f3e7}
+.concept-mobile-dropdown{display:flex;flex-direction:column;gap:12px;padding:18px 24px 22px;border-bottom:1px solid #e2e8f0;background:#fafaf9}
 .concept-mobile-dropdown a{font-size:14px;font-weight:600;color:#0f172a;text-decoration:none}
 .btn-concept-login.mobile{justify-content:center;margin-top:6px}
 
-/* Full-Width Conceptzilla Hero Canvas */
-.concept-hero-section{position:relative;width:100%;min-height:86vh;display:flex;flex-direction:column;justify-content:space-between;padding-top:108px;padding-bottom:36px;background-color:#f7f3e7;border-bottom:1px solid #e8e2d4;overflow:hidden}
-.concept-hero-inner{width:min(1280px,calc(100% - 48px));margin:0 auto;display:flex;flex-direction:column;justify-content:space-between;flex:1;min-height:calc(86vh - 144px);position:relative;z-index:2}
+/* Full-Screen Conceptzilla Hero Canvas */
+.concept-hero-section{position:relative;width:100%;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;justify-content:space-between;padding-top:100px;padding-bottom:32px;background-color:#fafaf9;border-bottom:1px solid #f1f5f9;overflow:hidden}
+.concept-hero-inner{width:min(1280px,calc(100% - 48px));margin:0 auto;display:flex;flex-direction:column;justify-content:space-between;flex:1;min-height:calc(100vh - 132px);min-height:calc(100dvh - 132px);position:relative;z-index:2}
+
+/* Pohon Kakao Cutout di Sisi Kanan (Transparan) */
+.concept-hero-tree-frame{position:absolute;right:0;bottom:0;width:min(58vw,1020px);height:86%;max-height:700px;pointer-events:none;z-index:1;display:flex;align-items:flex-end;justify-content:flex-end}
+.concept-hero-tree-render{width:100%;height:100%;object-fit:contain;object-position:right bottom;filter:drop-shadow(0 20px 40px rgba(15,23,42,.06))}
 
 /* Left Content Area */
-.concept-hero-left-copy{max-width:580px;position:relative;z-index:2;margin-bottom:36px}
-.concept-main-title{font-size:clamp(34px,4.2vw,52px);font-weight:800;line-height:1.14;letter-spacing:-1.6px;color:#0f172a;margin:0 0 16px}
+.concept-hero-left-copy{max-width:620px;position:relative;z-index:2;margin-top:auto;margin-bottom:auto;padding:24px 0}
+.concept-main-title{font-size:clamp(36px,4.4vw,56px);font-weight:800;line-height:1.12;letter-spacing:-1.6px;color:#0f172a;margin:0 0 16px}
 .concept-lead-text{font-size:15.5px;line-height:1.7;color:#475569;margin:0 0 20px;font-weight:500}
-.concept-origin-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border-radius:99px;background:rgba(255,255,255,.88);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid #e2e8f0;color:#334155;font-size:11px;font-weight:700;letter-spacing:.6px;margin-bottom:24px}
+.concept-origin-badge{display:inline-flex;align-items:center;gap:8px;padding:5px 14px;border-radius:99px;background:rgba(255,255,255,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid #e2e8f0;color:#334155;font-size:11px;font-weight:700;letter-spacing:.6px;margin-bottom:24px}
 .origin-live-dot{width:6px;height:6px;border-radius:50%;background:#10b981}
 .concept-hero-btn-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 .btn-primary-black-pill{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:99px;background:#000000;color:#ffffff!important;font-size:13.5px;font-weight:700;text-decoration:none;transition:all .18s;box-shadow:0 4px 14px rgba(0,0,0,.15);border:none;cursor:pointer}
 .btn-primary-black-pill:hover{background:#1e293b;transform:translateY(-1px)}
-.btn-outline-clean-pill{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:99px;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border:1px solid #dcd7ca;color:#0f172a;font-size:13px;font-weight:700;cursor:pointer;transition:all .18s}
-.btn-outline-clean-pill:hover{background:#ffffff;border-color:#0f172a;transform:translateY(-1px)}
+.btn-outline-clean-pill{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:99px;background:#ffffff;border:1px solid #e2e8f0;color:#0f172a;font-size:13px;font-weight:700;cursor:pointer;transition:all .18s;box-shadow:0 2px 6px rgba(0,0,0,.02)}
+.btn-outline-clean-pill:hover{background:#f8fafc;border-color:#0f172a;transform:translateY(-1px)}
 
 /* Bottom Docked Floating Bar */
-.concept-docked-bar{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.94);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(226,218,204,.8);border-radius:20px;padding:12px 20px;box-shadow:0 10px 30px rgba(0,0,0,.05);position:relative;z-index:3;gap:16px;flex-wrap:wrap}
+.concept-docked-bar{display:flex;align-items:center;justify-content:space-between;background:rgba(255,255,255,.98);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid #e2e8f0;border-radius:20px;padding:12px 22px;box-shadow:0 10px 30px rgba(0,0,0,.04);position:relative;z-index:3;gap:16px;flex-wrap:wrap;margin-top:auto}
 .dock-cell{display:flex;align-items:center;gap:10px}
 .dock-icon-box{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;flex-shrink:0}
 .dock-icon-box.green{background:#ecfdf5;color:#059669}
@@ -1249,6 +1253,7 @@
 @media(max-width:960px){
   .concept-hero-section{padding-top:92px;padding-bottom:28px;min-height:auto}
   .concept-hero-inner{width:calc(100% - 32px);min-height:auto}
+  .concept-hero-tree-frame{width:80vw;height:55%;max-height:420px;opacity:.28}
   .concept-main-title{font-size:32px}
   .concept-docked-bar{flex-direction:column;align-items:stretch;gap:12px;padding:16px}
   .dock-divider{display:none}
@@ -1266,6 +1271,7 @@
 @media(max-width:600px){
   .concept-hero-section{padding-top:84px;padding-bottom:20px}
   .concept-hero-inner{width:calc(100% - 24px)}
+  .concept-hero-tree-frame{width:95vw;height:48%;opacity:.2}
   .concept-main-title{font-size:28px}
   .footer-grid-layout{grid-template-columns:1fr}
   .concept-timeline-bar{grid-template-columns:1fr;gap:8px}
