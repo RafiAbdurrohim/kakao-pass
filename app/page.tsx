@@ -55,7 +55,7 @@ export default function Home() {
 
           {/* Desktop Nav Links */}
           <nav className="concept-nav-links">
-            <a href="#fitur">Standar Mutu</a>
+            <a href="#fitur">Fitur Unggulan</a>
             <a href="#video-panduan">Video Panduan</a>
             <a href="#zero-waste">Olah Kompos</a>
             <a href="#alur">Alur Kerja</a>
@@ -89,7 +89,7 @@ export default function Home() {
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
             >
-              <a href="#fitur" onClick={() => setMobileMenuOpen(false)}>Standar Mutu</a>
+              <a href="#fitur" onClick={() => setMobileMenuOpen(false)}>Fitur Unggulan</a>
               <a href="#video-panduan" onClick={() => setMobileMenuOpen(false)}>Video Panduan</a>
               <a href="#zero-waste" onClick={() => setMobileMenuOpen(false)}>Olah Kompos</a>
               <a href="#alur" onClick={() => setMobileMenuOpen(false)}>Alur Kerja</a>
@@ -280,10 +280,10 @@ export default function Home() {
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="concept-kicker">STANDAR PASCAPANEN</span>
-            <h2>Fitur Standar Dari Kebun ke Pabrik</h2>
+            <span className="concept-kicker">FITUR UNGGULAN SISTEM</span>
+            <h2>Fitur Unggulan Dari Kebun ke Pabrik</h2>
             <p>
-              Pencatatan suhu kotak kayu, uji belah fisik, dan pemanfaatan biomassa limbah dalam satu sistem.
+              Sensor suhu fermentasi IoT, sertifikasi uji belah SNI, dan pemanfaatan zero waste kompos kulit kakao.
             </p>
           </motion.div>
 
@@ -697,7 +697,7 @@ export default function Home() {
           {/* Navigasi */}
           <div className="footer-links-col">
             <strong>Navigasi Menu</strong>
-            <a href="#fitur">Standar Mutu</a>
+            <a href="#fitur">Fitur Unggulan</a>
             <a href="#video-panduan">Video Panduan</a>
             <a href="#zero-waste">Olah Kompos</a>
             <a href="#alur">Alur Kerja</a>
