@@ -548,7 +548,7 @@ export default function Home() {
       </section>
 
       {/* ====================================================================
-          8. SECTION: ALUR KERJA LAPANGAN
+          8. SECTION: ALUR KERJA LAPANGAN (Open Connected Flowline)
           ==================================================================== */}
       <section className="concept-section" id="alur">
         <div className="concept-container">
@@ -566,65 +566,71 @@ export default function Home() {
             </p>
           </motion.div>
 
-          <div className="concept-stepper-grid">
+          <div className="concept-flowline-wrap">
+            {/* Guide track line */}
+            <div className="flowline-track-line" aria-hidden="true" />
+
             {/* Step 1 */}
             <motion.div
-              className="stepper-item-card"
+              className="flowline-step-item"
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-30px" }}
               transition={{ duration: 0.45, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -6, transition: { duration: 0.2 } }}
             >
-              <div className="stepper-item-head">
-                <span className="stepper-role-tag">PETANI DI KEBUN</span>
-                <span className="stepper-index-num">01</span>
+              <div className="flowline-node-circle">
+                <span>01</span>
               </div>
-              <h3>Catat Panen &amp; Suhu</h3>
-              <p>
-                Petani memasukkan berat panen, memantau suhu sensor fermentasi harian, dan mencatat foto uji belah.
-              </p>
-              <div className="stepper-foot-note">Dashboard Petani</div>
+              <div className="flowline-step-body">
+                <span className="flowline-role-tag">PETANI DI KEBUN</span>
+                <h3>Catat Panen &amp; Suhu</h3>
+                <p>
+                  Petani memasukkan berat panen, memantau kurva suhu probe fermentasi tiap 48 jam, dan mencatat foto uji belah.
+                </p>
+                <span className="flowline-platform-note">Dashboard Petani</span>
+              </div>
             </motion.div>
 
             {/* Step 2 */}
             <motion.div
-              className="stepper-item-card highlight"
+              className="flowline-step-item highlight"
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-30px" }}
               transition={{ duration: 0.45, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -6, transition: { duration: 0.2 } }}
             >
-              <div className="stepper-item-head">
-                <span className="stepper-role-tag green">PENYULUH (PPL)</span>
-                <span className="stepper-index-num">02</span>
+              <div className="flowline-node-circle highlight">
+                <span>02</span>
               </div>
-              <h3>Audit &amp; Setujui Mutu</h3>
-              <p>
-                Penyuluh memeriksa kurva suhu telemetri dan foto belah biji. Setelah memenuhi syarat, batch disetujui.
-              </p>
-              <div className="stepper-foot-note">Portal Admin PPL</div>
+              <div className="flowline-step-body">
+                <span className="flowline-role-tag green">PENYULUH (PPL)</span>
+                <h3>Audit &amp; Setujui Mutu</h3>
+                <p>
+                  Penyuluh memeriksa kurva suhu telemetri dan foto belah biji. Setelah memenuhi syarat SNI, batch disetujui.
+                </p>
+                <span className="flowline-platform-note green">Portal Admin PPL</span>
+              </div>
             </motion.div>
 
             {/* Step 3 */}
             <motion.div
-              className="stepper-item-card"
+              className="flowline-step-item"
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-30px" }}
               transition={{ duration: 0.45, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
-              whileHover={{ y: -6, transition: { duration: 0.2 } }}
             >
-              <div className="stepper-item-head">
-                <span className="stepper-role-tag">PEMBELI PABRIK</span>
-                <span className="stepper-index-num">03</span>
+              <div className="flowline-node-circle">
+                <span>03</span>
               </div>
-              <h3>Terima Biji Terstandar</h3>
-              <p>
-                Pembeli menerima karung dengan stiker resmi Karangan Mandiri yang memuat riwayat mutu jelas.
-              </p>
-              <div className="stepper-foot-note">Jaminan Mutu Terstandar</div>
+              <div className="flowline-step-body">
+                <span className="flowline-role-tag">PEMBELI PABRIK</span>
+                <h3>Terima Biji Terstandar</h3>
+                <p>
+                  Pembeli menerima karung dengan stiker barcode resmi yang memuat riwayat fermentasi jelas dan sertifikasi mutu SNI.
+                </p>
+                <span className="flowline-platform-note">Jaminan Mutu Terstandar</span>
+              </div>
             </motion.div>
           </div>
         </div>
