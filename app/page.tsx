@@ -209,9 +209,22 @@ export default function Home() {
               </button>
             </div>
           </div>
+        </div>
+      </section>
 
-          {/* Bottom Docked Floating Bar (Persis Dock Conceptzilla) */}
-          <div className="concept-docked-bar">
+      {/* ====================================================================
+          4. SECTION: FITUR STANDAR MUTU TERPADU (FULL WIDTH & ANIMATED)
+          ==================================================================== */}
+      <section className="concept-features-full-section" id="fitur">
+        {/* Top Dock Bar: Warna sama dengan Section Bawah (#f8fafc) & Animasi Masuk */}
+        <div className="concept-features-dock-wrap">
+          <motion.div
+            className="concept-stepped-dock"
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-20px" }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          >
             {/* Dock Item 1 */}
             <div className="dock-cell">
               <div className="dock-icon-box green">
@@ -254,95 +267,109 @@ export default function Home() {
               <span>Kelola Batch</span>
               <ArrowUpRight size={13} />
             </Link>
-          </div>
+          </motion.div>
         </div>
-      </section>
 
-      {/* ====================================================================
-          4. TIGA KOTAK STATISTIK BESAR ABU-ABU TERANG
-          ==================================================================== */}
-      <section className="concept-stats-section">
+        {/* Inner Content Grid */}
         <div className="concept-container">
-          <div className="concept-three-stats-grid">
-            <div className="concept-stat-box">
-              <span className="stat-giant-num">48.6°C</span>
-              <strong className="stat-heading-label">SUHU INTI FERMENTASI (IOT)</strong>
-              <p className="stat-desc-label">Probe 20 cm mencatat panas tanpa buka kotak</p>
-            </div>
-
-            <div className="concept-stat-box">
-              <span className="stat-giant-num">88%</span>
-              <strong className="stat-heading-label">BIJI MUTU I STANDAR SNI 2323</strong>
-              <p className="stat-desc-label">Uji belah 100 butir biji sampel kelompok tani</p>
-            </div>
-
-            <div className="concept-stat-box">
-              <span className="stat-giant-num">70%</span>
-              <strong className="stat-heading-label">LIMBAH KULIT DIOLAH JADI KOMPOS</strong>
-              <p className="stat-desc-label">Cegah jamur busuk buah di sekitar pohon</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ====================================================================
-          5. SECTION: FITUR STANDAR MUTU TERPADU
-          ==================================================================== */}
-      <section className="concept-section bg-light" id="fitur">
-        <div className="concept-container">
-          <div className="concept-section-header">
+          <motion.div
+            className="concept-section-header"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          >
             <span className="concept-kicker">STANDAR PASCAPANEN</span>
             <h2>Fitur Standar Dari Kebun ke Pabrik</h2>
             <p>
               Pencatatan suhu kotak kayu, uji belah fisik, dan pemanfaatan biomassa limbah dalam satu sistem.
             </p>
-          </div>
+          </motion.div>
 
           <div className="concept-feature-grid">
             {/* Fitur 1 */}
-            <div className="concept-feature-card">
-              <div className="feature-icon-wrapper green">
-                <Thermometer size={22} />
+            <motion.div
+              className="concept-feature-card"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-30px" }}
+              transition={{ duration: 0.45, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -6, transition: { duration: 0.2 } }}
+            >
+              <div className="feature-card-top-row">
+                <div className="feature-icon-wrapper green">
+                  <Thermometer size={20} />
+                </div>
+                <span className="feature-category-badge green">IOT REAL-TIME</span>
               </div>
               <h3>Sensor Suhu Kotak Kayu</h3>
+              <div className="feature-metric-strip">
+                <span className="metric-giant-text">48.6°C</span>
+                <span className="metric-status-sub">Suhu Inti Fermentasi</span>
+              </div>
               <p>
-                Probe sensor merekam kenaikan suhu fermentasi 28°C–50°C secara otomatis
-                tanpa perlu membuka tutup kotak kayu yang bisa mengganggu panas alami.
+                Monitoring suhu 28°C–50°C otomatis via probe 20 cm tanpa buka tutup kotak.
               </p>
               <div className="feature-foot-pill">
                 <span>Pembalikan tiap 48 jam</span>
               </div>
-            </div>
+            </motion.div>
 
             {/* Fitur 2 */}
-            <div className="concept-feature-card">
-              <div className="feature-icon-wrapper amber">
-                <FileCheck2 size={22} />
+            <motion.div
+              className="concept-feature-card"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-30px" }}
+              transition={{ duration: 0.45, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -6, transition: { duration: 0.2 } }}
+            >
+              <div className="feature-card-top-row">
+                <div className="feature-icon-wrapper amber">
+                  <FileCheck2 size={20} />
+                </div>
+                <span className="feature-category-badge amber">STANDAR SNI</span>
               </div>
               <h3>Pencatatan Uji Belah SNI</h3>
+              <div className="feature-metric-strip">
+                <span className="metric-giant-text">Mutu I</span>
+                <span className="metric-status-sub">Kadar Air &le; 7.5%</span>
+              </div>
               <p>
-                Catat hasil potong 100 butir biji sampel. Sistem otomatis mengklasifikasikan
-                persentase biji fermentasi dan memastikan kadar air aman di bawah 7.5%.
+                Verifikasi 100 butir biji sampel kelompok tani sesuai standar SNI 2323:2008.
               </p>
               <div className="feature-foot-pill">
                 <span>Standar SNI 2323:2008</span>
               </div>
-            </div>
+            </motion.div>
 
             {/* Fitur 3 */}
-            <div className="concept-feature-card">
-              <div className="feature-icon-wrapper green">
-                <Leaf size={22} />
+            <motion.div
+              className="concept-feature-card"
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-30px" }}
+              transition={{ duration: 0.45, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
+              whileHover={{ y: -6, transition: { duration: 0.2 } }}
+            >
+              <div className="feature-card-top-row">
+                <div className="feature-icon-wrapper green">
+                  <Leaf size={20} />
+                </div>
+                <span className="feature-category-badge green">CIRCULAR ZERO WASTE</span>
               </div>
               <h3>Pengolahan Kompos Kulit</h3>
+              <div className="feature-metric-strip">
+                <span className="metric-giant-text">70%</span>
+                <span className="metric-status-sub">Biomassa Kulit Kakao</span>
+              </div>
               <p>
-                Kulit buah kakao dicacah dan difermentasi menjadi pupuk kompos organik.
-                Kebun menjadi bersih dari sarang jamur dan petani menghemat biaya pupuk.
+                Fermentasi limbah kulit kakao jadi pupuk organik untuk cegah jamur busuk buah.
               </p>
               <div className="feature-foot-pill">
-                <span>Ekonomi Sirkular 0% Limbah</span>
+                <span>Zero Waste Kebun Mandiri</span>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>
