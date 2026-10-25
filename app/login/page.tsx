@@ -13,12 +13,8 @@ import {
   EyeOff,
   HelpCircle,
   KeyRound,
-  Leaf,
-  MessageCircle,
   QrCode,
-  ShieldCheck,
-  Sparkles,
-  Sprout,
+  User as UserIcon,
 } from "lucide-react";
 
 export default function LoginPage() {
@@ -38,12 +34,12 @@ export default function LoginPage() {
     setErrorMessage("");
 
     if (!identifier.trim()) {
-      setErrorMessage("Silakan masukkan Nomor WhatsApp atau ID Petani Anda.");
+      setErrorMessage("Masukkan No. HP atau ID Anda.");
       return;
     }
 
     if (pin.length < 4) {
-      setErrorMessage("PIN keamanan minimal 4 hingga 6 digit.");
+      setErrorMessage("PIN minimal 4 hingga 6 digit.");
       return;
     }
 
@@ -55,20 +51,20 @@ export default function LoginPage() {
     try {
       const u = await login(id, p);
       if (!u) {
-        setErrorMessage("ID/nomor HP atau PIN tidak cocok.");
+        setErrorMessage("No. HP/ID atau PIN salah.");
       } else {
         setUser(u);
         setWho(u);
         setLoginSuccess(true);
-        setTimeout(() => router.push(u.role === "admin" ? "/admin" : "/dashboard"), 900);
+        setTimeout(() => router.push(u.role === "admin" ? "/admin" : "/dashboard"), 800);
       }
     } catch {
-      setErrorMessage("Tidak bisa terhubung ke database. Periksa internet dan aturan Firebase.");
+      setErrorMessage("Koneksi gagal. Periksa koneksi internet Anda.");
     }
     setIsLoading(false);
   };
 
-  // 1-Click Quick Demo for FORMIKA Competition Judges
+  // Quick Demo for Evaluators
   const handleQuickDemo = (kind: "petani" | "admin") => {
     const [i, p] = kind === "admin" ? ["ADM-001", "202602"] : ["KTIM-024", "202601"];
     setIdentifier(i);
@@ -78,293 +74,157 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="login-hero-view">
-      {/* Background Decorative Ambient Layers */}
-      <div className="login-bg-pattern" />
-      <div className="login-ambient-orb orb-top-left" />
-      <div className="login-ambient-orb orb-bottom-right" />
-      <div className="login-ambient-orb orb-center" />
-
-      {/* Floating Botanical Leaf Watermarks */}
-      <svg
-        className="login-bg-botanical leaf-left"
-        viewBox="0 0 200 200"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <path
-          d="M20 180 C40 100 120 40 180 20 C140 100 80 160 20 180 Z"
-          fill="#718263"
-          fillOpacity="0.08"
-        />
-        <path
-          d="M20 180 C80 120 120 80 180 20"
-          stroke="#718263"
-          strokeWidth="1.5"
-          strokeOpacity="0.12"
-        />
-      </svg>
-      <svg
-        className="login-bg-botanical leaf-right"
-        viewBox="0 0 200 200"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden="true"
-      >
-        <path
-          d="M180 20 C100 40 40 120 20 180 C100 140 160 80 180 20 Z"
-          fill="#b7653e"
-          fillOpacity="0.06"
-        />
-      </svg>
-
-      {/* Centered Compact Hero Card */}
-      <div className="login-compact-card">
-        {/* Top Header Row: Back Link & Portal Chip */}
-        <div className="card-topline">
-          <Link href="/" className="back-link">
-            <ArrowLeft size={15} />
+    <div className="login-clean-page">
+      <div className="login-clean-card">
+        {/* Top Header: Back Link */}
+        <div className="login-card-header">
+          <Link href="/" className="login-back-btn">
+            <ArrowLeft size={14} />
             <span>Beranda</span>
           </Link>
-
-          <span className="portal-pill">
-            <span className="live-dot-green" />
-            Portal Petani
-          </span>
+          <span className="login-location-chip">Karangan Mandiri</span>
         </div>
 
-        {/* Brand Logo & Title */}
-        <div className="card-brand-header">
-          <Link href="/" className="compact-brand">
-            <span className="brand-mark-small">
-              <QrCode size={18} strokeWidth={2.2} />
+        {/* Brand */}
+        <div className="login-brand-center">
+          <div className="brand">
+            <span className="brand-mark">
+              <QrCode size={18} strokeWidth={2.4} />
             </span>
-            <span className="brand-name-text">
+            <span className="brand-name">
               kakao<span>pass</span>
             </span>
-          </Link>
-          <h2>Masuk Akun Petani</h2>
-          <p>Kelompok Tani Karangan Mandiri · Kutai Timur</p>
+          </div>
+          <h1>Masuk Akun</h1>
+          <p>Portal Petani &amp; Penyuluh Lapangan</p>
         </div>
 
-        {/* Success State Overlay */}
+        {/* Success View */}
         <AnimatePresence>
           {loginSuccess && (
             <motion.div
-              className="compact-success-view"
-              initial={{ opacity: 0, scale: 0.94 }}
+              className="login-success-box"
+              initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.94 }}
+              exit={{ opacity: 0, scale: 0.95 }}
             >
-              <div className="success-icon-badge">
-                <CheckCircle2 size={34} className="text-green" />
+              <div className="login-success-icon">
+                <CheckCircle2 size={32} />
               </div>
-              <h3>Selamat Datang, {who?.name}!</h3>
-              <p>Otentikasi berhasil. Anda terhubung ke sistem pemantauan IoT.</p>
-              <div className="success-pill">
-                <span>ID: <strong>{who?.id}</strong></span>
-                <span>·</span>
-                <span><strong>{who?.group}</strong></span>
-              </div>
-              <Link href={who?.role === "admin" ? "/admin" : "/dashboard"} className="button button-primary btn-full">
-                Buka Dashboard Petani <ArrowRight size={16} />
-              </Link>
-              <button
-                type="button"
-                className="btn-text-subtle"
-                onClick={() => {
-                  setLoginSuccess(false);
-                  setIdentifier("");
-                  setPin("");
-                }}
-              >
-                Ganti Akun Lain
-              </button>
+              <h3>Selamat Datang, {who?.name}</h3>
+              <p>Membuka dashboard sistem...</p>
             </motion.div>
           )}
         </AnimatePresence>
 
-        {/* Form Body */}
+        {/* Main Form */}
         {!loginSuccess && (
-          <div className="card-form-body">
-            {/* 1-Click Competition Demo Showcase (FORMIKA Judges) */}
-            <div className="login-demo-section">
-              <div className="demo-header-row">
-                <span className="demo-header-tag">
-                  <Sparkles size={11} style={{ color: "#d97706" }} />
-                  SIMULASI JURI FORMIKA 2026
-                </span>
-                <span className="demo-header-sub">Masuk instan 1-klik</span>
-              </div>
-
-              <div className="persona-grid">
-                {/* Persona 1: Pak Budi (Petani) */}
-                <button
-                  type="button"
-                  className="persona-card persona-petani"
-                  onClick={() => handleQuickDemo("petani")}
-                  disabled={isLoading}
-                >
-                  <div className="persona-top">
-                    <div className="persona-avatar green">
-                      <Sprout size={14} />
-                    </div>
-                    <span className="persona-chip green">Petani</span>
-                  </div>
-                  <div className="persona-body">
-                    <strong className="persona-name">Pak Budi</strong>
-                    <span className="persona-role">Kebun Karangan</span>
-                  </div>
-                  <div className="persona-footer">
-                    <span>Masuk Petani</span>
-                    <ArrowRight size={11} />
-                  </div>
-                </button>
-
-                {/* Persona 2: Bu Sari (Admin / Penyuluh) */}
-                <button
-                  type="button"
-                  className="persona-card persona-admin"
-                  onClick={() => handleQuickDemo("admin")}
-                  disabled={isLoading}
-                >
-                  <div className="persona-top">
-                    <div className="persona-avatar rust">
-                      <ShieldCheck size={14} />
-                    </div>
-                    <span className="persona-chip rust">Verifikator</span>
-                  </div>
-                  <div className="persona-body">
-                    <strong className="persona-name">Bu Sari</strong>
-                    <span className="persona-role">PPL &amp; Admin Mutu</span>
-                  </div>
-                  <div className="persona-footer">
-                    <span>Masuk Admin</span>
-                    <ArrowRight size={11} />
-                  </div>
-                </button>
-              </div>
-            </div>
-
-            <div className="form-or-divider">
-              <span>atau isi manual</span>
-            </div>
-
-            {/* Error Banner */}
+          <form onSubmit={handleSubmit} className="login-clean-form">
             {errorMessage && (
-              <div className="compact-error-alert" role="alert">
+              <div className="login-error-pill" role="alert">
                 <HelpCircle size={14} />
                 <span>{errorMessage}</span>
               </div>
             )}
 
-            {/* Main Form */}
-            <form onSubmit={handleSubmit} className="compact-form">
-              {/* Single Versatile Input: Phone or Farmer ID */}
-              <div className="form-group-compact">
-                <label htmlFor="farmer-identifier">
-                  Nomor WhatsApp atau ID Petani
-                </label>
-                <div className="input-wrap">
-                  <Sprout size={16} className="input-icon-left" />
-                  <input
-                    id="farmer-identifier"
-                    type="text"
-                    placeholder="Contoh: 08123456789 atau KTIM-024"
-                    value={identifier}
-                    onChange={(e) => setIdentifier(e.target.value)}
-                    className="compact-input"
-                    autoComplete="username"
-                  />
-                </div>
+            <div className="form-field-clean">
+              <label htmlFor="identifier">No. HP atau ID</label>
+              <div className="input-box-clean">
+                <UserIcon size={16} className="field-icon" />
+                <input
+                  id="identifier"
+                  type="text"
+                  placeholder="Contoh: 0812... atau KTIM-024"
+                  value={identifier}
+                  onChange={(e) => setIdentifier(e.target.value)}
+                  autoComplete="username"
+                />
               </div>
+            </div>
 
-              {/* PIN Input Field */}
-              <div className="form-group-compact">
-                <div className="label-row">
-                  <label htmlFor="farmer-pin">PIN Keamanan (6 Digit)</label>
-                  <button
-                    type="button"
-                    className="forgot-pin-link"
-                    onClick={() =>
-                      alert(
-                        "Untuk mereset PIN, hubungi Ketua Kelompok Tani atau Pendamping Lapangan via WhatsApp."
-                      )
-                    }
-                  >
-                    Lupa PIN?
-                  </button>
-                </div>
-
-                <div className="input-wrap">
-                  <KeyRound size={16} className="input-icon-left" />
-                  <input
-                    id="farmer-pin"
-                    type={showPin ? "text" : "password"}
-                    inputMode="numeric"
-                    maxLength={6}
-                    placeholder="••••••"
-                    value={pin}
-                    onChange={(e) => setPin(e.target.value)}
-                    className="compact-input pin-styled"
-                  />
-                  <button
-                    type="button"
-                    className="eye-toggle-btn"
-                    onClick={() => setShowPin(!showPin)}
-                    aria-label={showPin ? "Sembunyikan PIN" : "Tampilkan PIN"}
-                  >
-                    {showPin ? <EyeOff size={15} /> : <Eye size={15} />}
-                  </button>
-                </div>
+            <div className="form-field-clean">
+              <div className="field-label-row">
+                <label htmlFor="pin">PIN (6 Digit)</label>
+                <button
+                  type="button"
+                  className="btn-forgot-subtle"
+                  onClick={() =>
+                    alert("Untuk bantuan PIN, silakan hubungi penyuluh lapangan atau ketua kelompok tani.")
+                  }
+                >
+                  Lupa PIN?
+                </button>
               </div>
-
-              {/* Options Row */}
-              <div className="remember-row">
-                <label className="checkbox-compact">
-                  <input
-                    type="checkbox"
-                    checked={rememberMe}
-                    onChange={(e) => setRememberMe(e.target.checked)}
-                  />
-                  <span>Ingat saya di HP ini</span>
-                </label>
+              <div className="input-box-clean">
+                <KeyRound size={16} className="field-icon" />
+                <input
+                  id="pin"
+                  type={showPin ? "text" : "password"}
+                  inputMode="numeric"
+                  maxLength={6}
+                  placeholder="PIN 6 digit"
+                  value={pin}
+                  onChange={(e) => setPin(e.target.value)}
+                />
+                <button
+                  type="button"
+                  className="btn-eye-toggle"
+                  onClick={() => setShowPin(!showPin)}
+                  aria-label={showPin ? "Sembunyikan PIN" : "Tampilkan PIN"}
+                >
+                  {showPin ? <EyeOff size={15} /> : <Eye size={15} />}
+                </button>
               </div>
+            </div>
 
-              {/* Submit Button */}
+            <div className="form-remember-row">
+              <label className="checkbox-clean">
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                />
+                <span>Ingat saya di perangkat ini</span>
+              </label>
+            </div>
+
+            <button
+              type="submit"
+              className="btn-login-submit"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <span>Memeriksa...</span>
+              ) : (
+                <>
+                  <span>Masuk ke Portal</span>
+                  <ArrowRight size={15} />
+                </>
+              )}
+            </button>
+
+            {/* Quick Demo Links (Subtle & Clean) */}
+            <div className="login-quick-demo-row">
+              <span>Akun coba:</span>
               <button
-                type="submit"
-                className="button button-primary btn-full btn-login-compact"
+                type="button"
+                className="demo-chip-btn"
+                onClick={() => handleQuickDemo("petani")}
                 disabled={isLoading}
               >
-                {isLoading ? (
-                  <span className="loading-spinner-wrap">
-                    <span className="spinner-dot" />
-                    Memverifikasi...
-                  </span>
-                ) : (
-                  <>
-                    <span>Masuk ke Dashboard</span>
-                    <ArrowRight size={16} />
-                  </>
-                )}
+                Petani (Pak Budi)
               </button>
-            </form>
-
-            {/* Assistance Link */}
-            <div className="assistance-footer">
-              <a
-                href="https://wa.me/6281258202026?text=Halo%20KakaoPass,%20saya%20petani%20butuh%20bantuan%20login"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="assistance-link"
+              <span>·</span>
+              <button
+                type="button"
+                className="demo-chip-btn"
+                onClick={() => handleQuickDemo("admin")}
+                disabled={isLoading}
               >
-                <MessageCircle size={14} className="text-green" />
-                <span>Butuh bantuan? Chat Pendamping Lapangan</span>
-              </a>
+                Penyuluh (Bu Sari)
+              </button>
             </div>
-          </div>
+          </form>
         )}
       </div>
     </div>
