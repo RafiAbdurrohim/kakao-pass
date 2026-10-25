@@ -1,0 +1,102 @@
+import { initializeApp, getApps } from "firebase/app";
+import { getDatabase, ref, get, set, update, query, orderByKey, startAt, serverTimestamp } from "firebase/database";
+
+const cfg = {
+  apiKey: "AIzaSyDl5yXE16No57kRghvFDsOm1g43zyZ7flE",
+  authDomain: "kakaopass.firebaseapp.com",
+  databaseURL: "https://kakaopass-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "kakaopass",
+  appId: "1:1006483842091:web:f14a9234d559210a34b66e",
+};
+export const db = getDatabase(getApps()[0] ?? initializeApp(cfg));
+
+export type Role = "petani" | "admin";
+export type User = { id: string; name: string; group: string; role: Role };
+export type Status = "fermentasi" | "pengeringan" | "uji_mutu" | "verifikasi" | "revisi" | "selesai";
+export type FotoKey = "timbanganKering" | "kadarAir" | "ujiBelah" | "timbanganKompos" | "produkKompos";
+export type Photo = { d: string; m: "kamera" | "unggah"; t: number };
+export type Verif = { oleh: string; tgl: number };
+export type Batch = {
+  id: string; ownerId: string; ownerName: string; group: string; kode: string;
+  varietas: string; kebun: string; tglPanen: string; beratBasah: number; beratKulit: number;
+  status: Status; createdAt: number; mulaiFerm: number; selesaiFerm?: number;
+  balik?: Record<string, number>;
+  kering?: { mulai: number; kadarAir?: number; beratKering?: number; selesai?: number };
+  mutu?: { baik: number; ungu: number; slaty: number; jamur: number; kadarAir: number };
+  kompos?: { status: "belum" | "diolah" | "menunggu" | "terverifikasi"; mulai?: number; selesai?: number; beratKompos?: number; campuran?: string; kirim?: number; catatan?: string | null; verif?: Verif };
+  fotoOk?: Partial<Record<FotoKey, boolean>>;
+  sumber?: Partial<Record<"beratKering" | "kadarAir" | "beratKompos", "ocr" | "manual">>;
+  kirim?: number; catatan?: string | null; verif?: Verif;
+};
+export type Reading = { t: number; biji?: number; ruang?: number; rh?: number };
+
+export const STATUS_LABEL: Record<Status, string> = {
+  fermentasi: "Fermentasi", pengeringan: "Pengeringan", uji_mutu: "Uji mutu", verifikasi: "Menunggu verifikasi", revisi: "Perlu revisi", selesai: "Terverifikasi",
+};
+export const DAY = 86400000;
+
+export const getUser = (): User | null => {
+  try { return JSON.parse(localStorage.getItem("kp_user") || "null"); } catch { return null; }
+};
+export const setUser = (u: User | null) => {
+  if (u) localStorage.setItem("kp_user", JSON.stringify(u)); else localStorage.removeItem("kp_user");
+};
+const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
+
+const SEEDS = {
+  "KTIM-024": { name: "Pak Budi", group: "Kelompok Tani Karangan Mandiri", phone: "081258202026", pin: "202601", role: "petani" },
+  "ADM-001": { name: "Bu Sari", group: "Pendamping Lapangan", phone: "081200000001", pin: "202602", role: "admin" },
+} as const;
+
+// Login prototipe: tanpa keamanan, hanya mencocokkan ID/nomor HP dan PIN di database.
+export async function login(idf: string, pin: string): Promise<User | null> {
+  for (const [id, u] of Object.entries(SEEDS)) {
+    if (!(await get(ref(db, `web/users/${id}`))).exists()) await set(ref(db, `web/users/${id}`), u);
+  }
+  const snap = await get(ref(db, "web/users"));
+  const q = norm(idf);
+  const qd = idf.replace(/\D/g, "");
+  const all = (snap.val() || {}) as Record<string, { name: string; group: string; phone?: string; pin: string; role?: Role }>;
+  for (const [id, u] of Object.entries(all)) {
+    const byId = norm(id) === q;
+    const byPhone = !!u.phone && qd.length >= 8 && u.phone.replace(/\D/g, "") === qd;
+    if ((byId || byPhone) && u.pin === pin) return { id, name: u.name, group: u.group, role: u.role ?? "petani" };
+  }
+  return null;
+}
+
+export async function savePhoto(batchId: string, key: FotoKey, d: string, m: "kamera" | "unggah") {
+  await set(ref(db, `web/photos/${batchId}/${key}`), { d, m, t: serverTimestamp() });
+  await update(ref(db, `web/batches/${batchId}/fotoOk`), { [key]: true });
+}
+
+export async function loadReadings(from: number, to: number): Promise<Reading[]> {
+  const s = await get(query(ref(db, "kakao_pass/riwayat"), orderByKey(), startAt("t" + from)));
+  const out: Reading[] = [];
+  s.forEach((c) => {
+    const v = c.val();
+    const t = Number(v.timestamp);
+    if (t >= from && t <= to) out.push({ t, biji: v.suhu_biji, ruang: v.suhu_ruang, rh: v.kelembapan });
+  });
+  return out.sort((a, b) => a.t - b.t);
+}
+
+export const fmtDate = (ms?: number) =>
+  ms ? new Date(ms).toLocaleString("id-ID", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" }) : "-";
+export const ago = (ms: number, now = Date.now()) => {
+  const m = Math.max(0, Math.round((now - ms) / 60000));
+  if (m < 1) return "baru saja";
+  if (m < 60) return `${m} menit lalu`;
+  if (m < 1440) return `${Math.round(m / 60)} jam lalu`;
+  return `${Math.round(m / 1440)} hari lalu`;
+};
+export const stats = (r: Reading[]) => {
+  const v = r.map((x) => x.biji).filter((x): x is number => typeof x === "number");
+  if (!v.length) return { max: 0, avg: 0, min: 0 };
+  return { max: Math.max(...v), min: Math.min(...v), avg: v.reduce((a, b) => a + b, 0) / v.length };
+};
+export const downsample = (r: Reading[], n = 90) => {
+  if (r.length <= n) return r;
+  const step = r.length / n;
+  return Array.from({ length: n }, (_, i) => r[Math.floor(i * step)]);
+};
