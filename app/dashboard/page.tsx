@@ -1480,7 +1480,7 @@ function FinishCompostModal({
             inputMode="decimal"
             value={beratKompos}
             onChange={(e) => setBeratKompos(e.target.value)}
-            placeholder="Contoh: 15"
+            placeholder="15"
             required
           />
         </div>

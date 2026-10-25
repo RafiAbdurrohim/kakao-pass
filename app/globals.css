@@ -14,6 +14,14 @@
   --green-subtle: #ecfdf5;
   --amber: #f59e0b;
   --amber-subtle: #fffbeb;
+  --cream: #fbfaf7;
+  --paper: #ffffff;
+  --cocoa: #451a03;
+  --cocoa-dark: #271105;
+  --rust: #9a3412;
+  --rust-dark: #7c2d12;
+  --green-dark: #166534;
+  --gold: #d4a373;
 }
 
 * {
