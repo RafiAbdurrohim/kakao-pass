@@ -1228,14 +1228,17 @@
 .zw-point-row strong{display:block;font-size:13.5px;font-weight:700;color:#0f172a;margin-bottom:2px}
 .zw-point-row p{font-size:12.5px;color:#64748b;line-height:1.5;margin:0}
 
-/* Connected Flowline: Tactile Role Cards with Guide Track Line */
-.concept-flowline-wrap{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding-top:16px}
-.flowline-track-line{position:absolute;top:36px;left:16%;right:16%;height:2px;background:linear-gradient(90deg,#ea580c 0%,#10b981 50%,#334155 100%);z-index:1}
-.flowline-step-item{position:relative;display:flex;flex-direction:column;align-items:flex-start;z-index:2}
-.flowline-node-circle{width:40px;height:40px;border-radius:50%;font-family:monospace;font-size:13.5px;font-weight:800;display:grid;place-items:center;margin-bottom:20px;box-shadow:0 0 0 6px #ffffff;z-index:3;position:relative}
+/* Connected Flowline: Seamless Precision Connector */
+.concept-flowline-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;padding-top:16px}
+.flowline-column{display:flex;flex-direction:column;position:relative}
+.flowline-header-row{display:flex;align-items:center;width:100%;margin-bottom:18px;position:relative}
+.flowline-node-circle{width:42px;height:42px;border-radius:50%;font-family:monospace;font-size:14px;font-weight:800;display:grid;place-items:center;flex-shrink:0;position:relative;z-index:2}
 .flowline-node-circle.farmer{background:#fef3eb;color:#9a3412;border:2px solid #ea580c}
 .flowline-node-circle.ppl{background:#ecfdf5;color:#059669;border:2px solid #10b981}
 .flowline-node-circle.industry{background:#f1f5f9;color:#0f172a;border:2px solid #334155}
+.flowline-connector-track{flex:1;height:2px;margin-left:14px;margin-right:-38px;z-index:1}
+.flowline-connector-track.line-farmer-to-ppl{background:linear-gradient(90deg,#ea580c 0%,#10b981 100%)}
+.flowline-connector-track.line-ppl-to-industry{background:linear-gradient(90deg,#10b981 0%,#334155 100%)}
 .flowline-step-card{width:100%;background:#ffffff;border:1px solid #e2e8f0;border-radius:20px;padding:26px 24px;display:flex;flex-direction:column;flex:1;box-shadow:0 4px 18px rgba(15,23,42,.03);transition:transform .22s cubic-bezier(0.16,1,0.3,1),box-shadow .22s ease,border-color .22s ease}
 .flowline-step-card:hover{transform:translateY(-5px);box-shadow:0 16px 36px -10px rgba(15,23,42,.08)}
 .flowline-step-card.role-farmer:hover{border-color:#ea580c}
@@ -1312,10 +1315,8 @@
   .concept-video-steps{margin-top:0}
   .zero-waste-concept-split{grid-template-columns:1fr;grid-template-areas:"header" "photo" "points";gap:18px}
   .zw-point-list{margin-top:0}
-  .concept-flowline-wrap{grid-template-columns:1fr;gap:20px;position:relative;padding-left:14px}
-  .flowline-track-line{top:20px;bottom:36px;left:34px;right:auto;width:2px;height:auto;background:linear-gradient(180deg,#ea580c 0%,#10b981 50%,#334155 100%)}
-  .flowline-step-item{flex-direction:row;align-items:flex-start;gap:18px}
-  .flowline-node-circle{margin-bottom:0;flex-shrink:0}
+  .concept-flowline-grid{grid-template-columns:1fr;gap:20px}
+  .flowline-connector-track{display:none}
   .concept-cta-card{flex-direction:column;text-align:center;padding:36px 28px;gap:24px}
   .cta-actions-side{justify-content:center;width:100%}
   .footer-grid-layout{grid-template-columns:1fr 1fr;gap:32px}
