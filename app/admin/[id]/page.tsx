@@ -49,6 +49,15 @@ export default function Review() {
       jumlahBalik: Object.keys(b.balik || {}).length, suhuMax: Math.round(st.max * 10) / 10, suhuRata: Math.round(st.avg * 10) / 10,
       series: downsample(rd).map((r) => ({ t: r.t, v: r.biji ?? null })), mutu: b.mutu, sumber: b.sumber ?? {}, verif, terbit: Date.now(),
       komposAktif: b.kompos?.status === "terverifikasi",
+      alat: {
+        id: b.deviceId || "FERM-BOX-02",
+        nama: b.deviceName || "Kotak Fermentasi Ulin 02",
+        tipe: b.deviceType || "Kotak Fermentasi Bertingkat",
+        sensorId: b.deviceId ? `KP-IOT-${b.deviceId.slice(-2)}` : "KP-IOT-02",
+        operator: b.operatorName || b.ownerName,
+        operatorPhone: b.operatorPhone || "",
+        kelompok: b.group,
+      },
     });
     setMsg("Biji disetujui. QR paspor terbit.");
   });

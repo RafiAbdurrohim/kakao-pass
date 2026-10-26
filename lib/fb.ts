@@ -11,11 +11,36 @@ const cfg = {
 export const db = getDatabase(getApps()[0] ?? initializeApp(cfg));
 
 export type Role = "petani" | "admin";
-export type User = { id: string; name: string; group: string; role: Role };
+export type User = { id: string; name: string; group: string; role: Role; phone?: string; pin?: string };
 export type Status = "fermentasi" | "pengeringan" | "uji_mutu" | "verifikasi" | "revisi" | "selesai";
 export type FotoKey = "timbanganKering" | "kadarAir" | "ujiBelah" | "timbanganKompos" | "produkKompos";
 export type Photo = { d: string; m: "kamera" | "unggah"; t: number };
 export type Verif = { oleh: string; tgl: number };
+
+export type DeviceType = "fermentasi" | "pengeringan" | "gudang";
+export type DeviceStatus = "idle" | "aktif" | "maintenance";
+
+export type Device = {
+  id: string;
+  name: string;
+  type: DeviceType;
+  lokasi: string;
+  kapasitas: string;
+  status: DeviceStatus;
+  operatorId: string;
+  operatorName: string;
+  operatorPhone: string;
+  currentBatchId?: string;
+  registeredAt: number;
+  lastPing?: number;
+  terbaru?: {
+    suhu_biji?: number;
+    suhu_ruang?: number;
+    kelembapan?: number;
+    timestamp?: number;
+  };
+};
+
 export type Batch = {
   id: string; ownerId: string; ownerName: string; group: string; kode: string;
   varietas: string; kebun: string; tglPanen: string; beratBasah: number; beratKulit: number;
@@ -27,6 +52,12 @@ export type Batch = {
   fotoOk?: Partial<Record<FotoKey, boolean>>;
   sumber?: Partial<Record<"beratKering" | "kadarAir" | "beratKompos", "ocr" | "manual">>;
   kirim?: number; catatan?: string | null; verif?: Verif;
+  deviceId?: string;
+  deviceName?: string;
+  deviceType?: string;
+  operatorId?: string;
+  operatorName?: string;
+  operatorPhone?: string;
 };
 export type Reading = { t: number; biji?: number; ruang?: number; rh?: number };
 
@@ -45,8 +76,95 @@ const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]/g, "");
 
 const SEEDS = {
   "KTIM-024": { name: "Pak Budi", group: "Kelompok Tani Karangan Mandiri", phone: "081258202026", pin: "202601", role: "petani" },
+  "KTIM-025": { name: "Pak Joko", group: "Kelompok Tani Karangan Mandiri", phone: "081277889900", pin: "202603", role: "petani" },
   "ADM-001": { name: "Bu Sari", group: "Pendamping Lapangan", phone: "081200000001", pin: "202602", role: "admin" },
 } as const;
+
+export const DEFAULT_DEVICES: Record<string, Device> = {
+  "FERM-BOX-01": {
+    id: "FERM-BOX-01",
+    name: "Kotak Fermentasi Ulin 01",
+    type: "fermentasi",
+    lokasi: "Sentra Karangan Mandiri Blok A",
+    kapasitas: "500 kg",
+    status: "aktif",
+    operatorId: "KTIM-024",
+    operatorName: "Pak Budi",
+    operatorPhone: "081258202026",
+    registeredAt: 1729000000000,
+    lastPing: Date.now(),
+    terbaru: { suhu_biji: 46.8, suhu_ruang: 33.4, kelembapan: 82, timestamp: Date.now() },
+  },
+  "FERM-BOX-02": {
+    id: "FERM-BOX-02",
+    name: "Kotak Fermentasi Ulin 02",
+    type: "fermentasi",
+    lokasi: "Sentra Karangan Mandiri Blok B",
+    kapasitas: "500 kg",
+    status: "idle",
+    operatorId: "KTIM-025",
+    operatorName: "Pak Joko",
+    operatorPhone: "081277889900",
+    registeredAt: 1729500000000,
+    lastPing: Date.now(),
+    terbaru: { suhu_biji: 29.2, suhu_ruang: 28.5, kelembapan: 74, timestamp: Date.now() },
+  },
+  "SOLAR-DRY-01": {
+    id: "SOLAR-DRY-01",
+    name: "Solar Dryer Dome Karangan 01",
+    type: "pengeringan",
+    lokasi: "Lantai Jemur Terpal UV Blok Utama",
+    kapasitas: "1.200 kg",
+    status: "idle",
+    operatorId: "KTIM-024",
+    operatorName: "Pak Budi",
+    operatorPhone: "081258202026",
+    registeredAt: 1729500000000,
+    lastPing: Date.now(),
+    terbaru: { suhu_ruang: 38.5, kelembapan: 58, timestamp: Date.now() },
+  },
+};
+
+export async function seedDevicesIfEmpty(): Promise<void> {
+  const snap = await get(ref(db, "web/devices"));
+  if (!snap.exists()) {
+    for (const [id, dev] of Object.entries(DEFAULT_DEVICES)) {
+      await set(ref(db, `web/devices/${id}`), dev);
+    }
+  }
+}
+
+export async function saveDevice(device: Device): Promise<void> {
+  await set(ref(db, `web/devices/${device.id}`), device);
+}
+
+export async function deleteDevice(deviceId: string): Promise<void> {
+  await set(ref(db, `web/devices/${deviceId}`), null);
+}
+
+export async function pairDeviceOperator(
+  deviceId: string,
+  operatorId: string,
+  operatorName: string,
+  operatorPhone: string
+): Promise<void> {
+  await update(ref(db, `web/devices/${deviceId}`), {
+    operatorId,
+    operatorName,
+    operatorPhone,
+  });
+}
+
+export async function registerOperatorUser(user: {
+  id: string;
+  name: string;
+  group: string;
+  phone: string;
+  pin: string;
+  role: Role;
+}): Promise<void> {
+  await set(ref(db, `web/users/${user.id}`), user);
+}
 
 // Login prototipe: tanpa keamanan, hanya mencocokkan ID/nomor HP dan PIN di database.
 export async function login(idf: string, pin: string): Promise<User | null> {
