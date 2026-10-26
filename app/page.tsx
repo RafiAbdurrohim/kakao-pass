@@ -219,48 +219,53 @@ export default function Home() {
                 <span>Tonton Video Panduan</span>
               </button>
             </div>
+          </div>
 
-            {/* Telemetry Dock Bar (Dipindah ke Hero Section, Tanpa Tombol Kelola Batch) */}
-            <div className="concept-hero-dock-wrap">
-              <div className="concept-stepped-dock">
-                {/* Dock Item 1 */}
-                <div className="dock-cell">
-                  <div className="dock-icon-box green">
-                    <Thermometer size={14} />
-                  </div>
-                  <div>
-                    <span className="dock-label">Sensor IoT 20 cm</span>
-                    <strong className="dock-val">48.6°C <small>Fase Panas</small></strong>
-                  </div>
+          {/* Centered Stepped Telemetry Dock (Tengah Bawah Naik ~25%) */}
+          <div className="concept-hero-dock-wrap">
+            <motion.div
+              className="concept-stepped-dock"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {/* Dock Item 1 */}
+              <div className="dock-cell">
+                <div className="dock-icon-box green">
+                  <Thermometer size={15} />
                 </div>
-
-                <div className="dock-divider" />
-
-                {/* Dock Item 2 */}
-                <div className="dock-cell">
-                  <div className="dock-icon-box amber">
-                    <ShieldCheck size={14} />
-                  </div>
-                  <div>
-                    <span className="dock-label">Standar SNI 2323</span>
-                    <strong className="dock-val">88% <small>Mutu I</small></strong>
-                  </div>
-                </div>
-
-                <div className="dock-divider" />
-
-                {/* Dock Item 3 */}
-                <div className="dock-cell">
-                  <div className="dock-icon-box green">
-                    <Leaf size={14} />
-                  </div>
-                  <div>
-                    <span className="dock-label">Zero Waste</span>
-                    <strong className="dock-val">70% <small>Kompos Kulit</small></strong>
-                  </div>
+                <div className="dock-text-group">
+                  <span className="dock-label">Sensor IoT 20 cm</span>
+                  <strong className="dock-val">48.6°C <small>Fase Panas</small></strong>
                 </div>
               </div>
-            </div>
+
+              <div className="dock-divider" />
+
+              {/* Dock Item 2 */}
+              <div className="dock-cell">
+                <div className="dock-icon-box amber">
+                  <ShieldCheck size={15} />
+                </div>
+                <div className="dock-text-group">
+                  <span className="dock-label">Standar SNI 2323</span>
+                  <strong className="dock-val">88% <small>Mutu I</small></strong>
+                </div>
+              </div>
+
+              <div className="dock-divider" />
+
+              {/* Dock Item 3 */}
+              <div className="dock-cell">
+                <div className="dock-icon-box green">
+                  <Leaf size={15} />
+                </div>
+                <div className="dock-text-group">
+                  <span className="dock-label">Zero Waste</span>
+                  <strong className="dock-val">70% <small>Kompos Kulit</small></strong>
+                </div>
+              </div>
+            </motion.div>
           </div>
         </div>
       </section>

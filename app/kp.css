@@ -1128,15 +1128,15 @@
 .btn-concept-login.mobile{justify-content:center;margin-top:6px}
 
 /* Full-Screen Conceptzilla Hero Canvas */
-.concept-hero-section{position:relative;width:100%;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;justify-content:space-between;padding-top:100px;padding-bottom:32px;background-color:#fafaf9;border-bottom:1px solid #f1f5f9;overflow:hidden}
-.concept-hero-inner{width:min(1320px,calc(100% - 64px));margin:0 auto;display:flex;flex-direction:column;justify-content:space-between;flex:1;min-height:calc(100vh - 132px);min-height:calc(100dvh - 132px);position:relative;z-index:2}
+.concept-hero-section{position:relative;width:100%;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;justify-content:space-between;padding-top:84px;padding-bottom:24px;background-color:#fafaf9;border-bottom:1px solid #f1f5f9;overflow:hidden}
+.concept-hero-inner{width:min(1320px,calc(100% - 64px));margin:0 auto;display:flex;flex-direction:column;justify-content:space-between;flex:1;min-height:calc(100vh - 108px);min-height:calc(100dvh - 108px);position:relative;z-index:2}
 
 /* Pohon Kakao Cutout di Sisi Kanan (Kanan Utuh, Full Bleed ke Tepi Layar) */
 .concept-hero-tree-frame{position:absolute;top:68px;right:0;bottom:0;height:calc(100% - 68px);max-width:58vw;pointer-events:none;z-index:1;display:flex;align-items:flex-start;justify-content:flex-end}
 .concept-hero-tree-render{width:auto;height:100%;max-width:100%;object-fit:contain;object-position:right top;filter:drop-shadow(0 20px 40px rgba(15,23,42,.05))}
 
 /* Left Content Area */
-.concept-hero-left-copy{max-width:660px;position:relative;z-index:2;margin-top:auto;margin-bottom:auto;padding:24px 0}
+.concept-hero-left-copy{max-width:660px;position:relative;z-index:2;margin-top:auto;margin-bottom:auto;padding:20px 0 10px}
 .concept-main-title{font-size:clamp(32px,3.8vw,50px);font-weight:800;line-height:1.14;letter-spacing:-1.4px;color:#0f172a;margin:0 0 16px}
 .title-cocoa-accent{color:#9a3412;display:inline-block}
 .concept-lead-text{font-size:15.5px;line-height:1.7;color:#475569;margin:0 0 20px;font-weight:500}
@@ -1151,16 +1151,17 @@
 /* Full-Width Section 2 (Standar Pascapanen) */
 .concept-features-full-section{position:relative;width:100%;background-color:#f8fafc;border-top:1px solid #e2e8f0;padding:64px 0 84px}
 
-/* Hero Section Telemetry Dock Bar */
-.concept-hero-dock-wrap{margin-top:28px;position:relative;z-index:5}
-.concept-stepped-dock{display:inline-flex;align-items:center;background-color:#ffffff;border:1px solid #e2e8f0;border-radius:99px;padding:8px 20px;gap:18px;box-shadow:0 4px 18px rgba(15,23,42,.04)}
+/* Centered Stepped Telemetry Dock (Tengah Bawah Naik ~25%) */
+.concept-hero-dock-wrap{display:flex;justify-content:center;align-items:center;margin-top:auto;margin-bottom:12px;position:relative;z-index:10;padding:0 16px;width:100%}
+.concept-stepped-dock{display:inline-flex;align-items:center;background-color:#ffffff;border:1px solid #e2e8f0;border-radius:99px;padding:9px 26px;gap:20px;box-shadow:0 8px 24px rgba(15,23,42,.06)}
 .dock-cell{display:flex;align-items:center;gap:10px}
 .dock-icon-box{width:32px;height:32px;border-radius:9px;display:grid;place-items:center;flex-shrink:0}
 .dock-icon-box.green{background:#ecfdf5;color:#059669}
 .dock-icon-box.amber{background:#fef3c7;color:#d97706}
+.dock-text-group{display:flex;flex-direction:column}
 .dock-label{display:block;font-size:10px;font-weight:700;color:#64748b;text-transform:uppercase;letter-spacing:.4px}
-.dock-val{display:block;font-size:14.5px;font-weight:800;color:#0f172a;line-height:1.2}
-.dock-val small{font-size:10.5px;font-weight:600;color:#059669}
+.dock-val{display:block;font-size:14px;font-weight:800;color:#0f172a;line-height:1.2}
+.dock-val small{font-size:10.5px;font-weight:600;color:#059669;margin-left:4px}
 .dock-divider{width:1px;height:26px;background:#e2e8f0}
 
 /* Section Shared */
@@ -1286,15 +1287,15 @@
   .concept-hero-tree-frame{top:auto;bottom:0;right:0;width:100%;max-width:540px;height:360px;opacity:.88;mask-image:linear-gradient(to top,rgba(0,0,0,1) 0%,rgba(0,0,0,.7) 45%,rgba(0,0,0,0) 100%);-webkit-mask-image:linear-gradient(to top,rgba(0,0,0,1) 0%,rgba(0,0,0,.7) 45%,rgba(0,0,0,0) 100%)}
   .concept-hero-left-copy{max-width:100%;padding-bottom:20px}
   .concept-main-title{font-size:32px}
-  .concept-hero-dock-wrap{margin-top:24px;width:100%}
-  .concept-stepped-dock{width:100%;display:grid;grid-template-columns:repeat(3,1fr);gap:10px;padding:12px 14px;border-radius:18px}
+  .concept-hero-dock-wrap{margin-top:20px;margin-bottom:8px}
+  .concept-stepped-dock{width:100%;max-width:620px;display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:12px 14px;border-radius:20px}
   .dock-divider{display:none}
-  .dock-cell{flex-direction:column;align-items:center;text-align:center;gap:6px}
+  .dock-cell{flex-direction:column;align-items:center;text-align:center;gap:5px}
+  .dock-text-group{display:flex;flex-direction:column;align-items:center}
   .dock-icon-box{width:28px;height:28px}
   .dock-label{font-size:9px}
   .dock-val{font-size:13px}
-  .dock-val small{display:block;font-size:9.5px}
-  .concept-features-full-section{padding-bottom:48px;padding-top:48px}
+  .dock-val small{display:block;font-size:9.5px;margin-left:0}
   .concept-feature-grid{grid-template-columns:1fr;gap:16px}
   .concept-video-split{grid-template-columns:1fr;grid-template-areas:"header" "video" "steps";gap:18px}
   .concept-video-steps{margin-top:0}
@@ -1320,12 +1321,13 @@
   .concept-hero-section{padding-top:84px;padding-bottom:24px}
   .concept-hero-tree-frame{top:auto;bottom:0;right:0;width:100%;max-width:100%;height:270px;opacity:.85;mask-image:linear-gradient(to top,rgba(0,0,0,1) 0%,rgba(0,0,0,.6) 40%,rgba(0,0,0,0) 100%);-webkit-mask-image:linear-gradient(to top,rgba(0,0,0,1) 0%,rgba(0,0,0,.6) 40%,rgba(0,0,0,0) 100%)}
   .concept-main-title{font-size:28px}
-  .concept-stepped-dock{grid-template-columns:repeat(3,1fr);padding:10px 8px;gap:6px}
-  .dock-cell{gap:4px}
-  .dock-icon-box{width:26px;height:26px}
-  .dock-label{font-size:8.5px}
-  .dock-val{font-size:12px}
-  .dock-val small{font-size:9px}
+  .concept-hero-dock-wrap{margin-top:16px;margin-bottom:6px;padding:0 4px}
+  .concept-stepped-dock{grid-template-columns:repeat(3,1fr);padding:10px 4px;gap:4px;border-radius:16px}
+  .dock-cell{gap:3px;padding:2px}
+  .dock-icon-box{width:24px;height:24px}
+  .dock-label{font-size:8px;letter-spacing:0}
+  .dock-val{font-size:11.5px}
+  .dock-val small{font-size:8.5px}
   .zw-concept-photo-wrap{aspect-ratio:auto;height:240px}
   .zw-concept-badge{padding:10px 14px;bottom:12px;left:12px;right:12px;max-width:calc(100% - 24px)}
   .zw-point-row{padding:13px 15px}
@@ -1335,12 +1337,6 @@
   .footer-grid-layout{grid-template-columns:1fr;gap:24px}
   .footer-bottom-row{flex-direction:column;text-align:center;gap:8px}
   .video-step-item{padding:12px 14px}
-}
-
-@media(max-width:440px){
-  .concept-stepped-dock{grid-template-columns:1fr;gap:8px;padding:12px 14px}
-  .dock-cell{flex-direction:row;align-items:center;text-align:left;gap:12px}
-  .dock-val small{display:inline;margin-left:4px}
 }
 
 /* ==========================================================================
