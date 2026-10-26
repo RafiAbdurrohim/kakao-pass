@@ -228,9 +228,6 @@ export default function AdminPage() {
             <div className="kp-kpi-val" style={{ color: pending.length > 0 ? "var(--rust)" : "var(--cocoa-dark)" }}>
               {pending.length} <small style={{ fontSize: 13, fontWeight: 500 }}>batch</small>
             </div>
-            <div className="kp-kpi-sub">
-              {pending.length > 0 ? "Menunggu validasi dokumen & foto" : "Semua antrean terverifikasi"}
-            </div>
           </div>
 
           <div className="kp-kpi-item">
@@ -241,7 +238,6 @@ export default function AdminPage() {
             <div className="kp-kpi-val">
               {totalKering} <small style={{ fontSize: 13, fontWeight: 500 }}>kg</small>
             </div>
-            <div className="kp-kpi-sub">Dari {totalBasah} kg biji kakao basah</div>
           </div>
 
           <div className="kp-kpi-item">
@@ -252,7 +248,6 @@ export default function AdminPage() {
             <div className="kp-kpi-val" style={{ color: "var(--green-dark)" }}>
               {avgMutuBaik}%
             </div>
-            <div className="kp-kpi-sub">Hasil uji belah terstandar SNI</div>
           </div>
 
           <div className="kp-kpi-item">
@@ -263,7 +258,6 @@ export default function AdminPage() {
             <div className="kp-kpi-val">
               {totalKompos} <small style={{ fontSize: 13, fontWeight: 500 }}>kg</small>
             </div>
-            <div className="kp-kpi-sub">{verifiedKompos.length} batch sirkular tersertifikasi</div>
           </div>
 
           <div className="kp-kpi-item">
@@ -274,7 +268,6 @@ export default function AdminPage() {
             <div className="kp-kpi-val">
               {farmerUsers.length} <small style={{ fontSize: 13, fontWeight: 500 }}>orang</small>
             </div>
-            <div className="kp-kpi-sub">{all?.length ?? 0} total siklus batch tercatat</div>
           </div>
         </div>
 
