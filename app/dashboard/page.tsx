@@ -333,11 +333,10 @@ export default function Dashboard() {
             <button
               type="button"
               className="btn-concept-hamburger"
-              style={{ display: "none" }}
               onClick={() => setMobileMenuOpen(true)}
               aria-label="Buka Menu"
             >
-              <Menu size={18} />
+              <Menu size={20} />
             </button>
           </div>
         </div>
@@ -353,7 +352,8 @@ export default function Dashboard() {
               onClick={() => setMainTab("overview")}
             >
               <Activity size={16} />
-              <span>Dashboard Utama</span>
+              <span className="kp-tab-label-full">Dashboard Utama</span>
+              <span className="kp-tab-label-short">Utama</span>
             </button>
 
             <button
@@ -362,7 +362,8 @@ export default function Dashboard() {
               onClick={() => setMainTab("kakao")}
             >
               <Package size={16} />
-              <span>Batch Biji Kakao</span>
+              <span className="kp-tab-label-full">Batch Biji Kakao</span>
+              <span className="kp-tab-label-short">Biji Kakao</span>
               <span className="kp-nav-badge">{batches.length}</span>
             </button>
 
@@ -372,21 +373,11 @@ export default function Dashboard() {
               onClick={() => setMainTab("kompos")}
             >
               <Sprout size={16} />
-              <span>Olah Kompos Kulit</span>
+              <span className="kp-tab-label-full">Olah Kompos Kulit</span>
+              <span className="kp-tab-label-short">Kompos</span>
               <span className="kp-nav-badge g">{compostBatches.length}</span>
             </button>
           </nav>
-
-          <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-            <button
-              className="kp-btn sm"
-              onClick={() => setOpenNewBatch(true)}
-              style={{ whiteSpace: "nowrap" }}
-            >
-              <Plus size={15} />
-              Batch Baru
-            </button>
-          </div>
         </div>
       </div>
 
@@ -537,9 +528,9 @@ export default function Dashboard() {
               <section className="kp-card kp-c8">
                 <div className="kp-row" style={{ marginBottom: 14 }}>
                   <div>
-                    <h2 style={{ margin: "0 0 2px" }}>Riwayat Suhu Fermentasi IoT</h2>
+                    <h2 style={{ margin: "0 0 2px" }}>Grafik Suhu Fermentasi</h2>
                     <p style={{ margin: 0, fontSize: 13, color: "var(--muted)" }}>
-                      Telemetri rekaman suhu massa biji vs. suhu ruang ({chartBatchId ? `Batch ${chartBatchId}` : "Sensor Kebun"})
+                      Sensor suhu {chartBatchId ? `Batch ${chartBatchId}` : "kotak fermentasi"}
                     </p>
                   </div>
                   {primaryActiveBatch && (
@@ -551,12 +542,6 @@ export default function Dashboard() {
 
                 {/* Real-time & Historical Chart */}
                 <Chart data={chartReadings} />
-
-                {tempZone && (
-                  <div style={{ marginTop: 14, padding: "10px 14px", background: "#faf8f2", borderRadius: 12, border: "1px solid #ddd8cc", fontSize: 13 }}>
-                    <b>Panduan Teknis:</b> {tempZone.advice}
-                  </div>
-                )}
               </section>
 
               {/* Right Column: Live Sensor & Contact */}
