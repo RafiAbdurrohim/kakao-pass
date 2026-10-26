@@ -600,20 +600,20 @@ export default function Home() {
             <h2>Tiga Langkah Menuju Standar Pabrik</h2>
           </motion.div>
 
-          <div className="concept-flowline-wrap">
-            {/* Guide track line connecting nodes */}
-            <div className="flowline-track-line" aria-hidden="true" />
-
+          <div className="concept-flowline-grid">
             {/* Step 1 */}
             <motion.div
-              className="flowline-step-item"
+              className="flowline-column"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-30px" }}
               transition={{ duration: 0.45, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div className="flowline-node-circle farmer">
-                <span>01</span>
+              <div className="flowline-header-row">
+                <div className="flowline-node-circle farmer">
+                  <span>01</span>
+                </div>
+                <div className="flowline-connector-track line-farmer-to-ppl" />
               </div>
               <div className="flowline-step-card role-farmer">
                 <span className="flowline-role-tag farmer">PETANI DI KEBUN</span>
@@ -627,14 +627,17 @@ export default function Home() {
 
             {/* Step 2 */}
             <motion.div
-              className="flowline-step-item"
+              className="flowline-column"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-30px" }}
               transition={{ duration: 0.45, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div className="flowline-node-circle ppl">
-                <span>02</span>
+              <div className="flowline-header-row">
+                <div className="flowline-node-circle ppl">
+                  <span>02</span>
+                </div>
+                <div className="flowline-connector-track line-ppl-to-industry" />
               </div>
               <div className="flowline-step-card role-ppl">
                 <span className="flowline-role-tag ppl">PENYULUH LAPANGAN (PPL)</span>
@@ -648,14 +651,17 @@ export default function Home() {
 
             {/* Step 3 */}
             <motion.div
-              className="flowline-step-item"
+              className="flowline-column"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-30px" }}
               transition={{ duration: 0.45, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div className="flowline-node-circle industry">
-                <span>03</span>
+              <div className="flowline-header-row">
+                <div className="flowline-node-circle industry">
+                  <span>03</span>
+                </div>
+                <div className="flowline-connector-track line-industry-continuation" />
               </div>
               <div className="flowline-step-card role-industry">
                 <span className="flowline-role-tag industry">PEMBELI INDUSTRI</span>
