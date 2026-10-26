@@ -1192,14 +1192,22 @@
 .concept-video-lead{font-size:14.5px;color:#64748b;line-height:1.65;margin:0}
 .concept-video-steps-wrap{grid-area:steps}
 .concept-video-steps{display:flex;flex-direction:column;gap:12px;margin-top:16px}
-.video-step-item{display:flex;align-items:flex-start;gap:14px;padding:14px 18px;border-radius:14px;background:#ffffff;border:1px solid #e2e8f0;box-shadow:0 2px 6px rgba(15,23,42,.02);transition:border-color .18s,box-shadow .18s,transform .18s;text-align:left;cursor:pointer;width:100%}
+.video-step-item{display:flex;align-items:flex-start;gap:14px;padding:14px 18px;border-radius:14px;background:#ffffff;border:1px solid #e2e8f0;box-shadow:0 2px 6px rgba(15,23,42,.02);transition:border-color .2s,box-shadow .2s,transform .2s,background-color .2s;text-align:left;cursor:pointer;width:100%;position:relative}
 .video-step-item:hover{border-color:#cbd5e1;box-shadow:0 8px 24px rgba(15,23,42,.06);transform:translateX(3px)}
+.video-step-item.is-active{border-color:#9a3412;background:#fffaf7;box-shadow:0 6px 20px rgba(154,52,18,.08);transform:translateX(4px)}
+.video-step-item.is-active strong{color:#9a3412}
 .video-step-item strong{display:block;font-size:13.5px;font-weight:700;color:#0f172a;margin-bottom:2px}
 .video-step-item p{font-size:12.5px;color:#64748b;line-height:1.5;margin:0}
 .concept-video-wrap{grid-area:video;position:relative}
-.concept-video-box{width:100%;background:#0b1120;border:1px solid #e2e8f0;border-radius:24px;overflow:hidden;box-shadow:0 16px 40px rgba(15,23,42,.08)}
+.concept-video-box{width:100%;background:#0b1120;border:1px solid #1e293b;border-radius:20px;overflow:hidden;box-shadow:0 16px 40px rgba(15,23,42,.12)}
+.cinema-studio-bar{display:flex;align-items:center;justify-content:space-between;padding:11px 18px;background:#0f172a;border-bottom:1px solid rgba(255,255,255,.08);font-size:11px;font-weight:700;letter-spacing:.5px;color:#cbd5e1}
+.cinema-bar-left{display:flex;align-items:center;gap:8px}
+.cinema-live-dot{width:7px;height:7px;border-radius:50%;background:#10b981;box-shadow:0 0 8px rgba(16,185,129,.7);animation:pulse-live-dot 2s infinite ease-in-out}
+@keyframes pulse-live-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.85)}}
+.cinema-bar-tag{font-family:monospace;font-size:10px;font-weight:800;color:#64748b;background:rgba(255,255,255,.06);padding:2px 7px;border-radius:4px;letter-spacing:.6px}
 .concept-video-player{width:100%;aspect-ratio:16/9;display:block;object-fit:cover;background:#000000}
-.time-badge{font-family:monospace;font-size:11px;font-weight:800;color:#059669;background:#ecfdf5;border:1px solid #a7f3d0;padding:3px 8px;border-radius:6px;flex-shrink:0;margin-top:2px}
+.time-badge{font-family:monospace;font-size:11px;font-weight:800;color:#059669;background:#ecfdf5;border:1px solid #a7f3d0;padding:3px 8px;border-radius:6px;flex-shrink:0;margin-top:2px;transition:background-color .2s,color .2s,border-color .2s}
+.video-step-item.is-active .time-badge{background:#9a3412;color:#ffffff;border-color:#9a3412}
 
 /* Zero Waste Concept Split (Desktop: Foto Kiri, Tulisan Kanan; Mobile: Header -> Foto -> Poin) */
 .zero-waste-concept-split{display:grid;grid-template-columns:1fr 1.05fr;grid-template-areas:"photo header" "photo points";gap:20px 48px;align-items:start}

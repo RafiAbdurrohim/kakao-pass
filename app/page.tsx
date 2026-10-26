@@ -27,14 +27,25 @@ export default function Home() {
   const [videoOpen, setVideoOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeChapter, setActiveChapter] = useState<number | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const seekVideo = (seconds: number) => {
+  const seekVideo = (seconds: number, chapterIdx: number) => {
+    setActiveChapter(chapterIdx);
     if (videoRef.current) {
       videoRef.current.currentTime = seconds;
       videoRef.current.play().catch(() => {});
       videoRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
     }
+  };
+
+  const handleTimeUpdate = () => {
+    if (!videoRef.current) return;
+    const t = videoRef.current.currentTime;
+    if (t >= 104) setActiveChapter(2);
+    else if (t >= 75) setActiveChapter(1);
+    else if (t >= 49) setActiveChapter(0);
+    else setActiveChapter(null);
   };
 
   useEffect(() => {
@@ -375,7 +386,7 @@ export default function Home() {
       </section>
 
       {/* ====================================================================
-          6. SECTION: VIDEO PANDUAN LAPANGAN (Desktop: 2 Kolom; Mobile: Header -> Video -> Detik)
+          5. SECTION: VIDEO PANDUAN LAPANGAN (CINEMA STUDIO & INTERACTIVE TIMECODE)
           ==================================================================== */}
       <section className="concept-section" id="video-panduan">
         <div className="concept-container">
@@ -388,14 +399,14 @@ export default function Home() {
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             >
-              <span className="concept-kicker">PANDUAN PRAKTIK KEBUN</span>
+              <span className="concept-kicker">DOKUMENTASI LAPANGAN</span>
               <h2>Video Panduan Petani Kakao</h2>
               <p className="concept-video-lead">
-                Panduan lapangan pengisian kotak bertingkat, pemantauan sensor suhu telemetri, dan fermentasi kompos kulit kakao.
+                Praktik langsung pemasangan sensor probe di kotak bertingkat dan pembuatan kompos kulit buah.
               </p>
             </motion.div>
 
-            {/* Video Box: Native HTML5 Video Player (Bebas CSP Error & Responsif) */}
+            {/* Video Box: Native Cinema Player */}
             <motion.div
               className="concept-video-wrap"
               initial={{ opacity: 0, y: 16 }}
@@ -404,12 +415,20 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
             >
               <div className="concept-video-box">
+                <div className="cinema-studio-bar">
+                  <div className="cinema-bar-left">
+                    <span className="cinema-live-dot" />
+                    <span>DOKUMENTASI KEBUN · 1080p HD</span>
+                  </div>
+                  <span className="cinema-bar-tag">KUTAI TIMUR</span>
+                </div>
                 <video
                   ref={videoRef}
                   src="/videos/panduan-petani.mp4"
                   controls
                   playsInline
                   preload="metadata"
+                  onTimeUpdate={handleTimeUpdate}
                   className="concept-video-player"
                 />
               </div>
@@ -426,37 +445,37 @@ export default function Home() {
               <div className="concept-video-steps">
                 <button
                   type="button"
-                  className="video-step-item"
-                  onClick={() => seekVideo(49)}
+                  className={`video-step-item ${activeChapter === 0 ? "is-active" : ""}`}
+                  onClick={() => seekVideo(49, 0)}
                 >
                   <span className="time-badge">00:49</span>
                   <div>
-                    <strong>Pemasangan Sensor Probe di Kotak Kayu</strong>
-                    <p>Sensor suhu probe ditancapkan 20 cm ke tengah tumpukan biji untuk pantau suhu 28°C–50°C.</p>
+                    <strong>Pemasangan Sensor Probe</strong>
+                    <p>Penancapan probe 20 cm di tengah tumpukan biji kotak kayu.</p>
                   </div>
                 </button>
 
                 <button
                   type="button"
-                  className="video-step-item"
-                  onClick={() => seekVideo(75)}
+                  className={`video-step-item ${activeChapter === 1 ? "is-active" : ""}`}
+                  onClick={() => seekVideo(75, 1)}
                 >
                   <span className="time-badge">01:15</span>
                   <div>
-                    <strong>Pembalikan Kotak Tiap 48 Jam</strong>
-                    <p>Biji dipindahkan ke kotak bertingkat bawah untuk meratakan aerasi oksigen dan panas alami.</p>
+                    <strong>Pembalikan Tiap 48 Jam</strong>
+                    <p>Perataan aerasi oksigen dan panas alami massa fermentasi.</p>
                   </div>
                 </button>
 
                 <button
                   type="button"
-                  className="video-step-item"
-                  onClick={() => seekVideo(104)}
+                  className={`video-step-item ${activeChapter === 2 ? "is-active" : ""}`}
+                  onClick={() => seekVideo(104, 2)}
                 >
                   <span className="time-badge">01:44</span>
                   <div>
-                    <strong>Pengolahan Kompos Kulit Kakao</strong>
-                    <p>Limbah kulit buah dicacah dan difermentasi menjadi pupuk organik penyubur kebun.</p>
+                    <strong>Pengolahan Kompos Kulit</strong>
+                    <p>Pencacahan limbah kulit buah menjadi pupuk organik kebun.</p>
                   </div>
                 </button>
               </div>
