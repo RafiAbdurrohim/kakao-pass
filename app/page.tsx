@@ -474,7 +474,7 @@ export default function Home() {
                 >
                   <span className="time-badge">01:44</span>
                   <div>
-                    <strong>Pengolahan Kompos Kulit</strong>
+                    <strong>Zero Waste Kompos Kulit</strong>
                     <p>Pencacahan limbah kulit buah menjadi pupuk organik kebun.</p>
                   </div>
                 </button>
@@ -485,7 +485,7 @@ export default function Home() {
       </section>
 
       {/* ====================================================================
-          7. SECTION: ZERO WASTE (Desktop: Foto Kiri, Tulisan Kanan; Mobile: Header -> Foto -> Poin)
+          6. SECTION: ZERO WASTE SIRKULAR (Desktop: Foto Kiri, Tulisan Kanan; Mobile: Header -> Foto -> Poin)
           ==================================================================== */}
       <section className="concept-section bg-light" id="zero-waste">
         <div className="concept-container">
@@ -498,11 +498,10 @@ export default function Home() {
               viewport={{ once: true, margin: "-40px" }}
               transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             >
-              <span className="concept-kicker">PENGOLAHAN LIMBAH KULIT</span>
-              <h2>Kebun Lebih Bersih, Hemat Biaya Pupuk</h2>
+              <span className="concept-kicker">SIRKULAR ZERO WASTE</span>
+              <h2>Kebun Bersih, Nol Limbah Terbuang</h2>
               <p className="zw-concept-lead">
-                Kulit buah kakao jangan dibiarkan menumpuk di dekat pohon karena dapat memicu jamur busuk buah.
-                Di KakaoPass, limbah kulit dicatat untuk diolah menjadi pupuk organik kebun sendiri.
+                Pemanfaatan 70% biomassa kulit buah menjadi pupuk organik mandiri untuk mencegah penyakit jamur busuk buah dan menyuburkan pohon.
               </p>
             </motion.div>
 
@@ -516,7 +515,7 @@ export default function Home() {
             >
               <Image
                 src="/images/kakao-flatlay.jpg"
-                alt="Kulit buah kakao dan pupuk kompos"
+                alt="Kulit buah kakao dan pupuk kompos zero waste"
                 width={640}
                 height={460}
                 className="zw-concept-img"
@@ -526,8 +525,8 @@ export default function Home() {
                   <Leaf size={16} />
                 </div>
                 <div className="zw-badge-text">
-                  <strong>70% Bobot Buah Kakao</strong>
-                  <span>Biomassa kulit diolah jadi pupuk kompos organik</span>
+                  <strong>Zero Waste Kebun Mandiri</strong>
+                  <span>100% pemanfaatan biomassa kulit jadi pupuk organik</span>
                 </div>
               </div>
             </motion.div>
@@ -549,8 +548,8 @@ export default function Home() {
                     <CheckCircle2 size={18} className="text-green" />
                   </div>
                   <div>
-                    <strong>Cegah Jamur &amp; Penyakit Buah</strong>
-                    <p>Kebun bersih tanpa tumpukan kulit busuk di dekat pohon.</p>
+                    <strong>Cegah Jamur Busuk Buah</strong>
+                    <p>Kebun bersih tanpa tumpukan kulit busuk yang memicu jamur Phytophthora.</p>
                   </div>
                 </motion.div>
 
@@ -562,8 +561,8 @@ export default function Home() {
                     <CheckCircle2 size={18} className="text-green" />
                   </div>
                   <div>
-                    <strong>Hemat Pengeluaran Pupuk Kimia</strong>
-                    <p>Kompos dipakai kembali untuk menyuburkan kebun kakao sendiri.</p>
+                    <strong>Hemat Biaya Pupuk Kimia</strong>
+                    <p>Kompos organik kaya hara dipakai kembali untuk menyuburkan kebun sendiri.</p>
                   </div>
                 </motion.div>
 
@@ -575,8 +574,8 @@ export default function Home() {
                     <CheckCircle2 size={18} className="text-green" />
                   </div>
                   <div>
-                    <strong>Pencatatan Karung Kompos Mandiri</strong>
-                    <p>Setiap batch kompos yang siap pakai dicatat datanya di portal.</p>
+                    <strong>Pencatatan Karung Mandiri</strong>
+                    <p>Setiap batch kompos siap pakai tercatat rapi di portal kelompok tani.</p>
                   </div>
                 </motion.div>
               </div>
