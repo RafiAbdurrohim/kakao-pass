@@ -514,8 +514,8 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
             >
               <Image
-                src="/images/kakao-flatlay.jpg"
-                alt="Kulit buah kakao dan pupuk kompos zero waste"
+                src="/images/zero-waste-kulit-kebun.jpg"
+                alt="Panen buah kakao dan pengolahan limbah kulit kebun zero waste"
                 width={640}
                 height={460}
                 className="zw-concept-img"
