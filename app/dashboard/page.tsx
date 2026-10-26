@@ -34,6 +34,7 @@ import {
 } from "lucide-react";
 import { QRCodeSVG } from "qrcode.react";
 import Chart from "../components/Chart";
+import { PhotoField, usePhotos } from "../components/Camera";
 import {
   db,
   getUser,
@@ -267,6 +268,17 @@ export default function Dashboard() {
     return activityFeed.slice(start, start + ACT_PER_PAGE);
   }, [activityFeed, actPage]);
 
+  // Rejection trackers for alert banners across dashboard
+  const rejectedBatches = useMemo(() => {
+    return batches.filter((b) => b.status === "revisi");
+  }, [batches]);
+
+  const rejectedCompost = useMemo(() => {
+    return batches.filter((b) => b.kompos?.status === "diolah" && Boolean(b.kompos?.catatan));
+  }, [batches]);
+
+  const totalRejections = rejectedBatches.length + rejectedCompost.length;
+
   if (!user) return null;
 
   const online = !!live?.timestamp && now - live.timestamp < 75 * 60000;
@@ -482,6 +494,76 @@ export default function Dashboard() {
                 <Plus size={16} /> Mulai Batch Baru
               </button>
             </div>
+
+            {/* Global Rejection Alert Banner */}
+            {totalRejections > 0 && (
+              <div
+                style={{
+                  background: "#fef2f2",
+                  border: "1px solid #fecaca",
+                  borderRadius: 14,
+                  padding: "14px 16px",
+                  marginBottom: 18,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "space-between",
+                  flexWrap: "wrap",
+                  gap: 12,
+                }}
+              >
+                <div style={{ display: "flex", alignItems: "flex-start", gap: 12 }}>
+                  <div
+                    style={{
+                      width: 34,
+                      height: 34,
+                      borderRadius: "50%",
+                      background: "#fee2e2",
+                      color: "#dc2626",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      flexShrink: 0,
+                      marginTop: 2,
+                    }}
+                  >
+                    <AlertTriangle size={18} />
+                  </div>
+                  <div>
+                    <b style={{ color: "#991b1b", fontSize: 14, display: "block" }}>
+                      Perhatian: Ada {totalRejections} pengajuan yang perlu revisi admin
+                    </b>
+                    <span style={{ fontSize: 12.5, color: "#7f1d1d", lineHeight: 1.4 }}>
+                      {rejectedBatches.length > 0 && `${rejectedBatches.length} batch biji kakao `}
+                      {rejectedBatches.length > 0 && rejectedCompost.length > 0 && "dan "}
+                      {rejectedCompost.length > 0 && `${rejectedCompost.length} olahan kompos `}
+                      dikembalikan dengan catatan penolakan. Silakan periksa dan ajukan ulang.
+                    </span>
+                  </div>
+                </div>
+                <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
+                  {rejectedBatches.length > 0 && (
+                    <button
+                      type="button"
+                      className="kp-btn sm"
+                      style={{ background: "#dc2626", borderColor: "#dc2626" }}
+                      onClick={() => setMainTab("kakao")}
+                    >
+                      Revisi Biji Kakao ({rejectedBatches.length})
+                    </button>
+                  )}
+                  {rejectedCompost.length > 0 && (
+                    <button
+                      type="button"
+                      className="kp-btn sm"
+                      style={{ background: "#166534", borderColor: "#166534" }}
+                      onClick={() => setMainTab("kompos")}
+                    >
+                      Revisi Kompos ({rejectedCompost.length})
+                    </button>
+                  )}
+                </div>
+              </div>
+            )}
 
             {/* Production KPI Metrics */}
             <div className="kp-kpi">
@@ -774,6 +856,22 @@ export default function Dashboard() {
                     </div>
                   </div>
                 )}
+
+                {primaryActiveBatch.status === "revisi" && (
+                  <div style={{ background: "#fef2f2", border: "1px solid #fecaca", borderRadius: 12, padding: "14px", display: "grid", gap: 8 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 8, color: "#991b1b", fontWeight: 700, fontSize: 14 }}>
+                      <AlertTriangle size={18} /> Pengajuan Paspor Biji Perlu Revisi Admin
+                    </div>
+                    <p style={{ margin: 0, fontSize: 13, color: "#7f1d1d" }}>
+                      <b>Catatan Penolakan Admin PPL:</b> {primaryActiveBatch.catatan || "Data atau foto belum sesuai standar SNI. Silakan periksa kembali."}
+                    </p>
+                    <div style={{ marginTop: 4 }}>
+                      <Link href={`/batch/${primaryActiveBatch.id}`} className="kp-btn sm" style={{ background: "#dc2626", borderColor: "#dc2626" }}>
+                        Perbaiki Data Uji Mutu &rarr;
+                      </Link>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
 
@@ -836,6 +934,23 @@ export default function Dashboard() {
                           ? ` · Hari ke-${Math.floor((now - b.mulaiFerm) / DAY) + 1}`
                           : ""}
                       </p>
+
+                      {b.status === "revisi" && b.catatan && (
+                        <div
+                          style={{
+                            margin: "10px 0",
+                            background: "#fef2f2",
+                            border: "1px solid #fecaca",
+                            borderRadius: 10,
+                            padding: "10px 14px",
+                            fontSize: 13,
+                            color: "#991b1b",
+                          }}
+                        >
+                          <b style={{ display: "block", marginBottom: 2 }}>⚠️ Perlu Revisi Admin PPL:</b>
+                          {b.catatan}
+                        </div>
+                      )}
 
                       <div style={{ display: "flex", gap: 14, marginTop: 6, fontSize: 12, color: "var(--muted)", flexWrap: "wrap" }}>
                         <span>Dibuat {fmtDate(b.createdAt)}</span>
@@ -984,6 +1099,7 @@ export default function Dashboard() {
                     const isVerified = k.status === "terverifikasi";
                     const isWaiting = k.status === "menunggu";
                     const isProcessing = k.status === "diolah";
+                    const isRejected = isProcessing && Boolean(k.catatan);
 
                     return (
                       <div key={b.id} className="kp-compost-item">
@@ -991,13 +1107,16 @@ export default function Dashboard() {
                           <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 8 }}>
                             <span
                               className={`kp-chip ${
-                                isVerified ? "g" : isWaiting || isProcessing ? "r" : ""
+                                isVerified ? "g" : isRejected ? "r" : isWaiting || isProcessing ? "r" : ""
                               }`}
+                              style={isRejected ? { background: "#fee2e2", color: "#991b1b", borderColor: "#fecaca" } : undefined}
                             >
                               {isVerified
                                 ? "Terverifikasi"
                                 : isWaiting
                                 ? "Menunggu Verifikasi"
+                                : isRejected
+                                ? "Perlu Revisi"
                                 : isProcessing
                                 ? "Sedang Diolah"
                                 : "Belum Diolah"}
@@ -1017,6 +1136,23 @@ export default function Dashboard() {
                           {k.campuran && (
                             <div style={{ fontSize: 12, color: "#475569", background: "#f8fafc", padding: "8px 10px", borderRadius: 8, marginBottom: 10 }}>
                               Campuran: <b>{k.campuran}</b>
+                            </div>
+                          )}
+
+                          {isRejected && (
+                            <div
+                              style={{
+                                margin: "10px 0",
+                                background: "#fef2f2",
+                                border: "1px solid #fecaca",
+                                borderRadius: 10,
+                                padding: "10px 14px",
+                                fontSize: 13,
+                                color: "#991b1b",
+                              }}
+                            >
+                              <b style={{ display: "block", marginBottom: 2 }}>⚠️ Ditolak / Catatan Revisi Admin PPL:</b>
+                              {k.catatan}
                             </div>
                           )}
 
@@ -1061,10 +1197,13 @@ export default function Dashboard() {
                             <button
                               type="button"
                               className="kp-btn g sm"
-                              style={{ width: "100%" }}
+                              style={{
+                                width: "100%",
+                                ...(isRejected ? { background: "#dc2626", borderColor: "#dc2626" } : {}),
+                              }}
                               onClick={() => setFinishCompostTarget(b)}
                             >
-                              Catat Timbangan Kompos Jadi
+                              {isRejected ? "Perbaiki & Ajukan Ulang Kompos" : "Catat Timbangan Kompos Jadi"}
                             </button>
                           )}
 
@@ -1418,8 +1557,12 @@ function FinishCompostModal({
   onClose: () => void;
   onSuccess: () => void;
 }) {
-  const [beratKompos, setBeratKompos] = useState("");
+  const photos = usePhotos(batch.id);
+  const [beratKompos, setBeratKompos] = useState(
+    batch.kompos?.beratKompos ? String(batch.kompos.beratKompos) : ""
+  );
   const [busy, setBusy] = useState(false);
+  const [ocrDetected, setOcrDetected] = useState(false);
 
   const handleFinish = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -1438,6 +1581,9 @@ function FinishCompostModal({
         kirim: Date.now(),
         catatan: null,
       });
+      await update(ref(db, `web/batches/${batch.id}`), {
+        "sumber/beratKompos": ocrDetected ? "ocr" : "manual",
+      });
       onSuccess();
     } catch {
       alert("Gagal mengirim data kompos.");
@@ -1449,14 +1595,33 @@ function FinishCompostModal({
     <div className="kp-modal" onClick={onClose}>
       <form className="kp-sheet" onClick={(e) => e.stopPropagation()} onSubmit={handleFinish}>
         <div className="kp-row" style={{ marginBottom: 14 }}>
-          <h2 style={{ margin: 0, fontSize: 17 }}>Catat Hasil Kompos Jadi</h2>
-          <button type="button" className="kp-btn s sm" onClick={onClose}>
+          <h2 style={{ margin: 0, fontSize: 17 }}>
+            {batch.kompos?.catatan ? "Revisi & Ajukan Ulang Kompos" : "Catat Hasil Kompos Jadi"}
+          </h2>
+          <button type="button" className="kp-btn s sm" onClick={onClose} aria-label="Tutup">
             <X size={16} />
           </button>
         </div>
 
+        {batch.kompos?.catatan && (
+          <div
+            className="kp-err"
+            style={{
+              marginBottom: 14,
+              background: "#fef2f2",
+              border: "1px solid #fecaca",
+              color: "#991b1b",
+              padding: "10px 12px",
+              borderRadius: 10,
+            }}
+          >
+            <b>Catatan Penolakan Admin PPL:</b>
+            <div style={{ marginTop: 2, fontSize: 13 }}>{batch.kompos.catatan}</div>
+          </div>
+        )}
+
         <p style={{ margin: "0 0 14px", fontSize: 13, color: "var(--muted)" }}>
-          Masukkan berat hasil kompos matang dari <b>Batch {batch.kode}</b> untuk diverifikasi oleh admin PPL.
+          Masukkan berat hasil kompos matang dari <b>Batch {batch.kode}</b> beserta foto bukti untuk diverifikasi oleh admin PPL.
         </p>
 
         <div className="kp-f">
@@ -1464,14 +1629,43 @@ function FinishCompostModal({
           <input
             inputMode="decimal"
             value={beratKompos}
-            onChange={(e) => setBeratKompos(e.target.value)}
-            placeholder="15"
+            onChange={(e) => {
+              setBeratKompos(e.target.value);
+              setOcrDetected(false);
+            }}
+            placeholder="Contoh: 15"
             required
           />
         </div>
 
-        <button className="kp-btn g" style={{ width: "100%" }} disabled={busy}>
-          {busy ? "Mengirim..." : "Kirim untuk Verifikasi Admin PPL"}
+        <PhotoField
+          batchId={batch.id}
+          k="timbanganKompos"
+          label="Foto Timbangan Kompos (Opsional)"
+          photo={photos.timbanganKompos}
+          hint="Arahkan kamera ke angka timbangan. Sertakan kertas kode batch di frame."
+          onText={(v) => {
+            if (v) {
+              setBeratKompos(v);
+              setOcrDetected(true);
+            }
+          }}
+        />
+
+        <PhotoField
+          batchId={batch.id}
+          k="produkKompos"
+          label="Foto Produk Kompos Matang (Opsional)"
+          photo={photos.produkKompos}
+          hint="Foto fisik tumpukan atau kemasan kompos yang sudah matang siap pakai."
+        />
+
+        <button className="kp-btn g" style={{ width: "100%", marginTop: 8 }} disabled={busy}>
+          {busy
+            ? "Mengirim..."
+            : batch.kompos?.catatan
+            ? "Kirim Ulang untuk Verifikasi Admin PPL"
+            : "Kirim untuk Verifikasi Admin PPL"}
         </button>
       </form>
     </div>

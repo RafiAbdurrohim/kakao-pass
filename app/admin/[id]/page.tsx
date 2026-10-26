@@ -107,12 +107,17 @@ export default function Review() {
         <section className="kp-card kp-c6"><h2>Data kompos</h2>
           {!b.kompos || b.kompos.status === "belum" ? <div className="kp-empty">Belum ada pengolahan kompos.</div> : <>
             <div className="kp-kv"><div><span>Kulit awal</span><b>{b.beratKulit || 0} kg</b></div><div><span>Kompos jadi</span><b>{b.kompos.beratKompos ?? "-"} kg</b></div><div><span>Campuran</span><b style={{ fontSize: 14 }}>{b.kompos.campuran}</b></div></div>
-            <p style={{ fontSize: 13, color: "var(--muted)" }}>Berat kompos: {b.sumber?.beratKompos ? SRC[b.sumber.beratKompos] : "-"}</p>
+            <p style={{ fontSize: 13, color: "var(--muted)" }}>Berat kompos: {b.sumber?.beratKompos ? SRC[b.sumber.beratKompos] : (b.kompos?.beratKompos ? "diketik manual" : "-")}</p>
             <Gal keys={["timbanganKompos", "produkKompos"]} />
             {b.kompos.status === "menunggu" && <div style={{ marginTop: 14 }}>
               <div className="kp-f"><label>Catatan (wajib jika menolak)</label><textarea rows={2} value={cat.kompos} onChange={(e) => setCat({ ...cat, kompos: e.target.value })} /></div>
               <div className="kp-row"><button className="kp-btn s" onClick={rejectKompos}><X size={16} />Tolak</button><button className="kp-btn g" onClick={approveKompos} disabled={own}><Check size={16} />Setujui & terbitkan QR</button></div></div>}
             {b.kompos.status === "terverifikasi" && <div className="kp-ok" style={{ marginTop: 12 }}>Terverifikasi {b.kompos.verif?.oleh} · <Link href={`/cetak/${b.id}/kompos`}>Cetak stiker</Link></div>}
+            {b.kompos.status === "diolah" && b.kompos.catatan && (
+              <div className="kp-warn" style={{ marginTop: 12 }}>
+                <b>Menunggu petani memperbaiki kompos:</b> {b.kompos.catatan}
+              </div>
+            )}
           </>}
         </section>
       </div>

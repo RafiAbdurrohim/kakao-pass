@@ -279,7 +279,24 @@ export default function BatchPage() {
 
           {(b.status === "uji_mutu" || b.status === "revisi") && <>
             <h2>{b.status === "revisi" ? "Perbaiki Data Uji Mutu" : "Uji Mutu (Cut Test 100 Butir)"}</h2>
-            {b.status === "revisi" && <div className="kp-warn"><b>Catatan admin:</b> {b.catatan || "-"}</div>}
+            {b.status === "revisi" && (
+              <div
+                className="kp-err"
+                style={{
+                  marginBottom: 16,
+                  background: "#fef2f2",
+                  border: "1px solid #fecaca",
+                  color: "#991b1b",
+                  padding: "12px 14px",
+                  borderRadius: 12,
+                }}
+              >
+                <b>⚠️ Pengajuan Ditolak Admin PPL:</b>
+                <div style={{ marginTop: 4, fontSize: 13 }}>
+                  {b.catatan || "Data atau foto belum sesuai standar SNI. Silakan periksa kembali dan kirim ulang."}
+                </div>
+              </div>
+            )}
 
             <div className="kp-guide-box">
               <b>Standar Uji Belah SNI 2323:2008:</b>
