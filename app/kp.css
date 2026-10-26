@@ -1228,21 +1228,29 @@
 .zw-point-row strong{display:block;font-size:13.5px;font-weight:700;color:#0f172a;margin-bottom:2px}
 .zw-point-row p{font-size:12.5px;color:#64748b;line-height:1.5;margin:0}
 
-/* Open Connected Flowline (Alur Kerja Tanpa Kotak) */
-.concept-flowline-wrap{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:44px;padding-top:12px}
-.flowline-track-line{position:absolute;top:31px;left:14%;right:14%;height:2px;background:linear-gradient(90deg,#e2e8f0 0%,#cbd5e1 50%,#e2e8f0 100%);z-index:1}
+/* Connected Flowline: Tactile Role Cards with Guide Track Line */
+.concept-flowline-wrap{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;padding-top:16px}
+.flowline-track-line{position:absolute;top:36px;left:16%;right:16%;height:2px;background:linear-gradient(90deg,#ea580c 0%,#10b981 50%,#334155 100%);z-index:1}
 .flowline-step-item{position:relative;display:flex;flex-direction:column;align-items:flex-start;z-index:2}
-.flowline-node-circle{width:40px;height:40px;border-radius:50%;background:#ffffff;border:2px solid #cbd5e1;color:#475569;font-family:monospace;font-size:13.5px;font-weight:800;display:grid;place-items:center;margin-bottom:20px;box-shadow:0 0 0 6px #ffffff;transition:all .2s ease}
-.flowline-node-circle.highlight{border-color:#059669;color:#059669;background:#ecfdf5;box-shadow:0 0 0 6px #ffffff,0 4px 14px rgba(5,150,105,.12)}
-.flowline-step-item:hover .flowline-node-circle{transform:scale(1.08);border-color:#0f172a;color:#0f172a}
-.flowline-step-item:hover .flowline-node-circle.highlight{border-color:#059669;color:#059669}
-.flowline-step-body{display:flex;flex-direction:column;flex:1}
-.flowline-role-tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.6px;color:#64748b;text-transform:uppercase;margin-bottom:8px}
-.flowline-role-tag.green{color:#059669}
-.flowline-step-body h3{font-size:18px;font-weight:800;color:#0f172a;margin:0 0 8px;letter-spacing:-.4px;line-height:1.3}
-.flowline-step-body p{font-size:13.5px;color:#64748b;line-height:1.65;margin:0 0 16px;flex:1}
-.flowline-platform-note{font-size:11.5px;font-weight:700;color:#475569;display:inline-flex;align-items:center;gap:6px}
-.flowline-platform-note.green{color:#059669}
+.flowline-node-circle{width:40px;height:40px;border-radius:50%;font-family:monospace;font-size:13.5px;font-weight:800;display:grid;place-items:center;margin-bottom:20px;box-shadow:0 0 0 6px #ffffff;z-index:3;position:relative}
+.flowline-node-circle.farmer{background:#fef3eb;color:#9a3412;border:2px solid #ea580c}
+.flowline-node-circle.ppl{background:#ecfdf5;color:#059669;border:2px solid #10b981}
+.flowline-node-circle.industry{background:#f1f5f9;color:#0f172a;border:2px solid #334155}
+.flowline-step-card{width:100%;background:#ffffff;border:1px solid #e2e8f0;border-radius:20px;padding:26px 24px;display:flex;flex-direction:column;flex:1;box-shadow:0 4px 18px rgba(15,23,42,.03);transition:transform .22s cubic-bezier(0.16,1,0.3,1),box-shadow .22s ease,border-color .22s ease}
+.flowline-step-card:hover{transform:translateY(-5px);box-shadow:0 16px 36px -10px rgba(15,23,42,.08)}
+.flowline-step-card.role-farmer:hover{border-color:#ea580c}
+.flowline-step-card.role-ppl:hover{border-color:#10b981}
+.flowline-step-card.role-industry:hover{border-color:#334155}
+.flowline-role-tag{display:inline-block;font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;margin-bottom:8px}
+.flowline-role-tag.farmer{color:#9a3412}
+.flowline-role-tag.ppl{color:#059669}
+.flowline-role-tag.industry{color:#0f172a}
+.flowline-step-card h3{font-size:18px;font-weight:800;color:#0f172a;margin:0 0 8px;letter-spacing:-.3px;line-height:1.35}
+.flowline-step-card p{font-size:13.5px;color:#64748b;line-height:1.55;margin:0 0 18px;flex:1}
+.flowline-platform-note{display:inline-flex;align-items:center;font-size:11px;font-weight:700;border-radius:99px;padding:4px 12px;width:fit-content}
+.flowline-platform-note.farmer{background:#fef3eb;color:#9a3412;border:1px solid #fed7aa}
+.flowline-platform-note.ppl{background:#ecfdf5;color:#059669;border:1px solid #a7f3d0}
+.flowline-platform-note.industry{background:#f1f5f9;color:#0f172a;border:1px solid #e2e8f0}
 
 /* CTA */
 .concept-cta-wrap{padding:40px 0 72px}
@@ -1304,10 +1312,9 @@
   .concept-video-steps{margin-top:0}
   .zero-waste-concept-split{grid-template-columns:1fr;grid-template-areas:"header" "photo" "points";gap:18px}
   .zw-point-list{margin-top:0}
-  .concept-flowline-wrap{grid-template-columns:1fr;gap:0;padding-left:8px;position:relative}
-  .flowline-track-line{top:20px;bottom:36px;left:27px;right:auto;width:2px;height:auto}
-  .flowline-step-item{flex-direction:row;align-items:flex-start;gap:20px;padding-bottom:32px}
-  .flowline-step-item:last-child{padding-bottom:0}
+  .concept-flowline-wrap{grid-template-columns:1fr;gap:20px;position:relative;padding-left:14px}
+  .flowline-track-line{top:20px;bottom:36px;left:34px;right:auto;width:2px;height:auto;background:linear-gradient(180deg,#ea580c 0%,#10b981 50%,#334155 100%)}
+  .flowline-step-item{flex-direction:row;align-items:flex-start;gap:18px}
   .flowline-node-circle{margin-bottom:0;flex-shrink:0}
   .concept-cta-card{flex-direction:column;text-align:center;padding:36px 28px;gap:24px}
   .cta-actions-side{justify-content:center;width:100%}

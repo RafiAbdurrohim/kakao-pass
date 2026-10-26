@@ -585,88 +585,85 @@ export default function Home() {
       </section>
 
       {/* ====================================================================
-          8. SECTION: ALUR KERJA LAPANGAN (Open Connected Flowline)
+          7. SECTION: ALUR KERJA LAPANGAN (INTEGRASI TIGA PERAN)
           ==================================================================== */}
       <section className="concept-section" id="alur">
         <div className="concept-container">
           <motion.div
             className="concept-section-header"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="concept-kicker">INTEGRASI TIGA PERAN</span>
-            <h2>Alur Kerja Lapangan</h2>
-            <p>
-              Pencatatan mudah untuk petani, verifikasi cepat oleh penyuluh, dan kepastian mutu bagi pembeli.
-            </p>
+            <span className="concept-kicker">ALUR TERINTEGRASI</span>
+            <h2>Tiga Langkah Menuju Standar Pabrik</h2>
           </motion.div>
 
           <div className="concept-flowline-wrap">
-            {/* Guide track line */}
+            {/* Guide track line connecting nodes */}
             <div className="flowline-track-line" aria-hidden="true" />
 
             {/* Step 1 */}
             <motion.div
               className="flowline-step-item"
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-30px" }}
               transition={{ duration: 0.45, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div className="flowline-node-circle">
+              <div className="flowline-node-circle farmer">
                 <span>01</span>
               </div>
-              <div className="flowline-step-body">
-                <span className="flowline-role-tag">PETANI DI KEBUN</span>
-                <h3>Catat Panen &amp; Suhu</h3>
+              <div className="flowline-step-card role-farmer">
+                <span className="flowline-role-tag farmer">PETANI DI KEBUN</span>
+                <h3>Catat Panen &amp; Suhu Kotak</h3>
                 <p>
-                  Petani memasukkan berat panen, memantau kurva suhu probe fermentasi tiap 48 jam, dan mencatat foto uji belah.
+                  Petani memasukkan berat panen basah dan memantau suhu probe kotak kayu via HP.
                 </p>
-                <span className="flowline-platform-note">Dashboard Petani</span>
+                <span className="flowline-platform-note farmer">Portal Petani Mandiri</span>
               </div>
             </motion.div>
 
             {/* Step 2 */}
             <motion.div
-              className="flowline-step-item highlight"
-              initial={{ opacity: 0, y: 24 }}
+              className="flowline-step-item"
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-30px" }}
               transition={{ duration: 0.45, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div className="flowline-node-circle highlight">
+              <div className="flowline-node-circle ppl">
                 <span>02</span>
               </div>
-              <div className="flowline-step-body">
-                <span className="flowline-role-tag green">PENYULUH (PPL)</span>
-                <h3>Audit &amp; Setujui Mutu</h3>
+              <div className="flowline-step-card role-ppl">
+                <span className="flowline-role-tag ppl">PENYULUH LAPANGAN (PPL)</span>
+                <h3>Audit &amp; Verifikasi Mutu SNI</h3>
                 <p>
-                  Penyuluh memeriksa kurva suhu telemetri dan foto belah biji. Setelah memenuhi syarat SNI, batch disetujui.
+                  Penyuluh memeriksa kurva telemetri dan foto uji belah biji sebelum menerbitkan persetujuan.
                 </p>
-                <span className="flowline-platform-note green">Portal Admin PPL</span>
+                <span className="flowline-platform-note ppl">Verifikasi Mutu I SNI</span>
               </div>
             </motion.div>
 
             {/* Step 3 */}
             <motion.div
               className="flowline-step-item"
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-30px" }}
               transition={{ duration: 0.45, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
             >
-              <div className="flowline-node-circle">
+              <div className="flowline-node-circle industry">
                 <span>03</span>
               </div>
-              <div className="flowline-step-body">
-                <span className="flowline-role-tag">PEMBELI PABRIK</span>
-                <h3>Terima Biji Terstandar</h3>
+              <div className="flowline-step-card role-industry">
+                <span className="flowline-role-tag industry">PEMBELI INDUSTRI</span>
+                <h3>Penerimaan Biji Berpaspor QR</h3>
                 <p>
-                  Pembeli menerima karung dengan stiker barcode resmi yang memuat riwayat fermentasi jelas dan sertifikasi mutu SNI.
+                  Pabrik memindai QR paspor karung untuk melacak seluruh riwayat fermentasi dari kebun.
                 </p>
-                <span className="flowline-platform-note">Jaminan Mutu Terstandar</span>
+                <span className="flowline-platform-note industry">Scan QR Ketertelusuran</span>
               </div>
             </motion.div>
           </div>
