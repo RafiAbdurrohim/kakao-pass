@@ -10,17 +10,13 @@ import {
   ArrowUpRight,
   CheckCircle2,
   ChevronDown,
-  FileCheck2,
   Leaf,
   MapPin,
   Menu,
   Phone,
   Play,
-  QrCode,
   ShieldCheck,
-  Sparkles,
   Thermometer,
-  TrendingUp,
   X,
 } from "lucide-react";
 
