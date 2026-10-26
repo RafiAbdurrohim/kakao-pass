@@ -271,22 +271,21 @@ export default function Home() {
       </section>
 
       {/* ====================================================================
-          4. SECTION: FITUR STANDAR MUTU TERPADU (FULL WIDTH & ANIMATED)
+          4. SECTION: FITUR STANDAR MUTU TERPADU (BERSIH, VISUAL-FIRST, ZERO PENGULANGAN)
           ==================================================================== */}
       <section className="concept-features-full-section" id="fitur">
-        {/* Inner Content Grid */}
         <div className="concept-container">
           <motion.div
             className="concept-section-header"
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="concept-kicker">FITUR UNGGULAN SISTEM</span>
-            <h2>Fitur Unggulan Dari Kebun ke Pabrik</h2>
+            <span className="concept-kicker">FITUR UNGGULAN</span>
+            <h2>Tiga Standar Dari Kebun ke Pabrik</h2>
             <p>
-              Sensor suhu fermentasi IoT, sertifikasi uji belah SNI, dan pemanfaatan zero waste kompos kulit kakao.
+              Pencatatan presisi untuk menjaga mutu fermentasi biji dan pemanfaatan biomassa kebun.
             </p>
           </motion.div>
 
@@ -294,84 +293,81 @@ export default function Home() {
             {/* Fitur 1 */}
             <motion.div
               className="concept-feature-card"
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-30px" }}
               transition={{ duration: 0.45, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
               whileHover={{ y: -6, transition: { duration: 0.2 } }}
             >
-              <div className="feature-card-top-row">
-                <div className="feature-icon-wrapper green">
-                  <Thermometer size={20} />
-                </div>
-                <span className="feature-category-badge green">IOT REAL-TIME</span>
+              <div className="feature-visual-frame">
+                <Image
+                  src="/images/feature-kotak-fermentasi.png"
+                  alt="Kotak fermentasi kayu beralas daun pisang"
+                  width={554}
+                  height={554}
+                  className="feature-photo-img"
+                />
               </div>
-              <h3>Sensor Suhu Kotak Kayu</h3>
-              <div className="feature-metric-strip">
-                <span className="metric-giant-text">48.6°C</span>
-                <span className="metric-status-sub">Suhu Inti Fermentasi</span>
-              </div>
-              <p>
-                Monitoring suhu 28°C–50°C otomatis via probe 20 cm tanpa buka tutup kotak.
-              </p>
-              <div className="feature-foot-pill">
-                <span>Pembalikan tiap 48 jam</span>
+              <div className="feature-card-content">
+                <span className="feature-category-badge">TELEMETRI IOT</span>
+                <h3>Monitoring Suhu Kotak Kayu</h3>
+                <p>
+                  Pantau suhu fermentasi otomatis via probe 20 cm tanpa membuka tutup kotak.
+                </p>
               </div>
             </motion.div>
 
             {/* Fitur 2 */}
             <motion.div
               className="concept-feature-card"
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-30px" }}
               transition={{ duration: 0.45, delay: 0.16, ease: [0.16, 1, 0.3, 1] }}
               whileHover={{ y: -6, transition: { duration: 0.2 } }}
             >
-              <div className="feature-card-top-row">
-                <div className="feature-icon-wrapper amber">
-                  <FileCheck2 size={20} />
-                </div>
-                <span className="feature-category-badge amber">STANDAR SNI</span>
+              <div className="feature-visual-frame">
+                <Image
+                  src="/images/feature-uji-belah-sni.png"
+                  alt="Uji belah standar mutu SNI biji kakao"
+                  width={300}
+                  height={164}
+                  className="feature-photo-img"
+                />
               </div>
-              <h3>Pencatatan Uji Belah SNI</h3>
-              <div className="feature-metric-strip">
-                <span className="metric-giant-text">Mutu I</span>
-                <span className="metric-status-sub">Kadar Air &le; 7.5%</span>
-              </div>
-              <p>
-                Verifikasi 100 butir biji sampel kelompok tani sesuai standar SNI 2323:2008.
-              </p>
-              <div className="feature-foot-pill">
-                <span>Standar SNI 2323:2008</span>
+              <div className="feature-card-content">
+                <span className="feature-category-badge">STANDAR MUTU SNI</span>
+                <h3>Pencatatan Uji Belah Biji</h3>
+                <p>
+                  Verifikasi visual 100 butir sampel untuk jaminan mutu fermentasi prima.
+                </p>
               </div>
             </motion.div>
 
             {/* Fitur 3 */}
             <motion.div
               className="concept-feature-card"
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-30px" }}
               transition={{ duration: 0.45, delay: 0.24, ease: [0.16, 1, 0.3, 1] }}
               whileHover={{ y: -6, transition: { duration: 0.2 } }}
             >
-              <div className="feature-card-top-row">
-                <div className="feature-icon-wrapper green">
-                  <Leaf size={20} />
-                </div>
-                <span className="feature-category-badge green">CIRCULAR ZERO WASTE</span>
+              <div className="feature-visual-frame">
+                <Image
+                  src="/images/feature-kompos-kulit.jpg"
+                  alt="Pengolahan pupuk organik dari limbah kulit kakao"
+                  width={1024}
+                  height={566}
+                  className="feature-photo-img"
+                />
               </div>
-              <h3>Pengolahan Kompos Kulit</h3>
-              <div className="feature-metric-strip">
-                <span className="metric-giant-text">70%</span>
-                <span className="metric-status-sub">Biomassa Kulit Kakao</span>
-              </div>
-              <p>
-                Fermentasi limbah kulit kakao jadi pupuk organik untuk cegah jamur busuk buah.
-              </p>
-              <div className="feature-foot-pill">
-                <span>Zero Waste Kebun Mandiri</span>
+              <div className="feature-card-content">
+                <span className="feature-category-badge">SIRKULAR ZERO WASTE</span>
+                <h3>Pengolahan Kompos Kulit</h3>
+                <p>
+                  Limbah kulit panen difermentasi kembali menjadi pupuk organik kebun sendiri.
+                </p>
               </div>
             </motion.div>
           </div>
