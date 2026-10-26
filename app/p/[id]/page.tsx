@@ -51,16 +51,13 @@ export default function Passport() {
         <div className="kp-card" style={{ marginBottom: 16 }}><h2>Asal & berat</h2>
           <div className="kp-kv"><div><span>Tanggal panen</span><b>{p.tglPanen}</b></div><div><span>Biji basah</span><b>{p.beratBasah} kg</b></div><div><span>Biji kering</span><b>{p.beratKering ?? "-"} kg</b></div></div></div>
         <div className="kp-card" style={{ marginBottom: 16 }}>
-          <h2><Cpu size={16} style={{ verticalAlign: -2 }} /> Ketertelusuran Alat &amp; Operator</h2>
+          <h2><Cpu size={16} style={{ verticalAlign: -2 }} /> Unit &amp; Penanggung Jawab</h2>
           <div className="kp-kv">
-            <div><span>Unit Pengolahan</span><b>{p.alat?.nama || "Kotak Fermentasi Ulin 02"} ({p.alat?.id || "FERM-BOX-02"})</b></div>
-            <div><span>Sensor IoT Kalibrasi</span><b>{p.alat?.sensorId || "KP-IOT-02"} · SNI 2323:2008</b></div>
-            <div><span>Penanggung Jawab (PIC)</span><b>{p.alat?.operator || "Pak Joko"}</b></div>
-            <div><span>Blok &amp; Sentra</span><b>{p.kebun} · {p.group}</b></div>
+            <div><span>Unit Pengolahan</span><b>{p.alat?.nama || "Kotak Fermentasi 02"} ({p.alat?.id || "FERM-BOX-02"})</b></div>
+            <div><span>Sensor IoT</span><b>{p.alat?.sensorId || "KP-IOT-02"} (SNI 2323)</b></div>
+            <div><span>Penanggung Jawab</span><b>{p.alat?.operator || "Pak Joko"}</b></div>
+            <div><span>Lokasi Sentra</span><b>{p.kebun} · {p.group}</b></div>
           </div>
-          <p style={{ fontSize: 13, color: "var(--muted)", margin: "10px 0 0", lineHeight: 1.5 }}>
-            <ShieldCheck size={14} style={{ verticalAlign: -2, color: "var(--green)" }} /> <b>Arsitektur Pairing Mandiri:</b> Setiap unit IoT terikat langsung ke akun operator penanggung jawab lapangan untuk menjamin akuntabilitas 100% dan mencegah saling lempar tanggung jawab antar petani.
-          </p>
         </div>
         <div className="kp-card" style={{ marginBottom: 16 }}><h2>Profil fermentasi</h2>
           <span className="kp-chip g" style={{ marginBottom: 10 }}><Cpu size={13} />Terekam otomatis oleh sensor</span>

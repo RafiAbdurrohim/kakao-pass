@@ -448,8 +448,8 @@ export default function AdminPage() {
             onClick={() => setActiveTab("onboarding")}
           >
             <Cpu size={16} />
-            <span>Onboarding Alat &amp; Operator</span>
-            <span className="badge">{devicesList.length} Unit</span>
+            <span>Alat &amp; Operator</span>
+            <span className="badge">{devicesList.length}</span>
           </button>
 
           <button
@@ -673,181 +673,61 @@ export default function AdminPage() {
           </div>
         )}
 
-        {/* TAB 3: ONBOARDING ALAT & OPERATOR (MODULAR MULTI-DEVICE) */}
+        {/* TAB 3: ALAT & OPERATOR */}
         {activeTab === "onboarding" && (
           <div>
-            {/* Header Callout: Value Proposition & Onboarding CTA */}
+            {/* Minimal Header Toolbar */}
             <div
               className="kp-card"
               style={{
-                marginBottom: 20,
-                background: "linear-gradient(135deg, rgba(34,20,13,0.02), rgba(154,52,18,0.06))",
-                border: "1.5px solid rgba(154,52,18,0.22)",
-                borderRadius: 20,
-                padding: 24,
+                marginBottom: 16,
+                padding: "16px 20px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                gap: 16,
+                flexWrap: "wrap",
               }}
             >
-              <div className="kp-row" style={{ alignItems: "flex-start", gap: 16 }}>
-                <div>
-                  <div
-                    style={{
-                      display: "inline-flex",
-                      alignItems: "center",
-                      gap: 6,
-                      padding: "4px 10px",
-                      borderRadius: 99,
-                      background: "#fae3d9",
-                      color: "#a8381b",
-                      fontSize: 11,
-                      fontWeight: 700,
-                      textTransform: "uppercase",
-                      letterSpacing: 0.5,
-                      marginBottom: 8,
-                    }}
-                  >
-                    <Cpu size={13} /> Arsitektur Modular Multi-Device · Formika 2026
-                  </div>
-                  <h2 style={{ margin: "0 0 6px", fontSize: 20, color: "var(--cocoa-dark)" }}>
-                    Onboarding Perangkat IoT &amp; Penugasan Operator (PIC)
-                  </h2>
-                  <p style={{ margin: 0, fontSize: 13.5, color: "var(--cocoa)", lineHeight: 1.5, maxWidth: 760 }}>
-                    Skalabilitas mandiri untuk sentra kelompok tani: daftarkan kotak fermentasi atau solar dryer baru, buat akun operator lapangan di blok kebun terkait, dan lakukan pemasangan (*pairing*) tanpa perlu koding ulang.
-                  </p>
-                </div>
-                <button
-                  type="button"
-                  className="kp-btn"
-                  onClick={() => {
-                    setOnboardStep(1);
-                    setShowOnboardModal(true);
-                  }}
-                  style={{
-                    background: "var(--cocoa-dark)",
-                    color: "#fff",
-                    whiteSpace: "nowrap",
-                    flexShrink: 0,
-                    gap: 8,
-                  }}
-                >
-                  <PlusCircle size={16} /> + Onboarding Alat Baru
-                </button>
+              <div>
+                <h2 style={{ margin: 0, fontSize: 18, color: "var(--cocoa-dark)" }}>
+                  Daftar Alat &amp; Operator
+                </h2>
+                <p style={{ margin: "2px 0 0", fontSize: 13, color: "var(--muted)" }}>
+                  {devicesList.length} unit terdaftar · Kelompok Tani Karangan Mandiri
+                </p>
               </div>
-
-              {/* 3 Langkah Alur Mandiri (Sesuai Skrip Juri) */}
-              <div
+              <button
+                type="button"
+                className="kp-btn"
+                onClick={() => {
+                  setOnboardStep(1);
+                  setShowOnboardModal(true);
+                }}
                 style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))",
-                  gap: 14,
-                  marginTop: 20,
-                  paddingTop: 18,
-                  borderTop: "1px dashed #d5cdbf",
+                  background: "var(--cocoa-dark)",
+                  color: "#fff",
+                  gap: 8,
+                  padding: "8px 16px",
+                  fontSize: 13,
                 }}
               >
-                <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
-                  <span
-                    style={{
-                      width: 26,
-                      height: 26,
-                      borderRadius: "50%",
-                      background: "var(--cocoa-dark)",
-                      color: "#fff",
-                      display: "grid",
-                      placeItems: "center",
-                      fontSize: 12,
-                      fontWeight: 800,
-                      flexShrink: 0,
-                    }}
-                  >
-                    1
-                  </span>
-                  <div>
-                    <b style={{ fontSize: 13.5, color: "var(--cocoa-dark)", display: "block" }}>
-                      1. Registrasi Aset IoT
-                    </b>
-                    <span style={{ fontSize: 12, color: "var(--muted)", lineHeight: 1.4 }}>
-                      Daftarkan ID alat unik (misal <code>FERM-BOX-02</code>) &amp; tipe fungsional kotak kayu / solar dryer.
-                    </span>
-                  </div>
-                </div>
-
-                <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
-                  <span
-                    style={{
-                      width: 26,
-                      height: 26,
-                      borderRadius: "50%",
-                      background: "var(--cocoa-dark)",
-                      color: "#fff",
-                      display: "grid",
-                      placeItems: "center",
-                      fontSize: 12,
-                      fontWeight: 800,
-                      flexShrink: 0,
-                    }}
-                  >
-                    2
-                  </span>
-                  <div>
-                    <b style={{ fontSize: 13.5, color: "var(--cocoa-dark)", display: "block" }}>
-                      2. Akun Penanggung Jawab
-                    </b>
-                    <span style={{ fontSize: 12, color: "var(--muted)", lineHeight: 1.4 }}>
-                      Tunjuk atau daftarkan akun operator lapangan lengkap dengan WhatsApp untuk alert anomali suhu.
-                    </span>
-                  </div>
-                </div>
-
-                <div style={{ display: "flex", gap: 12, alignItems: "flex-start" }}>
-                  <span
-                    style={{
-                      width: 26,
-                      height: 26,
-                      borderRadius: "50%",
-                      background: "var(--rust)",
-                      color: "#fff",
-                      display: "grid",
-                      placeItems: "center",
-                      fontSize: 12,
-                      fontWeight: 800,
-                      flexShrink: 0,
-                    }}
-                  >
-                    3
-                  </span>
-                  <div>
-                    <b style={{ fontSize: 13.5, color: "var(--rust)", display: "block" }}>
-                      3. Device-Operator Pairing
-                    </b>
-                    <span style={{ fontSize: 12, color: "var(--muted)", lineHeight: 1.4 }}>
-                      Kunci akuntabilitas: telemetri sensor &amp; Paspor QR otomatis mengikat nama operator tanpa kompromi.
-                    </span>
-                  </div>
-                </div>
-              </div>
+                <PlusCircle size={15} /> + Tambah Alat
+              </button>
             </div>
 
-            {/* Grid Daftar Perangkat Terdaftar */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
-              <h3 style={{ margin: 0, fontSize: 16, color: "var(--cocoa-dark)" }}>
-                Armada Perangkat Terdaftar ({devicesList.length} Unit)
-              </h3>
-              <span style={{ fontSize: 12.5, color: "var(--muted)" }}>
-                Kelompok Tani Karangan Mandiri · Kutai Timur
-              </span>
-            </div>
-
+            {/* Grid Kartu Perangkat */}
             {devicesList.length === 0 ? (
-              <div className="kp-card kp-empty">Belum ada unit IoT yang terdaftar. Klik tombol Onboarding di atas untuk memulai.</div>
+              <div className="kp-card kp-empty">Belum ada alat yang terdaftar.</div>
             ) : (
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(340px, 1fr))", gap: 16 }}>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(330px, 1fr))", gap: 14 }}>
                 {devicesList.map((dev) => {
                   const isFerm = dev.type === "fermentasi";
                   const statusLabel =
                     dev.status === "aktif"
-                      ? "Sedang Digunakan"
+                      ? "Digunakan"
                       : dev.status === "idle"
-                      ? "Standby / Tersedia"
+                      ? "Tersedia"
                       : "Pemeliharaan";
                   const statusClass =
                     dev.status === "aktif" ? "g" : dev.status === "idle" ? "o" : "";
@@ -860,50 +740,52 @@ export default function AdminPage() {
                       key={dev.id}
                       className="kp-card"
                       style={{
-                        padding: 20,
-                        border: "1px solid var(--line)",
-                        borderRadius: 18,
+                        padding: 18,
+                        borderRadius: 16,
                         display: "flex",
                         flexDirection: "column",
                         justifyContent: "space-between",
-                        gap: 16,
+                        gap: 14,
                       }}
                     >
                       <div>
-                        {/* Card Header */}
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 10 }}>
+                        {/* Header Kartu: Nama & Status */}
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
                           <div>
                             <span
                               style={{
-                                display: "inline-block",
                                 fontFamily: "monospace",
                                 fontSize: 11,
                                 fontWeight: 700,
-                                padding: "2px 8px",
-                                borderRadius: 6,
+                                padding: "2px 7px",
+                                borderRadius: 5,
                                 background: "#efece4",
                                 color: "var(--cocoa-dark)",
+                                display: "inline-block",
                                 marginBottom: 4,
                               }}
                             >
                               {dev.id}
                             </span>
-                            <h4 style={{ margin: 0, fontSize: 16, color: "var(--cocoa-dark)" }}>
+                            <h3 style={{ margin: 0, fontSize: 15, color: "var(--cocoa-dark)" }}>
                               {dev.name}
-                            </h4>
+                            </h3>
+                            <p style={{ margin: "2px 0 0", fontSize: 12, color: "var(--muted)" }}>
+                              {dev.lokasi} · {dev.kapasitas}
+                            </p>
                           </div>
-                          <span className={`kp-chip ${statusClass}`} style={{ fontSize: 11 }}>
+                          <span className={`kp-chip ${statusClass}`} style={{ fontSize: 11, padding: "3px 8px" }}>
                             <span className={`kp-dot ${dev.status === "aktif" ? "on" : ""}`} />
                             {statusLabel}
                           </span>
                         </div>
 
-                        {/* Telemetri Live Mini-Box */}
+                        {/* Metrik Telemetri Live */}
                         <div
                           style={{
-                            marginTop: 14,
-                            padding: "10px 14px",
-                            borderRadius: 12,
+                            marginTop: 12,
+                            padding: "8px 12px",
+                            borderRadius: 10,
                             background: "var(--paper)",
                             border: "1px solid var(--line)",
                             display: "flex",
@@ -914,22 +796,22 @@ export default function AdminPage() {
                           {isFerm ? (
                             <>
                               <div>
-                                <span style={{ fontSize: 11, color: "var(--muted)", display: "block" }}>Suhu Biji</span>
-                                <b style={{ fontSize: 16, color: "var(--rust)" }}>
+                                <span style={{ fontSize: 10.5, color: "var(--muted)", display: "block" }}>Biji</span>
+                                <b style={{ fontSize: 15, color: "var(--rust)" }}>
                                   {dev.terbaru?.suhu_biji ? `${dev.terbaru.suhu_biji.toFixed(1)}°C` : "--"}
                                 </b>
                               </div>
                               <div style={{ width: 1, background: "var(--line)" }} />
                               <div>
-                                <span style={{ fontSize: 11, color: "var(--muted)", display: "block" }}>Suhu Ruang</span>
-                                <b style={{ fontSize: 16, color: "var(--cocoa-dark)" }}>
+                                <span style={{ fontSize: 10.5, color: "var(--muted)", display: "block" }}>Ruang</span>
+                                <b style={{ fontSize: 15, color: "var(--cocoa-dark)" }}>
                                   {dev.terbaru?.suhu_ruang ? `${dev.terbaru.suhu_ruang.toFixed(1)}°C` : "--"}
                                 </b>
                               </div>
                               <div style={{ width: 1, background: "var(--line)" }} />
                               <div>
-                                <span style={{ fontSize: 11, color: "var(--muted)", display: "block" }}>Kelembapan</span>
-                                <b style={{ fontSize: 16, color: "var(--cocoa-dark)" }}>
+                                <span style={{ fontSize: 10.5, color: "var(--muted)", display: "block" }}>RH</span>
+                                <b style={{ fontSize: 15, color: "var(--cocoa-dark)" }}>
                                   {dev.terbaru?.kelembapan ? `${dev.terbaru.kelembapan.toFixed(0)}%` : "--"}
                                 </b>
                               </div>
@@ -937,15 +819,15 @@ export default function AdminPage() {
                           ) : (
                             <>
                               <div>
-                                <span style={{ fontSize: 11, color: "var(--muted)", display: "block" }}>Suhu Pengering</span>
-                                <b style={{ fontSize: 16, color: "var(--rust)" }}>
+                                <span style={{ fontSize: 10.5, color: "var(--muted)", display: "block" }}>Suhu</span>
+                                <b style={{ fontSize: 15, color: "var(--rust)" }}>
                                   {dev.terbaru?.suhu_ruang ? `${dev.terbaru.suhu_ruang.toFixed(1)}°C` : "36.5°C"}
                                 </b>
                               </div>
                               <div style={{ width: 1, background: "var(--line)" }} />
                               <div>
-                                <span style={{ fontSize: 11, color: "var(--muted)", display: "block" }}>Kelembapan RH</span>
-                                <b style={{ fontSize: 16, color: "var(--cocoa-dark)" }}>
+                                <span style={{ fontSize: 10.5, color: "var(--muted)", display: "block" }}>RH</span>
+                                <b style={{ fontSize: 15, color: "var(--cocoa-dark)" }}>
                                   {dev.terbaru?.kelembapan ? `${dev.terbaru.kelembapan.toFixed(0)}%` : "58%"}
                                 </b>
                               </div>
@@ -953,72 +835,49 @@ export default function AdminPage() {
                           )}
                         </div>
 
-                        {/* Specs & Location */}
-                        <div style={{ marginTop: 12, fontSize: 12.5, color: "var(--muted)", display: "flex", flexDirection: "column", gap: 3 }}>
-                          <div>
-                            Tipe: <b style={{ color: "var(--ink)" }}>{isFerm ? "Kotak Fermentasi Kayu Ulin" : "Solar Dryer / Penjemuran"}</b> · Kapasitas: <b style={{ color: "var(--ink)" }}>{dev.kapasitas}</b>
-                          </div>
-                          <div>
-                            Pos: <b style={{ color: "var(--ink)" }}>{dev.lokasi}</b>
-                          </div>
-                        </div>
-
-                        {/* PIC Operator Pairing Box */}
+                        {/* Strip Operator PIC */}
                         <div
                           style={{
-                            marginTop: 14,
-                            padding: "10px 12px",
-                            borderRadius: 12,
-                            background: "rgba(183, 101, 62, 0.05)",
-                            border: "1px dashed rgba(183, 101, 62, 0.3)",
+                            marginTop: 10,
+                            padding: "6px 10px",
+                            borderRadius: 8,
+                            background: "var(--paper)",
                             display: "flex",
                             alignItems: "center",
                             justifyContent: "space-between",
-                            gap: 10,
+                            gap: 8,
                           }}
                         >
-                          <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                          <div style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
                             <div
                               style={{
-                                width: 34,
-                                height: 34,
+                                width: 26,
+                                height: 26,
                                 borderRadius: "50%",
-                                background: "#fae3d9",
-                                color: "var(--rust-dark)",
+                                background: "#efece4",
+                                color: "var(--cocoa-dark)",
                                 display: "grid",
                                 placeItems: "center",
                                 fontWeight: 700,
-                                fontSize: 14,
+                                fontSize: 11,
                                 flexShrink: 0,
                               }}
                             >
                               {dev.operatorName.charAt(0)}
                             </div>
-                            <div>
-                              <span style={{ fontSize: 10.5, textTransform: "uppercase", fontWeight: 700, color: "var(--rust)" }}>
-                                PIC Penanggung Jawab
-                              </span>
-                              <div style={{ fontSize: 13, fontWeight: 700, color: "var(--cocoa-dark)" }}>
-                                {dev.operatorName}{" "}
-                                <span style={{ fontSize: 11, fontWeight: 500, color: "var(--muted)" }}>
-                                  ({dev.operatorId})
-                                </span>
-                              </div>
+                            <div style={{ fontSize: 12.5, color: "var(--cocoa-dark)", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                              PIC: <b>{dev.operatorName}</b>
                             </div>
                           </div>
 
                           {dev.operatorPhone && (
                             <a
-                              href={`https://wa.me/${waNumber}?text=Halo%20${encodeURIComponent(
-                                dev.operatorName
-                              )},%20ini%20Bu%20Sari%20Pendamping%20KakaoPass%20terkait%20unit%20${encodeURIComponent(
-                                dev.name
-                              )}.`}
+                              href={`https://wa.me/${waNumber}`}
                               target="_blank"
                               rel="noopener noreferrer"
                               className="kp-btn g sm"
-                              style={{ padding: "4px 8px", fontSize: 11, textDecoration: "none" }}
-                              title="Kirim pesan WhatsApp ke PIC"
+                              style={{ padding: "2px 7px", fontSize: 11, textDecoration: "none", flexShrink: 0 }}
+                              title="Chat WhatsApp"
                             >
                               <MessageCircle size={12} /> WA
                             </a>
@@ -1026,8 +885,8 @@ export default function AdminPage() {
                         </div>
                       </div>
 
-                      {/* Card Actions */}
-                      <div style={{ display: "flex", gap: 8, paddingTop: 12, borderTop: "1px solid var(--line)" }}>
+                      {/* Aksi Kartu */}
+                      <div style={{ display: "flex", gap: 6, paddingTop: 8, borderTop: "1px solid var(--line)" }}>
                         <button
                           type="button"
                           className="kp-btn s sm"
@@ -1035,18 +894,18 @@ export default function AdminPage() {
                             setPairingTarget(dev);
                             setRepairingOperatorId(dev.operatorId || "");
                           }}
-                          style={{ flex: 1, justifyContent: "center" }}
+                          style={{ flex: 1, justifyContent: "center", fontSize: 11.5, padding: "5px 10px" }}
                         >
-                          <LinkIcon size={13} /> Ganti PIC
+                          <LinkIcon size={12} /> Ganti PIC
                         </button>
                         <button
                           type="button"
                           className="kp-btn s sm"
                           onClick={() => handleDeleteDev(dev.id, dev.name)}
-                          style={{ color: "var(--rust)", padding: "6px 10px" }}
-                          title="Hapus / Nonaktifkan Unit"
+                          style={{ color: "var(--rust)", padding: "5px 8px" }}
+                          title="Hapus Unit"
                         >
-                          <Trash2 size={13} />
+                          <Trash2 size={12} />
                         </button>
                       </div>
                     </div>
@@ -1224,31 +1083,23 @@ export default function AdminPage() {
           </div>
         )}
 
-      {/* MODAL 1: WIZARD ONBOARDING 3-LANGKAH MANDIRI */}
+      {/* MODAL 1: FORM TAMBAH ALAT (3 LANGKAH) */}
       {showOnboardModal && (
         <div className="kp-modal" onClick={() => setShowOnboardModal(false)}>
           <div
             className="kp-sheet"
             onClick={(e) => e.stopPropagation()}
-            style={{ maxWidth: 540 }}
+            style={{ maxWidth: 480 }}
           >
-            {/* Modal Header */}
-            <div className="kp-row" style={{ marginBottom: 14 }}>
+            {/* Header Modal */}
+            <div className="kp-row" style={{ marginBottom: 16 }}>
               <div>
-                <span
-                  style={{
-                    fontSize: 11,
-                    fontWeight: 700,
-                    textTransform: "uppercase",
-                    letterSpacing: 0.5,
-                    color: "var(--rust)",
-                  }}
-                >
-                  Onboarding Mandiri
-                </span>
-                <h2 style={{ margin: "2px 0 0", fontSize: 18, color: "var(--cocoa-dark)" }}>
-                  Registrasi Alat &amp; Penugasan PIC
-                </h2>
+                <h3 style={{ margin: 0, fontSize: 17, color: "var(--cocoa-dark)" }}>
+                  Tambah Alat Baru
+                </h3>
+                <p style={{ margin: "2px 0 0", fontSize: 12, color: "var(--muted)" }}>
+                  Langkah {onboardStep} dari 3 · {onboardStep === 1 ? "Identitas Perangkat" : onboardStep === 2 ? "Penanggung Jawab" : "Konfirmasi"}
+                </p>
               </div>
               <button
                 type="button"
@@ -1260,112 +1111,102 @@ export default function AdminPage() {
               </button>
             </div>
 
-            {/* Stepper Progress Bar */}
-            <div className="kp-steps">
+            {/* Stepper Dots */}
+            <div className="kp-steps" style={{ margin: "0 0 18px" }}>
               <div className={`kp-step ${onboardStep > 1 ? "done" : "cur"}`}>
                 <i />
-                <span>1. Aset IoT</span>
+                <span>1. Alat IoT</span>
               </div>
               <div className={`kp-step ${onboardStep === 2 ? "cur" : onboardStep > 2 ? "done" : ""}`}>
                 <i />
-                <span>2. Akun PIC</span>
+                <span>2. Operator</span>
               </div>
               <div className={`kp-step ${onboardStep === 3 ? "cur" : ""}`}>
                 <i />
-                <span>3. Pairing</span>
+                <span>3. Selesai</span>
               </div>
             </div>
 
-            {/* STEP 1: REGISTRASI ASET IOT (HARDWARE) */}
+            {/* STEP 1: IDENTITAS HARDWARE */}
             {onboardStep === 1 && (
-              <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-                <div className="kp-guide-box">
-                  <b>Langkah 1: Registrasi Aset Fisik IoT</b>
-                  <p style={{ margin: "4px 0 0", fontSize: 12, color: "var(--muted)" }}>
-                    Daftarkan nomor identifikasi unik hardware dan jenis unit pascapanen di lapangan.
-                  </p>
-                </div>
-
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
                 <div>
-                  <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 5 }}>
-                    ID Perangkat IoT (Hardware ID)
+                  <label style={{ display: "block", fontSize: 12.5, fontWeight: 600, marginBottom: 4 }}>
+                    ID Perangkat
                   </label>
                   <input
                     type="text"
                     value={formDevice.id}
                     onChange={(e) => setFormDevice({ ...formDevice, id: e.target.value.toUpperCase() })}
-                    placeholder="Contoh: FERM-BOX-02, SOLAR-DRY-01"
+                    placeholder="mis. FERM-BOX-02"
                     style={{
                       width: "100%",
-                      padding: "10px 14px",
-                      borderRadius: 10,
+                      padding: "8px 12px",
+                      borderRadius: 8,
                       border: "1px solid var(--line)",
-                      fontSize: 14,
+                      fontSize: 13.5,
                       fontFamily: "monospace",
                       fontWeight: 700,
                     }}
                     required
                   />
-                  <small style={{ color: "var(--muted)", fontSize: 11 }}>
-                    Gunakan ID unik yang akan diprogram ke mikrokontroler ESP32 alat.
-                  </small>
                 </div>
 
                 <div>
-                  <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 5 }}>
-                    Nama Unit / Penanda Fisik
+                  <label style={{ display: "block", fontSize: 12.5, fontWeight: 600, marginBottom: 4 }}>
+                    Nama Unit
                   </label>
                   <input
                     type="text"
                     value={formDevice.name}
                     onChange={(e) => setFormDevice({ ...formDevice, name: e.target.value })}
-                    placeholder="Contoh: Kotak Fermentasi Ulin Blok B"
+                    placeholder="mis. Kotak Fermentasi Ulin Blok B"
                     style={{
                       width: "100%",
-                      padding: "10px 14px",
-                      borderRadius: 10,
+                      padding: "8px 12px",
+                      borderRadius: 8,
                       border: "1px solid var(--line)",
-                      fontSize: 14,
+                      fontSize: 13.5,
                     }}
                     required
                   />
                 </div>
 
-                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 12 }}>
+                <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
                   <div>
-                    <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 5 }}>
-                      Tipe Fungsional
+                    <label style={{ display: "block", fontSize: 12.5, fontWeight: 600, marginBottom: 4 }}>
+                      Tipe Unit
                     </label>
                     <select
                       value={formDevice.type}
                       onChange={(e) => setFormDevice({ ...formDevice, type: e.target.value as DeviceType })}
                       style={{
                         width: "100%",
-                        padding: "10px 14px",
-                        borderRadius: 10,
+                        padding: "8px 12px",
+                        borderRadius: 8,
                         border: "1px solid var(--line)",
                         fontSize: 13,
                         background: "#fff",
                       }}
                     >
                       <option value="fermentasi">Kotak Fermentasi</option>
-                      <option value="pengeringan">Solar Dryer / Penjemuran</option>
-                      <option value="gudang">Gudang Penyimpanan</option>
+                      <option value="pengeringan">Solar Dryer</option>
+                      <option value="gudang">Gudang Kering</option>
                     </select>
                   </div>
                   <div>
-                    <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 5 }}>
-                      Kapasitas Tampung
+                    <label style={{ display: "block", fontSize: 12.5, fontWeight: 600, marginBottom: 4 }}>
+                      Kapasitas
                     </label>
                     <input
                       type="text"
                       value={formDevice.kapasitas}
                       onChange={(e) => setFormDevice({ ...formDevice, kapasitas: e.target.value })}
-                      placeholder="Contoh: 500 kg"
+                      placeholder="mis. 500 kg"
                       style={{
                         width: "100%",
-                        padding: "10px 14px",
-                        borderRadius: 10,
+                        padding: "8px 12px",
+                        borderRadius: 8,
                         border: "1px solid var(--line)",
                         fontSize: 13,
                       }}
@@ -1374,35 +1215,35 @@ export default function AdminPage() {
                 </div>
 
                 <div>
-                  <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 5 }}>
-                    Lokasi / Pos Lapangan
+                  <label style={{ display: "block", fontSize: 12.5, fontWeight: 600, marginBottom: 4 }}>
+                    Lokasi / Pos
                   </label>
                   <input
                     type="text"
                     value={formDevice.lokasi}
                     onChange={(e) => setFormDevice({ ...formDevice, lokasi: e.target.value })}
-                    placeholder="Contoh: Sentra Karangan Mandiri Blok B"
+                    placeholder="mis. Karangan Mandiri Blok B"
                     style={{
                       width: "100%",
-                      padding: "10px 14px",
-                      borderRadius: 10,
+                      padding: "8px 12px",
+                      borderRadius: 8,
                       border: "1px solid var(--line)",
                       fontSize: 13,
                     }}
                   />
                 </div>
 
-                <div style={{ display: "flex", justifyContent: "flex-end", gap: 10, marginTop: 10 }}>
+                <div style={{ display: "flex", justifyContent: "flex-end", gap: 8, marginTop: 10 }}>
                   <button
                     type="button"
-                    className="kp-btn s"
+                    className="kp-btn s sm"
                     onClick={() => setShowOnboardModal(false)}
                   >
                     Batal
                   </button>
                   <button
                     type="button"
-                    className="kp-btn"
+                    className="kp-btn sm"
                     onClick={() => {
                       if (!formDevice.id.trim() || !formDevice.name.trim()) {
                         alert("Harap isi ID Perangkat dan Nama Unit.");
@@ -1411,54 +1252,49 @@ export default function AdminPage() {
                       setOnboardStep(2);
                     }}
                   >
-                    Lanjut: Akun PIC <ChevronRight size={15} />
+                    Lanjut <ChevronRight size={14} />
                   </button>
                 </div>
               </div>
             )}
 
-            {/* STEP 2: AKUN PENANGGUNG JAWAB (PIC) */}
+            {/* STEP 2: OPERATOR PIC */}
             {onboardStep === 2 && (
-              <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-                <div className="kp-guide-box">
-                  <b>Langkah 2: Tunjuk / Buat Akun Operator (PIC)</b>
-                  <p style={{ margin: "4px 0 0", fontSize: 12, color: "var(--muted)" }}>
-                    Setiap unit fisik wajib memiliki penanggung jawab manusia untuk mengawal protokol SNI dan menerima alert anomali.
-                  </p>
-                </div>
-
-                {/* Mode Selector */}
-                <div className="kp-pills" style={{ marginBottom: 4 }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                {/* Selector Mode */}
+                <div className="kp-pills" style={{ marginBottom: 2 }}>
                   <button
                     type="button"
                     className={`kp-pill-btn ${picMode === "existing" ? "active" : ""}`}
                     onClick={() => setPicMode("existing")}
+                    style={{ fontSize: 11.5, padding: "5px 10px" }}
                   >
-                    <Users size={14} /> Pilih Petani Terdaftar
+                    Petani Terdaftar
                   </button>
                   <button
                     type="button"
                     className={`kp-pill-btn ${picMode === "new" ? "active" : ""}`}
                     onClick={() => setPicMode("new")}
+                    style={{ fontSize: 11.5, padding: "5px 10px" }}
                   >
-                    <PlusCircle size={14} /> + Buat Akun Operator Baru
+                    + Akun Baru
                   </button>
                 </div>
 
                 {picMode === "existing" ? (
                   <div>
-                    <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 5 }}>
-                      Pilih Operator dari Direktori
+                    <label style={{ display: "block", fontSize: 12.5, fontWeight: 600, marginBottom: 4 }}>
+                      Pilih Operator Lapangan
                     </label>
                     <select
                       value={selectedOperatorId}
                       onChange={(e) => setSelectedOperatorId(e.target.value)}
                       style={{
                         width: "100%",
-                        padding: "10px 14px",
-                        borderRadius: 10,
+                        padding: "8px 12px",
+                        borderRadius: 8,
                         border: "1px solid var(--line)",
-                        fontSize: 14,
+                        fontSize: 13.5,
                         background: "#fff",
                       }}
                     >
@@ -1468,55 +1304,52 @@ export default function AdminPage() {
                         </option>
                       ))}
                     </select>
-                    <small style={{ color: "var(--muted)", fontSize: 11, marginTop: 4, display: "block" }}>
-                      Operator ini akan bertindak sebagai PIC utama untuk unit {formDevice.id}.
-                    </small>
                   </div>
                 ) : (
-                  <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10 }}>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
                       <div>
-                        <label style={{ display: "block", fontSize: 12, fontWeight: 600, marginBottom: 4 }}>
-                          ID Anggota Petani
+                        <label style={{ display: "block", fontSize: 12, fontWeight: 600, marginBottom: 3 }}>
+                          ID Petani
                         </label>
                         <input
                           type="text"
                           value={formOperator.id}
                           onChange={(e) => setFormOperator({ ...formOperator, id: e.target.value.toUpperCase() })}
-                          placeholder="KTIM-026"
+                          placeholder="mis. KTIM-026"
                           style={{
                             width: "100%",
-                            padding: "8px 12px",
-                            borderRadius: 8,
+                            padding: "7px 10px",
+                            borderRadius: 6,
                             border: "1px solid var(--line)",
-                            fontSize: 13,
+                            fontSize: 12.5,
                             fontFamily: "monospace",
                           }}
                         />
                       </div>
                       <div>
-                        <label style={{ display: "block", fontSize: 12, fontWeight: 600, marginBottom: 4 }}>
+                        <label style={{ display: "block", fontSize: 12, fontWeight: 600, marginBottom: 3 }}>
                           Nama Lengkap
                         </label>
                         <input
                           type="text"
                           value={formOperator.name}
                           onChange={(e) => setFormOperator({ ...formOperator, name: e.target.value })}
-                          placeholder="Pak Joko"
+                          placeholder="mis. Pak Joko"
                           style={{
                             width: "100%",
-                            padding: "8px 12px",
-                            borderRadius: 8,
+                            padding: "7px 10px",
+                            borderRadius: 6,
                             border: "1px solid var(--line)",
-                            fontSize: 13,
+                            fontSize: 12.5,
                           }}
                         />
                       </div>
                     </div>
 
                     <div>
-                      <label style={{ display: "block", fontSize: 12, fontWeight: 600, marginBottom: 4 }}>
-                        Kelompok Tani / Afdeling
+                      <label style={{ display: "block", fontSize: 12, fontWeight: 600, marginBottom: 3 }}>
+                        Kelompok Tani
                       </label>
                       <input
                         type="text"
@@ -1525,36 +1358,36 @@ export default function AdminPage() {
                         placeholder="Kelompok Tani Karangan Mandiri"
                         style={{
                           width: "100%",
-                          padding: "8px 12px",
-                          borderRadius: 8,
+                          padding: "7px 10px",
+                          borderRadius: 6,
                           border: "1px solid var(--line)",
-                          fontSize: 13,
+                          fontSize: 12.5,
                         }}
                       />
                     </div>
 
-                    <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 10 }}>
+                    <div style={{ display: "grid", gridTemplateColumns: "1.3fr 1fr", gap: 8 }}>
                       <div>
-                        <label style={{ display: "block", fontSize: 12, fontWeight: 600, marginBottom: 4 }}>
-                          No. WhatsApp (Alert Alerting)
+                        <label style={{ display: "block", fontSize: 12, fontWeight: 600, marginBottom: 3 }}>
+                          No. WhatsApp
                         </label>
                         <input
                           type="text"
                           value={formOperator.phone}
                           onChange={(e) => setFormOperator({ ...formOperator, phone: e.target.value })}
-                          placeholder="081277889900"
+                          placeholder="mis. 081277889900"
                           style={{
                             width: "100%",
-                            padding: "8px 12px",
-                            borderRadius: 8,
+                            padding: "7px 10px",
+                            borderRadius: 6,
                             border: "1px solid var(--line)",
-                            fontSize: 13,
+                            fontSize: 12.5,
                           }}
                         />
                       </div>
                       <div>
-                        <label style={{ display: "block", fontSize: 12, fontWeight: 600, marginBottom: 4 }}>
-                          PIN Akses (6 Angka)
+                        <label style={{ display: "block", fontSize: 12, fontWeight: 600, marginBottom: 3 }}>
+                          PIN (6 Angka)
                         </label>
                         <input
                           type="password"
@@ -1564,10 +1397,10 @@ export default function AdminPage() {
                           maxLength={6}
                           style={{
                             width: "100%",
-                            padding: "8px 12px",
-                            borderRadius: 8,
+                            padding: "7px 10px",
+                            borderRadius: 6,
                             border: "1px solid var(--line)",
-                            fontSize: 13,
+                            fontSize: 12.5,
                             letterSpacing: 2,
                           }}
                         />
@@ -1576,17 +1409,17 @@ export default function AdminPage() {
                   </div>
                 )}
 
-                <div style={{ display: "flex", justifyContent: "space-between", gap: 10, marginTop: 10 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginTop: 10 }}>
                   <button
                     type="button"
-                    className="kp-btn s"
+                    className="kp-btn s sm"
                     onClick={() => setOnboardStep(1)}
                   >
                     Kembali
                   </button>
                   <button
                     type="button"
-                    className="kp-btn"
+                    className="kp-btn sm"
                     onClick={() => {
                       if (picMode === "new" && (!formOperator.name.trim() || !formOperator.phone.trim())) {
                         alert("Harap lengkapi nama dan nomor WhatsApp operator baru.");
@@ -1595,98 +1428,59 @@ export default function AdminPage() {
                       setOnboardStep(3);
                     }}
                   >
-                    Lanjut: Konfirmasi Pairing <ChevronRight size={15} />
+                    Lanjut <ChevronRight size={14} />
                   </button>
                 </div>
               </div>
             )}
 
-            {/* STEP 3: DEVICE-OPERATOR PAIRING (KONFIRMASI AKUNTABILITAS) */}
+            {/* STEP 3: KONFIRMASI */}
             {onboardStep === 3 && (
-              <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-                <div className="kp-guide-box">
-                  <b>Langkah 3: Konfirmasi Pairing &amp; Otorisasi Mutu</b>
-                  <p style={{ margin: "4px 0 0", fontSize: 12, color: "var(--muted)" }}>
-                    Sistem akan mengikat unit hardware ke penanggung jawab lapangan terpilih.
-                  </p>
-                </div>
-
-                {/* Visual Pairing Card */}
+              <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                {/* Ringkasan Singkat */}
                 <div
                   style={{
-                    padding: 16,
-                    borderRadius: 14,
-                    background: "linear-gradient(135deg, rgba(34,20,13,0.03), rgba(154,52,18,0.05))",
-                    border: "1.5px solid rgba(154,52,18,0.25)",
+                    padding: 14,
+                    borderRadius: 12,
+                    background: "var(--paper)",
+                    border: "1px solid var(--line)",
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "space-between",
                     gap: 12,
                   }}
                 >
-                  <div style={{ flex: 1 }}>
-                    <span style={{ fontSize: 10.5, textTransform: "uppercase", fontWeight: 700, color: "var(--muted)" }}>
-                      Perangkat Fisik IoT
-                    </span>
-                    <div style={{ fontSize: 14, fontWeight: 700, color: "var(--cocoa-dark)" }}>
-                      {formDevice.name}
-                    </div>
-                    <span style={{ fontFamily: "monospace", fontSize: 11, color: "var(--rust)" }}>
+                  <div>
+                    <span style={{ fontSize: 11, color: "var(--muted)", display: "block" }}>Unit Alat</span>
+                    <b style={{ fontSize: 14, color: "var(--cocoa-dark)" }}>{formDevice.name}</b>
+                    <div style={{ fontSize: 11, fontFamily: "monospace", color: "var(--rust)" }}>
                       {formDevice.id} · {formDevice.kapasitas}
-                    </span>
+                    </div>
                   </div>
 
-                  <div
-                    style={{
-                      width: 32,
-                      height: 32,
-                      borderRadius: "50%",
-                      background: "var(--rust)",
-                      color: "#fff",
-                      display: "grid",
-                      placeItems: "center",
-                      flexShrink: 0,
-                    }}
-                    title="Hubungan Terkunci (Paired)"
-                  >
+                  <div style={{ color: "var(--rust)" }}>
                     <LinkIcon size={16} />
                   </div>
 
-                  <div style={{ flex: 1, textAlign: "right" }}>
-                    <span style={{ fontSize: 10.5, textTransform: "uppercase", fontWeight: 700, color: "var(--muted)" }}>
-                      Operator PIC Lapangan
-                    </span>
-                    <div style={{ fontSize: 14, fontWeight: 700, color: "var(--cocoa-dark)" }}>
+                  <div style={{ textAlign: "right" }}>
+                    <span style={{ fontSize: 11, color: "var(--muted)", display: "block" }}>Operator PIC</span>
+                    <b style={{ fontSize: 14, color: "var(--cocoa-dark)" }}>
                       {picMode === "existing"
                         ? users[selectedOperatorId]?.name || "Pak Budi"
                         : formOperator.name}
-                    </div>
-                    <span style={{ fontSize: 11, color: "var(--muted)" }}>
+                    </b>
+                    <div style={{ fontSize: 11, color: "var(--muted)" }}>
                       {picMode === "existing"
                         ? users[selectedOperatorId]?.phone || "WhatsApp Aktif"
                         : formOperator.phone}
-                    </span>
+                    </div>
                   </div>
                 </div>
 
-                <div
-                  style={{
-                    padding: "10px 12px",
-                    borderRadius: 10,
-                    background: "#e8f0e4",
-                    color: "var(--green-dark)",
-                    fontSize: 12.5,
-                    lineHeight: 1.45,
-                  }}
-                >
-                  <ShieldCheck size={14} style={{ verticalAlign: -2, marginRight: 4 }} />
-                  <b>Jaminan Audit SNI:</b> Setiap telemetri IoT dan sertifikat Paspor QR dari batch di unit ini akan mencantumkan nama operator di atas secara transparan. Mencegah saling lempar tanggung jawab antar petani.
-                </div>
-
-                <div style={{ display: "flex", justifyContent: "space-between", gap: 10, marginTop: 10 }}>
+                <div style={{ display: "flex", justifyContent: "space-between", gap: 8, marginTop: 10 }}>
                   <button
                     type="button"
-                    className="kp-btn s"
+                    className="kp-btn s sm"
                     onClick={() => setOnboardStep(2)}
                     disabled={isSubmittingOnboard}
                   >
@@ -1694,12 +1488,12 @@ export default function AdminPage() {
                   </button>
                   <button
                     type="button"
-                    className="kp-btn rust"
+                    className="kp-btn sm"
                     onClick={handleCompleteOnboarding}
                     disabled={isSubmittingOnboard}
-                    style={{ gap: 6 }}
+                    style={{ background: "var(--cocoa-dark)", color: "#fff" }}
                   >
-                    {isSubmittingOnboard ? "Menyimpan..." : "Aktifkan Pairing Alat ✓"}
+                    {isSubmittingOnboard ? "Menyimpan..." : "Simpan & Pasangkan"}
                   </button>
                 </div>
               </div>
@@ -1708,45 +1502,42 @@ export default function AdminPage() {
         </div>
       )}
 
-      {/* MODAL 2: GANTI PENANGGUNG JAWAB (RE-PAIRING) */}
+      {/* MODAL 2: GANTI OPERATOR PIC */}
       {pairingTarget && (
         <div className="kp-modal" onClick={() => setPairingTarget(null)}>
           <div
             className="kp-sheet"
             onClick={(e) => e.stopPropagation()}
-            style={{ maxWidth: 440 }}
+            style={{ maxWidth: 420 }}
           >
             <div className="kp-row" style={{ marginBottom: 14 }}>
-              <h2 style={{ margin: 0, fontSize: 17, color: "var(--cocoa-dark)" }}>
-                Alihkan PIC Penanggung Jawab
-              </h2>
+              <h3 style={{ margin: 0, fontSize: 16, color: "var(--cocoa-dark)" }}>
+                Ganti PIC Operator
+              </h3>
               <button
                 type="button"
                 className="kp-btn s sm"
                 onClick={() => setPairingTarget(null)}
                 aria-label="Tutup"
               >
-                <X size={16} />
+                <X size={15} />
               </button>
             </div>
 
-            <p style={{ margin: "0 0 14px", fontSize: 13, color: "var(--muted)" }}>
-              Alihkan tanggung jawab unit <b>{pairingTarget.name} ({pairingTarget.id})</b> ke operator lain.
+            <p style={{ margin: "0 0 12px", fontSize: 12.5, color: "var(--muted)" }}>
+              Pilih penanggung jawab baru untuk <b>{pairingTarget.name} ({pairingTarget.id})</b>:
             </p>
 
-            <div style={{ marginBottom: 16 }}>
-              <label style={{ display: "block", fontSize: 13, fontWeight: 600, marginBottom: 6 }}>
-                Pilih Operator Baru
-              </label>
+            <div style={{ marginBottom: 14 }}>
               <select
                 value={repairingOperatorId}
                 onChange={(e) => setRepairingOperatorId(e.target.value)}
                 style={{
                   width: "100%",
-                  padding: "10px 14px",
-                  borderRadius: 10,
+                  padding: "8px 12px",
+                  borderRadius: 8,
                   border: "1px solid var(--line)",
-                  fontSize: 14,
+                  fontSize: 13,
                   background: "#fff",
                 }}
               >
@@ -1759,21 +1550,22 @@ export default function AdminPage() {
               </select>
             </div>
 
-            <div style={{ display: "flex", justifyContent: "flex-end", gap: 10 }}>
+            <div style={{ display: "flex", justifyContent: "flex-end", gap: 8 }}>
               <button
                 type="button"
-                className="kp-btn s"
+                className="kp-btn s sm"
                 onClick={() => setPairingTarget(null)}
               >
                 Batal
               </button>
               <button
                 type="button"
-                className="kp-btn rust"
+                className="kp-btn sm"
                 onClick={() => handleRePair(pairingTarget.id)}
                 disabled={!repairingOperatorId}
+                style={{ background: "var(--cocoa-dark)", color: "#fff" }}
               >
-                Simpan Alih Tanggung Jawab
+                Simpan
               </button>
             </div>
           </div>
