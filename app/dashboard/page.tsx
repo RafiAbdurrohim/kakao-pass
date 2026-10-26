@@ -1095,15 +1095,23 @@ export default function Dashboard() {
 
               <button
                 type="button"
-                className="kp-btn g"
+                className="kp-btn"
                 onClick={() => setOpenAddCompost(true)}
                 style={{
+                  background: "linear-gradient(135deg, #166534 0%, #14532d 100%)",
+                  color: "#ffffff",
                   whiteSpace: "nowrap",
                   flexShrink: 0,
                   gap: 8,
+                  padding: "10px 18px",
+                  borderRadius: 12,
+                  fontSize: 14,
+                  fontWeight: 600,
+                  boxShadow: "0 2px 8px rgba(20, 83, 45, 0.22)",
+                  border: "1px solid rgba(255, 255, 255, 0.15)",
                 }}
               >
-                <Plus size={16} /> + Tambah Olahan Kompos
+                <Plus size={16} strokeWidth={2.4} /> Tambah Olahan Kompos
               </button>
             </div>
 
@@ -1141,16 +1149,10 @@ export default function Dashboard() {
             <div className="kp-card" style={{ marginBottom: 24 }}>
               <div className="kp-row" style={{ marginBottom: 12 }}>
                 <div>
-                  <h2 style={{ margin: 0, fontSize: 16 }}>Daftar Olahan Kompos Kulit Buah</h2>
+                  <h2 style={{ margin: 0, fontSize: 16, color: "var(--cocoa-dark)" }}>
+                    Daftar Olahan Kompos Kulit Buah
+                  </h2>
                 </div>
-                <button
-                  type="button"
-                  className="kp-btn g sm"
-                  onClick={() => setOpenAddCompost(true)}
-                  style={{ gap: 6 }}
-                >
-                  <Plus size={14} /> Tambah Kompos
-                </button>
               </div>
 
               {compostBatches.length === 0 ? (
@@ -1192,11 +1194,18 @@ export default function Dashboard() {
                   </div>
                   <button
                     type="button"
-                    className="kp-btn g sm"
+                    className="kp-btn sm"
                     onClick={() => setOpenAddCompost(true)}
-                    style={{ marginTop: 4, gap: 6 }}
+                    style={{
+                      marginTop: 4,
+                      gap: 6,
+                      background: "#166534",
+                      color: "#ffffff",
+                      borderRadius: 10,
+                      fontWeight: 600,
+                    }}
                   >
-                    <Plus size={15} /> + Tambah Olahan Kompos
+                    <Plus size={15} strokeWidth={2.2} /> Tambah Olahan Kompos
                   </button>
                 </div>
               ) : (
