@@ -9,6 +9,7 @@ import {
   ArrowRight,
   ArrowUpRight,
   CheckCircle2,
+  ChevronDown,
   FileCheck2,
   Leaf,
   MapPin,
@@ -23,11 +24,20 @@ import {
   X,
 } from "lucide-react";
 
+const SECTIONS = [
+  { id: "hero", label: "Standar Mutu", num: "01" },
+  { id: "fitur", label: "Fitur Unggulan", num: "02" },
+  { id: "video-panduan", label: "Video Panduan", num: "03" },
+  { id: "zero-waste", label: "Zero Waste", num: "04" },
+  { id: "alur", label: "Alur Kerja", num: "05" },
+];
+
 export default function Home() {
   const [videoOpen, setVideoOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeChapter, setActiveChapter] = useState<number | null>(null);
+  const [activeSection, setActiveSection] = useState<string>("hero");
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const seekVideo = (seconds: number, chapterIdx: number) => {
@@ -56,6 +66,42 @@ export default function Home() {
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: "-35% 0px -35% 0px", threshold: 0 }
+    );
+
+    SECTIONS.forEach((s) => {
+      const el = document.getElementById(s.id);
+      if (el) observer.observe(el);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
+  const scrollToSection = (id: string) => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
+  const scrollToNext = () => {
+    const idx = SECTIONS.findIndex((s) => s.id === activeSection);
+    if (idx !== -1 && idx < SECTIONS.length - 1) {
+      scrollToSection(SECTIONS[idx + 1].id);
+    } else {
+      scrollToSection(SECTIONS[0].id);
+    }
+  };
 
   return (
     <main className="concept-page">
@@ -177,12 +223,49 @@ export default function Home() {
         )}
       </AnimatePresence>
 
+      {/* Floating Section Navigator Dock (Desktop / Tablet) */}
+      <nav className="concept-section-nav" aria-label="Navigasi Cepat Section">
+        <div className="section-nav-inner">
+          {SECTIONS.map((sec) => {
+            const isActive = activeSection === sec.id;
+            return (
+              <button
+                key={sec.id}
+                type="button"
+                className={`section-nav-dot-item ${isActive ? "is-active" : ""}`}
+                onClick={() => scrollToSection(sec.id)}
+                aria-label={`Lompat ke section ${sec.label}`}
+                aria-current={isActive ? "true" : undefined}
+              >
+                <span className="dot-tooltip">{sec.num} · {sec.label}</span>
+                <span className="dot-shape" />
+              </button>
+            );
+          })}
+          <div className="section-nav-divider" />
+          <button
+            type="button"
+            className="section-nav-next-btn"
+            onClick={scrollToNext}
+            aria-label="Lompat ke section berikutnya"
+          >
+            <ChevronDown size={13} />
+          </button>
+        </div>
+      </nav>
+
       {/* ====================================================================
-          3. HERO SECTION (FULL WIDTH, KANAN POHON KAKAO CUTOUT TRANSPARAN)
+          3. HERO SECTION (FULL WIDTH, ORCHESTRATED CINEMATIC ENTRANCE)
           ==================================================================== */}
-      <section className="concept-hero-section">
-        {/* Pohon Kakao Hasil Cutout Transparan di Sisi Kanan */}
-        <div className="concept-hero-tree-frame" aria-hidden="true">
+      <section className="concept-hero-section" id="hero">
+        {/* Pohon Kakao Hasil Cutout Transparan di Sisi Kanan (Smooth Glide Entrance) */}
+        <motion.div
+          className="concept-hero-tree-frame"
+          aria-hidden="true"
+          initial={{ opacity: 0, x: 30, scale: 0.98 }}
+          animate={{ opacity: 1, x: 0, scale: 1 }}
+          transition={{ duration: 0.85, ease: [0.16, 1, 0.3, 1] }}
+        >
           <Image
             src="/images/pohon-kakao-kanan-hd.png"
             alt="Pohon Kakao Berbuah Lebat Kelompok Tani Karangan Mandiri"
@@ -191,31 +274,51 @@ export default function Home() {
             priority
             className="concept-hero-tree-render"
           />
-        </div>
+        </motion.div>
 
         <div className="concept-hero-inner">
           {/* Left Content Area (Teks, Kicker, Badge, Button) */}
           <div className="concept-hero-left-copy">
             {/* Title Berkelas: 2 Warna (Hitam & Coklat Kakao) */}
-            <h1 className="concept-main-title">
+            <motion.h1
+              className="concept-main-title"
+              initial={{ opacity: 0, y: 22 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+            >
               Standar Mutu <span className="title-cocoa-accent">Kakao</span><br />
               Dari Kebun Hingga Pabrik
-            </h1>
+            </motion.h1>
 
             {/* Tulisan Kecil Deskripsi Singkat */}
-            <p className="concept-lead-text">
+            <motion.p
+              className="concept-lead-text"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
+            >
               Pencatatan suhu kotak fermentasi berbasis sensor IoT dan uji belah SNI
               untuk jaminan mutu panen kelompok tani.
-            </p>
+            </motion.p>
 
             {/* Provenance Badge Kelompok Tani */}
-            <div className="concept-origin-badge">
+            <motion.div
+              className="concept-origin-badge"
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.45, delay: 0.36, ease: [0.16, 1, 0.3, 1] }}
+            >
               <span className="origin-live-dot" />
               <span>KELOMPOK TANI KARANGAN MANDIRI · KUTAI TIMUR</span>
-            </div>
+            </motion.div>
 
             {/* Action Buttons */}
-            <div className="concept-hero-btn-row">
+            <motion.div
+              className="concept-hero-btn-row"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.44, ease: [0.16, 1, 0.3, 1] }}
+            >
               <Link href="/login" className="btn-primary-black-pill">
                 <span>Buka Portal Petani</span>
                 <ArrowRight size={15} />
@@ -229,16 +332,16 @@ export default function Home() {
                 <Play size={12} fill="currentColor" />
                 <span>Tonton Video Panduan</span>
               </button>
-            </div>
+            </motion.div>
           </div>
 
           {/* Centered Stepped Telemetry Dock (Tengah Bawah Naik ~25%) */}
           <div className="concept-hero-dock-wrap">
             <motion.div
               className="concept-stepped-dock"
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.6, delay: 0.52, ease: [0.16, 1, 0.3, 1] }}
             >
               {/* Dock Item 1 */}
               <div className="dock-cell">
@@ -532,16 +635,14 @@ export default function Home() {
             </motion.div>
 
             {/* Manfaat Praktis Petani */}
-            <motion.div
-              className="zw-point-list-wrap"
-              initial={{ opacity: 0, y: 16 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.5, delay: 0.12, ease: [0.16, 1, 0.3, 1] }}
-            >
+            <div className="zw-point-list-wrap">
               <div className="zw-point-list">
                 <motion.div
                   className="zw-point-row"
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-30px" }}
+                  transition={{ duration: 0.42, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
                   whileHover={{ x: 4, transition: { duration: 0.15 } }}
                 >
                   <div className="zw-point-icon-box">
@@ -555,6 +656,10 @@ export default function Home() {
 
                 <motion.div
                   className="zw-point-row"
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-30px" }}
+                  transition={{ duration: 0.42, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
                   whileHover={{ x: 4, transition: { duration: 0.15 } }}
                 >
                   <div className="zw-point-icon-box">
@@ -568,6 +673,10 @@ export default function Home() {
 
                 <motion.div
                   className="zw-point-row"
+                  initial={{ opacity: 0, y: 14 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-30px" }}
+                  transition={{ duration: 0.42, delay: 0.26, ease: [0.16, 1, 0.3, 1] }}
                   whileHover={{ x: 4, transition: { duration: 0.15 } }}
                 >
                   <div className="zw-point-icon-box">
@@ -579,7 +688,7 @@ export default function Home() {
                   </div>
                 </motion.div>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>
@@ -613,7 +722,14 @@ export default function Home() {
                 <div className="flowline-node-circle farmer">
                   <span>01</span>
                 </div>
-                <div className="flowline-connector-track line-farmer-to-ppl" />
+                <motion.div
+                  className="flowline-connector-track line-farmer-to-ppl"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.55, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                  style={{ transformOrigin: "left" }}
+                />
               </div>
               <div className="flowline-step-card role-farmer">
                 <span className="flowline-role-tag farmer">PETANI DI KEBUN</span>
@@ -637,7 +753,14 @@ export default function Home() {
                 <div className="flowline-node-circle ppl">
                   <span>02</span>
                 </div>
-                <div className="flowline-connector-track line-ppl-to-industry" />
+                <motion.div
+                  className="flowline-connector-track line-ppl-to-industry"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.55, delay: 0.34, ease: [0.16, 1, 0.3, 1] }}
+                  style={{ transformOrigin: "left" }}
+                />
               </div>
               <div className="flowline-step-card role-ppl">
                 <span className="flowline-role-tag ppl">PENYULUH LAPANGAN (PPL)</span>
@@ -661,7 +784,14 @@ export default function Home() {
                 <div className="flowline-node-circle industry">
                   <span>03</span>
                 </div>
-                <div className="flowline-connector-track line-industry-continuation" />
+                <motion.div
+                  className="flowline-connector-track line-industry-continuation"
+                  initial={{ scaleX: 0 }}
+                  whileInView={{ scaleX: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.55, delay: 0.44, ease: [0.16, 1, 0.3, 1] }}
+                  style={{ transformOrigin: "left" }}
+                />
               </div>
               <div className="flowline-step-card role-industry">
                 <span className="flowline-role-tag industry">PEMBELI INDUSTRI</span>
@@ -683,20 +813,32 @@ export default function Home() {
         <div className="concept-container">
           <motion.div
             className="concept-cta-card"
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-40px" }}
             transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
           >
-            <div className="cta-copy-side">
+            <motion.div
+              className="cta-copy-side"
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+            >
               <span className="concept-kicker">PORTAL KELOMPOK TANI</span>
               <h2>Mulai Kelola Panen &amp; Fermentasi Hari Ini</h2>
               <p>
                 Pencatatan suhu kotak kayu dan sertifikasi panen kelompok tani Karangan Mandiri.
               </p>
-            </div>
+            </motion.div>
 
-            <div className="cta-actions-side">
+            <motion.div
+              className="cta-actions-side"
+              initial={{ opacity: 0, y: 12 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.45, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+            >
               <Link href="/login" className="btn-primary-black-pill">
                 <span>Buka Portal Petani</span>
                 <ArrowRight size={15} />
@@ -704,7 +846,7 @@ export default function Home() {
               <a href="#kontak" className="btn-outline-clean-pill">
                 Hubungi Penyuluh Lapangan
               </a>
-            </div>
+            </motion.div>
           </motion.div>
         </div>
       </section>
