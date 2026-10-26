@@ -75,6 +75,7 @@ export default function Dashboard() {
 
   // Modals
   const [openNewBatch, setOpenNewBatch] = useState(false);
+  const [openAddCompost, setOpenAddCompost] = useState(false);
   const [startCompostTarget, setStartCompostTarget] = useState<Batch | null>(null);
   const [finishCompostTarget, setFinishCompostTarget] = useState<Batch | null>(null);
 
@@ -114,14 +115,18 @@ export default function Dashboard() {
     };
   }, [router]);
 
-  // Aggregate Metrics
-  const verifiedBatches = useMemo(
-    () => batches.filter((b) => b.status === "selesai"),
+  // Cocoa Bean Collections (fermentasi & penjemuran biji kakao)
+  const cocoaBatches = useMemo(
+    () => batches.filter((b) => b.beratBasah > 0),
     [batches]
   );
+  const verifiedBatches = useMemo(
+    () => cocoaBatches.filter((b) => b.status === "selesai"),
+    [cocoaBatches]
+  );
   const activeBatches = useMemo(
-    () => batches.filter((b) => b.status !== "selesai"),
-    [batches]
+    () => cocoaBatches.filter((b) => b.status !== "selesai"),
+    [cocoaBatches]
   );
 
   const totalBasah = useMemo(
@@ -133,10 +138,13 @@ export default function Dashboard() {
     [verifiedBatches]
   );
 
-  // Compost Collections
+  // Compost Collections (olah kulit kakao)
   const compostBatches = useMemo(() => {
     return batches.filter(
-      (b) => (b.beratKulit && b.beratKulit > 0) || (b.kompos && b.kompos.status !== "belum")
+      (b) =>
+        (b.beratKulit && b.beratKulit > 0) ||
+        (b.kompos && b.kompos.status && b.kompos.status !== "belum") ||
+        b.kode.startsWith("KMP")
     );
   }, [batches]);
 
@@ -197,8 +205,8 @@ export default function Dashboard() {
   const filteredBatches = useMemo(() => {
     if (batchTab === "aktif") return activeBatches;
     if (batchTab === "selesai") return verifiedBatches;
-    return batches;
-  }, [batchTab, batches, activeBatches, verifiedBatches]);
+    return cocoaBatches;
+  }, [batchTab, cocoaBatches, activeBatches, verifiedBatches]);
 
   // Chronological Activity Feed
   const activityFeed = useMemo(() => {
@@ -214,13 +222,23 @@ export default function Dashboard() {
 
     batches.forEach((b) => {
       // 1. Creation / Harvest
-      items.push({
-        id: `${b.id}-panen`,
-        title: `Batch Baru: ${b.kode}`,
-        desc: `Panen ${b.beratBasah} kg basah (${b.varietas}) dari ${b.kebun}`,
-        time: b.createdAt,
-        type: "panen",
-      });
+      if (b.beratBasah > 0) {
+        items.push({
+          id: `${b.id}-panen`,
+          title: `Batch Baru: ${b.kode}`,
+          desc: `Panen ${b.beratBasah} kg basah (${b.varietas}) dari ${b.kebun}`,
+          time: b.createdAt,
+          type: "panen",
+        });
+      } else if (b.kode.startsWith("KMP")) {
+        items.push({
+          id: `${b.id}-kompos-baru`,
+          title: `Lot Kompos Baru: ${b.kode}`,
+          desc: `Pengolahan ${b.beratKulit || 0} kg limbah kulit kakao dari ${b.kebun}`,
+          time: b.createdAt,
+          type: "kompos",
+        });
+      }
 
       // 2. Turning events
       if (b.balik) {
@@ -376,7 +394,7 @@ export default function Dashboard() {
               <Package size={16} />
               <span className="kp-tab-label-full">Batch Biji Kakao</span>
               <span className="kp-tab-label-short">Biji Kakao</span>
-              <span className="kp-nav-badge">{batches.length}</span>
+              <span className="kp-nav-badge">{cocoaBatches.length}</span>
             </button>
 
             <button
@@ -443,7 +461,7 @@ export default function Dashboard() {
                   <span style={{ display: "flex", alignItems: "center", gap: 8 }}>
                     <Package size={16} /> Batch Biji Kakao
                   </span>
-                  <span className="kp-nav-badge">{batches.length}</span>
+                  <span className="kp-nav-badge">{cocoaBatches.length}</span>
                 </button>
                 <button
                   className={`kp-nav-tab ${mainTab === "kompos" ? "active" : ""}`}
@@ -784,7 +802,7 @@ export default function Dashboard() {
                     className={`kp-pill-btn ${batchTab === "semua" ? "active" : ""}`}
                     onClick={() => setBatchTab("semua")}
                   >
-                    Semua ({batches.length})
+                    Semua ({cocoaBatches.length})
                   </button>
                   <button
                     type="button"
@@ -1034,20 +1052,59 @@ export default function Dashboard() {
             ========================================================================= */}
         {mainTab === "kompos" && (
           <div>
-            {/* Header */}
-            <div className="kp-row" style={{ marginBottom: 16 }}>
+            {/* Minimal Header Toolbar */}
+            <div
+              className="kp-card"
+              style={{
+                marginBottom: 16,
+                padding: "16px 20px",
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+                gap: 16,
+                flexWrap: "wrap",
+              }}
+            >
               <div>
-                <span style={{ fontSize: 11, fontWeight: 800, color: "var(--green-dark)", letterSpacing: ".06em", textTransform: "uppercase" }}>
-                  ZERO WASTE SIRKULAR KEBUN KAKAO
-                </span>
-                <h1 style={{ margin: "2px 0 0" }}>Pengolahan Kompos Kulit Kakao</h1>
+                <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 4 }}>
+                  <span
+                    style={{
+                      fontSize: 11,
+                      fontWeight: 800,
+                      color: "var(--green-dark)",
+                      letterSpacing: ".06em",
+                      textTransform: "uppercase",
+                      background: "#e3ead9",
+                      padding: "2px 8px",
+                      borderRadius: 99,
+                    }}
+                  >
+                    Zero-Waste Sirkular
+                  </span>
+                  <span className="kp-chip g" style={{ fontSize: 11, padding: "2px 8px" }}>
+                    <Sprout size={12} /> Jalur Pupuk Organik
+                  </span>
+                </div>
+                <h1 style={{ margin: 0, fontSize: "clamp(18px, 3vw, 22px)", color: "var(--cocoa-dark)" }}>
+                  Pengolahan Kompos Kulit Kakao
+                </h1>
+                <p style={{ margin: "3px 0 0", fontSize: 13, color: "var(--muted)" }}>
+                  Pemanfaatan sirkular limbah kulit buah kakao menjadi pupuk bernilai tambah dan berlabel QR
+                </p>
               </div>
 
-              <div style={{ display: "flex", gap: 10, alignItems: "center" }}>
-                <span className="kp-chip g">
-                  <Sprout size={14} /> Terpisah dari Paspor Biji
-                </span>
-              </div>
+              <button
+                type="button"
+                className="kp-btn g"
+                onClick={() => setOpenAddCompost(true)}
+                style={{
+                  whiteSpace: "nowrap",
+                  flexShrink: 0,
+                  gap: 8,
+                }}
+              >
+                <Plus size={16} /> + Tambah Olahan Kompos
+              </button>
             </div>
 
             {/* Compost KPI Summary */}
@@ -1086,11 +1143,61 @@ export default function Dashboard() {
                 <div>
                   <h2 style={{ margin: 0, fontSize: 16 }}>Daftar Olahan Kompos Kulit Buah</h2>
                 </div>
+                <button
+                  type="button"
+                  className="kp-btn g sm"
+                  onClick={() => setOpenAddCompost(true)}
+                  style={{ gap: 6 }}
+                >
+                  <Plus size={14} /> Tambah Kompos
+                </button>
               </div>
 
               {compostBatches.length === 0 ? (
-                <div className="kp-empty">
-                  Belum ada catatan kulit buah kakao. Saat membuat batch baru, masukkan perkiraan berat kulit buah untuk memulai jalur kompos zero waste.
+                <div
+                  className="kp-empty"
+                  style={{
+                    padding: "36px 20px",
+                    textAlign: "center",
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    gap: 12,
+                    background: "#f8fafc",
+                    border: "1px dashed #cbd5e1",
+                    borderRadius: 16,
+                  }}
+                >
+                  <div
+                    style={{
+                      width: 48,
+                      height: 48,
+                      borderRadius: 14,
+                      background: "#dcfce7",
+                      color: "#166534",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Sprout size={24} />
+                  </div>
+                  <div>
+                    <b style={{ display: "block", fontSize: 15, color: "#0f172a", marginBottom: 4 }}>
+                      Belum Ada Olahan Kompos Kulit Aktif
+                    </b>
+                    <p style={{ margin: 0, fontSize: 13, color: "#64748b", maxWidth: 460 }}>
+                      Mulai pemanfaatan limbah kulit kakao dengan menghubungkan batch panen yang sudah ada atau catat lot kompos mandiri.
+                    </p>
+                  </div>
+                  <button
+                    type="button"
+                    className="kp-btn g sm"
+                    onClick={() => setOpenAddCompost(true)}
+                    style={{ marginTop: 4, gap: 6 }}
+                  >
+                    <Plus size={15} /> + Tambah Olahan Kompos
+                  </button>
                 </div>
               ) : (
                 <div className="kp-compost-grid">
@@ -1127,10 +1234,10 @@ export default function Dashboard() {
                           </div>
 
                           <b style={{ fontSize: 16, color: "var(--cocoa-dark)", display: "block" }}>
-                            Limbah Batch {b.kode}
+                            {b.kode.startsWith("KMP") ? `Lot Kompos ${b.kode}` : `Limbah Batch ${b.kode}`}
                           </b>
                           <p style={{ margin: "4px 0 10px", fontSize: 13, color: "var(--muted)" }}>
-                            {b.kebun} · Panen {b.tglPanen}
+                            {b.kebun} · {b.kode.startsWith("KMP") ? "Kumpul " : "Panen "}{b.tglPanen}
                           </p>
 
                           {k.campuran && (
@@ -1300,6 +1407,18 @@ export default function Dashboard() {
             setOpenNewBatch(false);
             setMainTab("kakao");
             router.push(`/batch/${id}`);
+          }}
+        />
+      )}
+
+      {/* Modal: Tambah Olahan Kompos (Dari Batch Panen atau Mandiri) */}
+      {openAddCompost && (
+        <AddCompostModal
+          user={user}
+          existingBatches={cocoaBatches}
+          onClose={() => setOpenAddCompost(false)}
+          onSuccess={() => {
+            setOpenAddCompost(false);
           }}
         />
       )}
@@ -1484,7 +1603,332 @@ function NewBatch({
   );
 }
 
-// Modal 2: Start Compost
+// Modal 2: Tambah Olahan Kompos (Dari Batch Panen atau Mandiri)
+function AddCompostModal({
+  user,
+  existingBatches,
+  onClose,
+  onSuccess,
+}: {
+  user: User;
+  existingBatches: Batch[];
+  onClose: () => void;
+  onSuccess: (id: string) => void;
+}) {
+  const [mode, setMode] = useState<"batch" | "mandiri">(
+    existingBatches.length > 0 ? "batch" : "mandiri"
+  );
+  const today = new Date().toISOString().slice(0, 10);
+
+  // Form state for "batch" mode
+  const [selectedBatchId, setSelectedBatchId] = useState(
+    existingBatches[0]?.id || ""
+  );
+  const [beratKulitBatch, setBeratKulitBatch] = useState(
+    existingBatches[0]?.beratKulit && existingBatches[0]?.beratKulit > 0
+      ? String(existingBatches[0].beratKulit)
+      : "50"
+  );
+  const [campuranBatch, setCampuranBatch] = useState(
+    "Kulit kakao + dekomposer EM4 + kotoran ternak"
+  );
+
+  // Form state for "mandiri" mode
+  const [kebunMandiri, setKebunMandiri] = useState("");
+  const [tglPanenMandiri, setTglPanenMandiri] = useState(today);
+  const [beratKulitMandiri, setBeratKulitMandiri] = useState("60");
+  const [campuranMandiri, setCampuranMandiri] = useState(
+    "Kulit kakao + dekomposer EM4 + kotoran ternak"
+  );
+
+  const [err, setErr] = useState("");
+  const [busy, setBusy] = useState(false);
+
+  const handleSelectBatch = (id: string) => {
+    setSelectedBatchId(id);
+    const found = existingBatches.find((b) => b.id === id);
+    if (found && found.beratKulit && found.beratKulit > 0) {
+      setBeratKulitBatch(String(found.beratKulit));
+    }
+  };
+
+  async function submitBatch(e: React.FormEvent) {
+    e.preventDefault();
+    setErr("");
+    const bk = Number(beratKulitBatch);
+    if (!selectedBatchId) return setErr("Pilih batch panen kakao.");
+    if (!(bk > 0)) return setErr("Masukkan berat kulit buah yang valid (> 0 kg).");
+
+    setBusy(true);
+    try {
+      await update(ref(db, `web/batches/${selectedBatchId}`), {
+        beratKulit: bk,
+        kompos: {
+          status: "diolah",
+          mulai: Date.now(),
+          campuran: campuranBatch.trim() || "Kulit kakao + dekomposer",
+        },
+      });
+      onSuccess(selectedBatchId);
+    } catch {
+      setErr("Gagal menghubungkan batch kompos. Periksa koneksi.");
+      setBusy(false);
+    }
+  }
+
+  async function submitMandiri(e: React.FormEvent) {
+    e.preventDefault();
+    setErr("");
+    const bk = Number(beratKulitMandiri);
+    if (!kebunMandiri.trim()) return setErr("Masukkan nama atau blok kebun asal kulit.");
+    if (!(bk > 0)) return setErr("Masukkan berat kulit buah yang valid (> 0 kg).");
+
+    setBusy(true);
+    try {
+      const pad = (n: number) => String(n).padStart(2, "0");
+      const d = new Date();
+      const kode = `KMP-${d.getFullYear().toString().slice(-2)}${pad(d.getMonth() + 1)}${pad(
+        d.getDate()
+      )}-${Math.floor(100 + Math.random() * 900)}`;
+
+      const data: Omit<Batch, "id"> = {
+        ownerId: user.id,
+        ownerName: user.name,
+        group: user.group,
+        kode,
+        varietas: "Limbah Kulit Kakao",
+        kebun: kebunMandiri.trim(),
+        tglPanen: tglPanenMandiri || today,
+        beratBasah: 0,
+        beratKulit: bk,
+        status: "selesai",
+        createdAt: Date.now(),
+        mulaiFerm: Date.now(),
+        kompos: {
+          status: "diolah",
+          mulai: Date.now(),
+          campuran: campuranMandiri.trim() || "Kulit kakao + dekomposer",
+        },
+      };
+
+      const refNew = push(ref(db, "web/batches"));
+      await set(refNew, data);
+      onSuccess(refNew.key!);
+    } catch {
+      setErr("Gagal membuat lot kompos mandiri. Periksa koneksi.");
+      setBusy(false);
+    }
+  }
+
+  return (
+    <div className="kp-modal" onClick={onClose}>
+      <div
+        className="kp-sheet"
+        onClick={(e) => e.stopPropagation()}
+        style={{ maxWidth: 500 }}
+      >
+        <div className="kp-row" style={{ marginBottom: 14 }}>
+          <div>
+            <h2 style={{ margin: 0, fontSize: 17, color: "var(--cocoa-dark)" }}>
+              Tambah Olahan Kompos Kulit
+            </h2>
+            <span style={{ fontSize: 12.5, color: "var(--muted)" }}>
+              Zero-Waste sirkular kelompok tani
+            </span>
+          </div>
+          <button
+            type="button"
+            className="kp-btn s sm"
+            onClick={onClose}
+            aria-label="Tutup"
+          >
+            <X size={16} />
+          </button>
+        </div>
+
+        {err && <div className="kp-err" role="alert">{err}</div>}
+
+        {/* Segmented Control Mode Switcher */}
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: 6,
+            background: "#f1f5f9",
+            padding: 4,
+            borderRadius: 12,
+            marginBottom: 16,
+          }}
+        >
+          <button
+            type="button"
+            onClick={() => { setErr(""); setMode("batch"); }}
+            style={{
+              padding: "9px 12px",
+              borderRadius: 8,
+              border: "none",
+              fontWeight: 600,
+              fontSize: 13,
+              cursor: "pointer",
+              transition: "all .15s ease",
+              background: mode === "batch" ? "#fff" : "transparent",
+              color: mode === "batch" ? "var(--cocoa-dark)" : "#64748b",
+              boxShadow: mode === "batch" ? "0 1px 3px rgba(0,0,0,0.08)" : "none",
+            }}
+          >
+            Dari Batch Panen
+          </button>
+          <button
+            type="button"
+            onClick={() => { setErr(""); setMode("mandiri"); }}
+            style={{
+              padding: "9px 12px",
+              borderRadius: 8,
+              border: "none",
+              fontWeight: 600,
+              fontSize: 13,
+              cursor: "pointer",
+              transition: "all .15s ease",
+              background: mode === "mandiri" ? "#fff" : "transparent",
+              color: mode === "mandiri" ? "var(--cocoa-dark)" : "#64748b",
+              boxShadow: mode === "mandiri" ? "0 1px 3px rgba(0,0,0,0.08)" : "none",
+            }}
+          >
+            Buat Lot Mandiri
+          </button>
+        </div>
+
+        {mode === "batch" ? (
+          <form onSubmit={submitBatch}>
+            {existingBatches.length === 0 ? (
+              <div
+                style={{
+                  padding: "16px",
+                  background: "#f8fafc",
+                  borderRadius: 12,
+                  fontSize: 13,
+                  color: "var(--muted)",
+                  marginBottom: 16,
+                  textAlign: "center",
+                }}
+              >
+                Belum ada batch panen kakao terdaftar. Silakan pilih tab <b>Buat Lot Mandiri</b> di atas untuk mencatat limbah kulit secara mandiri.
+              </div>
+            ) : (
+              <>
+                <div className="kp-f">
+                  <label>Pilih Batch Panen Kakao</label>
+                  <select
+                    value={selectedBatchId}
+                    onChange={(e) => handleSelectBatch(e.target.value)}
+                  >
+                    {existingBatches.map((b) => (
+                      <option key={b.id} value={b.id}>
+                        {b.kode} · {b.kebun} ({b.beratBasah} kg basah, panen {b.tglPanen})
+                      </option>
+                    ))}
+                  </select>
+                </div>
+
+                <div className="kp-f">
+                  <label>Berat Kulit Buah Kakao (kg)</label>
+                  <input
+                    inputMode="decimal"
+                    type="number"
+                    min="1"
+                    value={beratKulitBatch}
+                    onChange={(e) => setBeratKulitBatch(e.target.value)}
+                    placeholder="mis. 50"
+                    required
+                  />
+                  <small style={{ fontSize: 11.5, color: "var(--muted)", marginTop: 2 }}>
+                    Perkiraan rasio limbah kulit buah segar adalah ~70% dari bobot panen buah.
+                  </small>
+                </div>
+
+                <div className="kp-f">
+                  <label>Bahan Campuran Dekomposisi</label>
+                  <input
+                    value={campuranBatch}
+                    onChange={(e) => setCampuranBatch(e.target.value)}
+                    placeholder="Kulit kakao + dekomposer EM4 + kotoran ternak"
+                    required
+                  />
+                </div>
+
+                <button
+                  type="submit"
+                  className="kp-btn g"
+                  style={{ width: "100%", marginTop: 6 }}
+                  disabled={busy}
+                >
+                  {busy ? "Menyimpan..." : "Mulai Olah Jadi Kompos"}
+                </button>
+              </>
+            )}
+          </form>
+        ) : (
+          <form onSubmit={submitMandiri}>
+            <div className="kp-f">
+              <label>Nama / Blok Asal Kebun</label>
+              <input
+                value={kebunMandiri}
+                onChange={(e) => setKebunMandiri(e.target.value)}
+                placeholder="mis. Blok B - Karangan Mandiri"
+                required
+              />
+            </div>
+
+            <div className="kp-f2">
+              <div className="kp-f">
+                <label>Tanggal Kumpul / Mulai</label>
+                <input
+                  type="date"
+                  value={tglPanenMandiri}
+                  onChange={(e) => setTglPanenMandiri(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="kp-f">
+                <label>Berat Kulit (kg)</label>
+                <input
+                  inputMode="decimal"
+                  type="number"
+                  min="1"
+                  value={beratKulitMandiri}
+                  onChange={(e) => setBeratKulitMandiri(e.target.value)}
+                  placeholder="mis. 60"
+                  required
+                />
+              </div>
+            </div>
+
+            <div className="kp-f">
+              <label>Bahan Campuran Dekomposisi</label>
+              <input
+                value={campuranMandiri}
+                onChange={(e) => setCampuranMandiri(e.target.value)}
+                placeholder="Kulit kakao + dekomposer EM4 + kotoran ternak"
+                required
+              />
+            </div>
+
+            <button
+              type="submit"
+              className="kp-btn g"
+              style={{ width: "100%", marginTop: 6 }}
+              disabled={busy}
+            >
+              {busy ? "Menerbitkan..." : "Terbitkan Lot Kompos Baru"}
+            </button>
+          </form>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// Modal 3: Start Compost
 function StartCompostModal({
   batch,
   onClose,
@@ -1495,13 +1939,18 @@ function StartCompostModal({
   onSuccess: () => void;
 }) {
   const [campuran, setCampuran] = useState("Kulit kakao + kotoran ternak + EM4");
+  const [beratKulit, setBeratKulit] = useState(
+    batch.beratKulit && batch.beratKulit > 0 ? String(batch.beratKulit) : "50"
+  );
   const [busy, setBusy] = useState(false);
 
   const handleStart = async (e: React.FormEvent) => {
     e.preventDefault();
     setBusy(true);
     try {
+      const bk = Number(beratKulit);
       await update(ref(db, `web/batches/${batch.id}`), {
+        beratKulit: bk > 0 ? bk : batch.beratKulit || 50,
         kompos: {
           status: "diolah",
           mulai: Date.now(),
@@ -1526,8 +1975,21 @@ function StartCompostModal({
         </div>
 
         <p style={{ margin: "0 0 14px", fontSize: 13, color: "var(--muted)" }}>
-          Limbah kulit kakao dari <b>Batch {batch.kode}</b> ({batch.beratKulit || 0} kg) akan dimasukkan ke dalam pencatatan fermentasi kompos.
+          Limbah kulit kakao dari <b>{batch.kode.startsWith("KMP") ? `Lot ${batch.kode}` : `Batch ${batch.kode}`}</b> ({batch.kebun}) akan dimasukkan ke dalam pencatatan fermentasi kompos.
         </p>
+
+        <div className="kp-f">
+          <label>Berat Kulit Buah (kg)</label>
+          <input
+            inputMode="decimal"
+            type="number"
+            min="1"
+            value={beratKulit}
+            onChange={(e) => setBeratKulit(e.target.value)}
+            placeholder="mis. 50"
+            required
+          />
+        </div>
 
         <div className="kp-f">
           <label>Bahan Campuran Dekomposisi</label>

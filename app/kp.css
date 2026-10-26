@@ -1619,6 +1619,18 @@ html{scroll-behavior:smooth;scroll-snap-type:y proximity}
   box-shadow: 0 4px 14px rgba(21,128,61,.06);
 }
 
+@media (max-width: 640px) {
+  .kp-compost-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  .kp-compost-item {
+    padding: 14px;
+    border-radius: 14px;
+  }
+}
+
 /* Mobile drawer */
 .kp-drawer-backdrop{
   position: fixed;
